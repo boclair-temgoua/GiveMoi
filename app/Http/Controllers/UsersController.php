@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +51,7 @@ class UsersController extends Controller
             $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
         }
         if (isset($data['avatarcover'])) {
-            $user->addMediaFromRequest('avatarcover')->toMediaCollection('avatars');
+            $user->addMediaFromRequest('avatarcover')->toMediaCollection('cover');
         }
 
         $user->update($request->only(
@@ -93,7 +94,25 @@ class UsersController extends Controller
             return redirect(route('myaccount.profile'));
         }
 
+    }
 
 
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+
+       // $user = Auth()->user();
+        $user = User::findOrFail($request->user_id);
+        $user->delete();
+
+        //session()->put('success','Item created successfully.');
+        Alert::success('Deleted!', 'Your file has been deleted.');
+        return redirect()->back();
     }
 }

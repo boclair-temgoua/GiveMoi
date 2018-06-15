@@ -189,6 +189,7 @@ return [
         Unisharp\Ckeditor\ServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
         DevMarketer\LaraFlash\LaraFlashServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
     ],
 
@@ -247,6 +248,7 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'LaraFlash' => DevMarketer\LaraFlash\LaraFlashFacade::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
 
 
     ],

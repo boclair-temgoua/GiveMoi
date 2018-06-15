@@ -66,7 +66,7 @@ class RegisterController extends Controller
             $user->update(['confirmation_token' => null]);
             $this->guard()->login($user);
 
-            Toastr::success('', 'Votre compte a bien été confirmé !', ["positionClass" => "toast-top-center"]);
+            Toastr::success('', 'Votre compte a été confirmé !', ["positionClass" => "toast-top-center"]);
             //Alert::success('Success', 'Votre compte a bien été confirmé !');
             return redirect($this->redirectPath());
         } else {
@@ -106,6 +106,7 @@ class RegisterController extends Controller
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
     }
 

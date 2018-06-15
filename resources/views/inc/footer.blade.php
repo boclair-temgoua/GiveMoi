@@ -5,7 +5,7 @@
         <div class="content">
             <div class="row">
                 <div class="col-md-3">
-                    <a href="#pablo">
+                    <a href="/">
                         <h5>{{ config('app.name') }}</h5>
                     </a>
                     <p>Probably the best UI Kit in the world! We know you&apos;ve been waiting for it, so don&apos;t be shy!</p>

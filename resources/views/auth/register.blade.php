@@ -93,6 +93,18 @@
                                             dejas un compte ?') }}</a>
                                     </div>
                                 </div>
+
+                                <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }} text-center">
+                                    {!! NoCaptcha::renderJs() !!}
+                                    {!! NoCaptcha::display() !!}
+
+                                    @if ($errors->has('g-recaptcha-response'))
+                                    <span class="help-block">
+                                        <strong class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
                             </div>
                             <div class="submit text-center">
                                 <button class="btn btn-warning btn-raised btn-round " type="submit">
@@ -113,6 +125,6 @@
 </div>
 </div>
 @endsection
-@section('script')
-
+@section('scripts')
+<script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection

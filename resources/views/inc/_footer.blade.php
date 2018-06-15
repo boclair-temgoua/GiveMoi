@@ -4,8 +4,8 @@
         <nav class="pull-left">
             <ul>
                 <li>
-                    <a href="#">
-                        Creative Tim
+                    <a href="/">
+                        {!! config('app.name') !!}
                     </a>
                 </li>
                 <li>
@@ -39,5 +39,5 @@
         </div>
     </div>
 </footer>
-@include('inc.loginpopup')
+
 
