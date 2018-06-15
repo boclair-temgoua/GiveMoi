@@ -106,7 +106,6 @@ class LoginController extends Controller
 
 
 
-       // Toastr::success('À très bientôt j\'espère', '', ["positionClass" => "toast-top-center"]);
         $notification = array(
             'message' => 'Nous espérons vous voir très bientôt!'. ' chez ' . config('app.name'),
             'alert-type' => 'success',

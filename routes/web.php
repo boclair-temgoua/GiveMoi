@@ -96,7 +96,8 @@ Route::group(['prefix'=>'myaccount'],function (){
 
     Route::get('/','MyaccountController@index');
     Route::get('home','MyaccountController@home')->name('myaccount.home');
-
+    Route::get('profile', 'UsersController@edit')->name('myaccount.profile');
+    Route::post('profile', 'UsersController@update');
 
 
 

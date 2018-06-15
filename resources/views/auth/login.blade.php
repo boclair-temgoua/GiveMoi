@@ -39,11 +39,11 @@
 
 
 
-
+                            @include('inc.alert')
                             <div class="card-body">
                                 <div class="form-group{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}">
                                     <label class="bmd-label-floating">{{ __('Email or Username')}}</label>
-                                    <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                    <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" >
 
                                     @if ($errors->has('username'))
                                     <span class="help-block">
@@ -60,7 +60,7 @@
                                     <label class="bmd-label-floating">{{ __('Mot de passe') }}</label>
                                     <input id="password" type="password" value="{{ old('password') }}"
                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                           name="password" required>
+                                           name="password" >
 
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback">

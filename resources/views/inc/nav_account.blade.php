@@ -42,7 +42,9 @@
 
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" style="position: relative; padding-left: 50px;">
-                        <img src="../assets/img/kit/pro/faces/christian.jpg" alt="Circle Image"  class="img-raised rounded-circle img-fluid text-center" style="width: 32px; height: 32px; position: absolute; top: 10px; left: 10px; border-radius: 50%"> Temgoua
+                        @if(Auth::user()->avatar)
+                        <img src="{{ url(Auth::user()->avatar)  }}" alt="Circle Image"  class="img-raised rounded-circle img-fluid text-center" style="width: 32px; height: 32px; position: absolute; top: 10px; left: 10px; border-radius: 50%"> {{ Auth::user()->username }}
+                        @endif
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <a href="../sections.html#headers" class="dropdown-item">

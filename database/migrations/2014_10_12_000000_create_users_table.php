@@ -17,7 +17,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('username')->unique();
+            $table->string('lastname')->nullable();
+            $table->string('cellphone', 50)->nullable();
             $table->string('email')->unique();
+            $table->text('body')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -27,11 +30,16 @@ class CreateUsersTable extends Migration
             $table->string('provider_id')->nullable();
 
 
-            $table->string('cellphone', 50)->nullable();
             $table->string('telephone', 50)->nullable();
+            $table->string('work', 50)->nullable();
             $table->boolean('avatar')->nullable()->default(false);
             $table->boolean('avatarcover')->nullable()->default(false);
             $table->string('gender', 10)->nullable();
+
+
+            $table->string('fblink')->nullable();
+            $table->string('twlink')->nullable();
+            $table->string('instalink')->nullable();
         });
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Notifications\RegisteredUsers;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +26,20 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
+    }
 
     /**
      * Where to redirect users after registration.
@@ -51,7 +66,8 @@ class RegisterController extends Controller
             $user->update(['confirmation_token' => null]);
             $this->guard()->login($user);
 
-            Alert::success('Success', 'Votre compte a bien été confirmé !');
+            Toastr::success('', 'Votre compte a bien été confirmé !', ["positionClass" => "toast-top-center"]);
+            //Alert::success('Success', 'Votre compte a bien été confirmé !');
             return redirect($this->redirectPath());
         } else {
             alert()->error('Oops','Ce lien ne semble plus etre valide');

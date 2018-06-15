@@ -1,11 +1,12 @@
 @extends('inc.main_account')
+@section('title', '|Mon profile')
 
 @section('style')
 
 @endsection
 @section('content')
 <div  class="profile-page ">
-    <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/kit/pro/bg3.jpg');"></div>
+    <div class="page-header header-filter" data-parallax="true" style="background-image: url(&apos;{{ url(Auth::user()->avatarcover)  }}&apos;);"></div>
     <div class="main main-raised">
         <div class="profile-content">
             <div class="container">
@@ -13,25 +14,28 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile">
                             <div class="avatar">
-                                <img src="/assets/img/kit/pro/faces/christian.jpg" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                @if(Auth::user()->avatar)
+                                <img src="{{ url(Auth::user()->avatar)  }}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                @endif
                             </div>
                             <div class="name">
-                                <h3 class="title">Christian Louboutin</h3>
-                                <h6>Designer</h6>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fab fa-dribbble"></i></a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fab fa-pinterest"></i></a>
+                                <h3 class="title">{{ Auth::user()->name }}</h3>
+                                <p >Member Since {{ Auth::user()->created_at->format('j F Y') }}</p>
+                                <h6>{!! Auth::user()->work  !!}</h6>
+                                <a href="https://facebook.com/{{ Auth::user()->fblink }}" class="btn btn-just-icon btn-link btn-facebook"><i class="fab fa-facebook"></i></a>
+                                <a href="https://instagram.com/{{ Auth::user()->instalink }}" class="btn btn-just-icon btn-link btn-instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="https://twitter.com/{{ Auth::user()->twlink }}" class="btn btn-just-icon btn-link btn-twitter"><i class="fab fa-twitter"></i></a>
                             </div>
                         </div>
                         <div class="follow">
-                            <button class="btn btn-fab btn-primary btn-round" rel="tooltip" title="Follow this user">
+                            <a href="{{route('myaccount.profile')}}" class="btn btn-fab btn-rose btn-round" rel="tooltip" title="Edit your'are profile">
                                 <i class="material-icons">settings</i>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="description text-center">
-                    <p>An artist of considerable range, Chet Faker &#x2014; the name taken by Melbourne-raised, Brooklyn-based Nick Murphy &#x2014; writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+                    <p>{!! Auth::user()->body !!}</p>
                 </div>
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">

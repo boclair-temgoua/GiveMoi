@@ -19,7 +19,7 @@
                                 <h4 class="card-title">Inscription</h4>
                             </div>
 
-
+                            @include('inc.alert')
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6 row-block">
@@ -27,7 +27,7 @@
                                             <label class="bmd-label-floating">{{ __('Pseudo')}}</label>
                                             <input id="pseudo" type="text"
                                                    class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                                   name="username" value="{{ old('username') }}" required autofocus>
+                                                   name="username" value="{{ old('username') }}" >
 
                                             @if ($errors->has('username'))
                                             <span class="invalid-feedback">
@@ -41,7 +41,7 @@
                                             <label class="bmd-label-floating">{{ __('Nom')}}</label>
                                             <input id="firstname" type="text"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                   name="name" value="{{ old('name') }}" required autofocus  minLength="3" maxlength="20">
+                                                   name="name" value="{{ old('name') }}" minLength="3" maxlength="20">
 
                                             @if ($errors->has('name'))
                                             <span class="invalid-feedback">
