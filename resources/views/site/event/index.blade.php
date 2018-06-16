@@ -54,7 +54,7 @@
                             <div class="author">
                                 <a href="#pablo">
                                     <img src="../assets/img/kit/pro/faces/avatar.jpg" alt="..." class="avatar img-raised">
-                                    <span>{{$event->User->name}}</span>
+                                    <span> </span>
                                 </a>
                             </div>
                             <div class="stats ml-auto">

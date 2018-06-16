@@ -21,6 +21,7 @@
         "nesbot/carbon": "^1.29",
         "realrashid/sweet-alert": "^1.1",
         "santigarcor/laratrust": "5.0.*",
+        "spatie/laravel-newsletter": "^4.2",
         "unisharp/laravel-ckeditor": "^4.7",
         "zizaco/entrust": "5.2.x-dev"
     },

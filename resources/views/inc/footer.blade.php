@@ -10,7 +10,7 @@
                     </a>
                     <p>Probably the best UI Kit in the world! We know you&apos;ve been waiting for it, so don&apos;t be shy!</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <h5>About</h5>
                     <ul class="links-vertical">
                         <li>
@@ -30,7 +30,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <h5>Market</h5>
                     <ul class="links-vertical">
                         <li>
@@ -60,7 +60,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <h5>Legal</h5>
                     <ul class="links-vertical">
                         <li>
@@ -84,6 +84,26 @@
                             </a>
                         </li>
                     </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Subscribe to Newsletter</h5>
+                    <p>
+                        Join our newsletter and get news in your inbox every week! We hate spam too, so no worries about this.
+                    </p>
+                    <form class="form form-newsletter" id="form-newsletter-subscribe" method="post" action="{{ route('newsletter.store') }}" accept-charset="UTF-8">
+                            {!! csrf_field() !!}
+                        <div class="form-group">
+                            <input id="user_email" type="text" name="user_email" class="form-control{{ $errors->has('user_email') ? ' has-error' : '' }}" placeholder=" Email..." required>
+                            @if ($errors->has('user_email'))
+                            <span class="help-block">
+                                 <strong class="text-center">{{ $errors->first('user_email') }}</strong>
+                             </span>
+                            @endif
+                        </div>
+                        <button type="submit" class="btn btn-info btn-just-icon" name="submit">
+                            <i class="material-icons">mail</i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

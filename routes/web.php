@@ -89,6 +89,11 @@ Route::group(['namespace' =>'User'],function (){
 
 
 });
+// API
+Route::group(['namespace' =>'Api'],function (){
+
+    Route::resource('/newsletter','NewsletterController');
+});
 
 
 Route::resource('events','EventsController');

@@ -33,6 +33,7 @@
                         <div class="col-md-10 ml-auto mr-auto">
                             <div class="text-center">
                                 <h3 class="title">Abonnez-vous à la notre newsletter de {{ config('app.name') }}</h3>
+                                @include('inc.alert')
                                 <p class="description">
                                     <b>Inscrivez-vous à notre newsletter pour recevoir les dernières nouvelles de
                                         <strong>{{ config('app.name') }}</strong>
@@ -42,34 +43,31 @@
                             <div class="card card-raised card-form-horizontal">
                                 <div class="card-body ">
 
-                                    <form id="form-newsletter-subscribe" method="post" action="/api/newsletter/subscribe">
+                                    <form id="form-newsletter-subscribe" method="post" action="{{ route('newsletter.store') }}" accept-charset="UTF-8">
                                         {!! csrf_field() !!}
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-6 ">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="material-icons">account_circle</i>
-                                                    </span>
-                                                    </div>
-                                                    <input type="text" name="fullname" class="form-control" placeholder="Non complet...">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 ">
+                                            <div class="col-lg-8 col-md-6 ">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="material-icons">mail</i>
                                                     </span>
                                                     </div>
-                                                    <input type="text" name="email" class="form-control" placeholder=" Email...">
+                                                    <input id="user_email" type="text" name="user_email" class="form-control{{ $errors->has('user_email') ? ' has-error' : '' }}" placeholder=" Email..." required>
+                                                    @if ($errors->has('user_email'))
+                                                    <span class="help-block">
+                                                        <strong class="text-center">{{ $errors->first('user_email') }}</strong>
+                                                    </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-6 ">
-                                                <button type="submit" class="btn btn-warning btn-round btn-block">Subscribe</button>
+                                                <button type="submit" class="btn btn-warning  btn-block">Subscribe</button>
                                             </div>
                                         </div>
                                     </form>
+
+
 
                                 </div>
                             </div>
