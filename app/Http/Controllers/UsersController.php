@@ -107,12 +107,5 @@ class UsersController extends Controller
     public function destroy(Request $request)
     {
 
-       // $user = Auth()->user();
-        $user = User::findOrFail($request->user_id);
-        $user->delete();
-
-        //session()->put('success','Item created successfully.');
-        Alert::success('Deleted!', 'Your file has been deleted.');
-        return redirect()->back();
     }
 }

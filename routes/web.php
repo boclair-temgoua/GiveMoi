@@ -103,7 +103,6 @@ Route::group(['prefix'=>'myaccount'],function (){
     Route::get('home','MyaccountController@home')->name('myaccount.home');
     Route::get('profile', 'UsersController@edit')->name('myaccount.profile');
     Route::post('profile', 'UsersController@update');
-    Route::post('profile', 'UsersController@destroy');
 
 
 
