@@ -87,7 +87,7 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        Toastr::success('Welcome'.' to ' . config('app.name'), '', ["positionClass" => "toast-top-center"]);
+        Toastr::success('Welcome'.' to ' . config('app.name').' '.Auth::user()->username, '', ["positionClass" => "toast-top-center"]);
         return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->intended($this->redirectPath());
     }

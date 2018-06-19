@@ -9,8 +9,9 @@ class category extends Model
 {
     public function events()
     {
-        return $this->belongsToMany('App\Model\user\event','category_events')->orderBy('created_at','DESC')->paginate(10);
+        return $this->belongsToMany('App\Model\user\event','event_categories')->orderBy('created_at','DESC')->paginate(10);
     }
+    public $timestamps = true;
 
     public function getRouteKeyName()
     {

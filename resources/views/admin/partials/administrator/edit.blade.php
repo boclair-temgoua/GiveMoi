@@ -20,7 +20,7 @@
             <!--      Wizard container        -->
             <div class="wizard-container">
                 <div class="card card-wizard" data-color="rose" id="wizardProfile">
-                    <form id="RegisterValidation" role="form" method="POST" action="{{ route('administrators.update',$admin->id) }}" accept-charset="UTF-8">
+                    <form id="RegisterValidation" role="form" method="POST" action="{{ route('administrators.update',$admin->id) }}" accept-charset="UTF-8"  enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
@@ -37,8 +37,10 @@
                                         <div class="col-sm-4">
                                             <div class="picture-container">
                                                 <div class="picture">
-                                                    <img src="../../assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
-                                                    <input type="file" id="wizard-picture">
+                                                    @if(Auth::user()->avatar)
+                                                    <img src="{!! url(Auth::user()->avatar)  !!}" class="picture-src" id="wizardPicturePreview" title="" />
+                                                    @endif
+                                                    <input type="file" name="avatar" id="wizard-picture">
                                                 </div>
                                                 <h6 class="description">Choose Picture</h6>
                                             </div>

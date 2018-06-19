@@ -24,7 +24,7 @@ class CreateAdminsTable extends Migration
             $table->softDeletes();
 
 
-            $table->string('avatar')->default('face.jpg');
+            $table->boolean('avatar')->nullable()->default(false);
             $table->string('image')->nullable();
             $table->boolean('status')->nullable();
             $table->string('cellphone', 50)->nullable();

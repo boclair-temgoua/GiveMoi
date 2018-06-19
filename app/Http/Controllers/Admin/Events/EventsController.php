@@ -1,11 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Events;
 
+use App\Model\user\category;
+use App\Model\user\event;
+use App\Model\user\tag;
+use App\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class EventController extends Controller
+class EventsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,7 +28,12 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+
+
+        $events = Event::orderBy('created_at','desc')->get();
+        return view('admin.events.events',compact('events'));
+
+
     }
 
     /**
@@ -66,7 +76,12 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tags =tag::all();
+        $categories =category::all();
+        $event = Event::where('id',$id)->first();
+
+
+        return view('admin.events.edit',compact('event','categories','tags'));
     }
 
     /**
@@ -87,8 +102,13 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $event = Event::findOrFail($request->event_id);
+
+
+        $event->delete();
+        Toastr::success('Event delete with success','', ["positionClass" => "toast-top-center"]);
+        return redirect()->back()->with('success','Event delete with success!');
     }
 }

@@ -23,6 +23,7 @@
         "santigarcor/laratrust": "5.0.*",
         "spatie/laravel-newsletter": "^4.2",
         "unisharp/laravel-ckeditor": "^4.7",
+        "uxweb/sweet-alert": "^1.4",
         "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {

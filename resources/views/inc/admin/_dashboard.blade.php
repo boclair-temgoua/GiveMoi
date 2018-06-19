@@ -15,7 +15,9 @@
     <div class="sidebar-wrapper">
         <div class="user">
             <div class="photo">
-                <img src=" " />
+                @if(Auth::user()->avatar)
+                <img src="{{ url(Auth::user()->avatar)  }}" />
+                @endif
             </div>
             <div class="user-info">
                 <a data-toggle="collapse" href="#collapseExample" class="username">
@@ -111,7 +113,7 @@
                 <div class="collapse" id="componentsExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('event.index')}}">
+                            <a class="nav-link" href="{{route('events.index')}}">
                                 <span class="sidebar-mini"> Ar </span>
                                 <span class="sidebar-normal"> Articles </span>
                             </a>

@@ -58,7 +58,7 @@
                                 <tr>
                                     <td>{{ $about->fullname}}</td>
                                     <td>{{ $about->role}}</td>
-                                    <td>{{ str_limit($about->body, 33,'...') }}</td>
+                                    <td>{!! str_limit($about->body, 33,'...') !!}</td>
                                     <td>{{ $about->created_at->diffForHumans() }}</td>
                                     <td class="td-actions text-right">
                                         <a href="{{ route('about.show',$about->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
@@ -94,7 +94,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('about.destroy',$about->id) }}" method="post" accept-charset="UTF-8">
+            <form action="{{ route('about.destroy','slug') }}" method="post" accept-charset="UTF-8">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">

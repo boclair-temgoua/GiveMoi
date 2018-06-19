@@ -41,6 +41,9 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
         //Permissions Route
         Route::resource('/permissions','PermissionController');
         Route::resource('/roles','RoleController');
+
+        //Event Routes
+        Route::resource('/event','EventsController');
     });
 
 
@@ -50,8 +53,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
     Route::resource('/presentation','PresentationController');
     //Testimonials Route
     Route::resource('/testimonial','TestimonialController');
-    //Event Routes
-    Route::resource('/event','EventController');
+
     //Tags Route
     Route::resource('/tag','TagController');
     //Categories Routes
@@ -87,6 +89,15 @@ Route::group(['namespace' =>'User'],function (){
     Route::get('about','AboutController@index')->name('about');
 
 
+    Route::get('topic/events','EventsController@index')->name('events');
+    Route::get('topic/events/{event}', 'EventsController@event')->name('topic.events');
+    Route::get('topic/category/{category}', 'EventsController@category')->name('category');
+
+
+
+    //Route::get('topic/events/tag/{tag}','BlogController@tag')->name('tag');
+    //Route::get('to/category/{category}','BlogController@category')->name('category');
+
 
 });
 // API
@@ -110,9 +121,13 @@ Route::group(['prefix'=>'myaccount'],function (){
 
     Route::resource('posts','PostsController');
 
+});
 
 
 
+Route::get('/site', function (){
+
+    return view('site.test');
 });
 
 

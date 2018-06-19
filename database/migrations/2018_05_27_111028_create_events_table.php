@@ -17,21 +17,21 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('country',100);
+            $table->string('summary')->nullable();
             $table->text('body');
             $table->string('city',100);
             $table->string('category')->nullable();
             $table->string('name')->nullable();
-            $table->string('color')->default('warning');
+            $table->string('color')->default('warning')->nullable();
             $table->string('tag')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('status')->nullable();
-            $table->string('image')->nullable();
+            $table->string('cover_image')->nullable();
             $table->integer('like')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->integer('updated_by')->unsigned()->nullable();
-            $table->integer('deleted_by')->unsigned()->nullable();
+
+            $table->integer('user_id')->unsigned()->nullable();
         });
     }
 

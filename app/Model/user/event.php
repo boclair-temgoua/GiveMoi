@@ -9,6 +9,30 @@ class event extends Model
 {
 
 
+    protected $fillable = [
+
+        'title',
+        'country',
+        'body',
+        'city',
+        'category',
+        'summary',
+        'name',
+        'color',
+        'tag',
+        'slug',
+        'status',
+        'image',
+        'user_id',
+        'event_tags',
+        'event_categories',
+        'category_id',
+
+    ];
+
+
+
+
     use Sluggable;
 
     /**
@@ -20,7 +44,8 @@ class event extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'title',
+                'separator' => '+'
             ]
         ];
     }
@@ -38,11 +63,22 @@ class event extends Model
     // Timestamps
     public $timestamps = true;
 
-    //Fillable
-    protected $fillable = array('title, image, text, user_id');
 
     public function user()
     {
-        return $this->belongsTo('App\User','User_id');
+        return $this->belongsTo('App\User','user_id');
     }
+
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Model\user\tag','event_tags')->withTimestamps();
+    }
+
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Model\user\category','event_categories')->withTimestamps();
+    }
+
 }

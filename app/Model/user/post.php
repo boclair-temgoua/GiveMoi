@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class post extends Model
 {
 
+    protected $fillable = [
+        'title',
+        'image',
+        'category',
+        'tag',
+        'slug',
+        'color_category',
+        'status',
+        'body',
+        'user_id'
+    ];
+
     use Sluggable;
 
     /**

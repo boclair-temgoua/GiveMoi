@@ -116,7 +116,8 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        Toastr::success('Welcome', '', ["positionClass" => "toast-top-center"]);
+        //Toastr::success('Welcome'.' '.Auth::user()->username, '', ["positionClass" => "toast-top-center"]);
+        alert()->success('Welcome', '');
         return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->intended($this->redirectPath());
     }
@@ -136,7 +137,7 @@ class LoginController extends Controller
 
 
         Alert::success('Good bye', 'À très bientôt j\'espère');
-        return redirect('/');
+        return redirect(route('admin.login'));
     }
 
     /**

@@ -1,6 +1,6 @@
 
 @extends('inc.app')
-@section('title','Blog' )
+@section('title',' Event' )
 
 @section('style')
 
@@ -13,31 +13,107 @@
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto text-center">
                     <h1 class="title">{!! $event->title !!}</h1>
-                    <a href="{{ route('events.index') }}" class="btn btn-rose btn-round btn-lg">
+                    <a href="{{ route('events') }}" class="btn btn-rose btn-round ">
                         <i class="material-icons">arrow_back_ios</i> Back
                     </a>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="main main-raised">
         <div class="container">
 
+            @if(!Auth::guest())
+                @if(Auth::user()->id == $event->user_id)
             <a href="{{ route('events.edit',$event->id) }}" data-toggle="tooltip" data-placement="bottom" title="Edit your event" class="btn btn-success btn-just-icon btn-fill btn-round btn-wd" ><i class="material-icons">edit</i></a>
-            <button type="button" class="btn btn-danger btn-just-icon btn-fill btn-round" data-toggle="modal" data-target="#delete" data-catid="{{ $event->id }}" data-placement="bottom" title="Delete your event" >
-                <i class="material-icons">delete</i>
-            </button>
+                @endif
+            @endif
+
+
+
             <div class="section section-text">
+                <div class="col-md-10 ml-auto mr-auto">
+                    <div class="card card-profile card-plain">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="card-avatar">
+                                    <a href="#pablo">
+                                        <img class="img" src="{{ url($event->user->avatar)  }}">
+                                    </a>
+                                    <div class="ripple-container"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 ">
+                                <h4 class="card-title text-left">{{ $event->user->name }}</h4>
+                                <p class="description">{{ $event->user->body}}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-rose pull-right btn-round">Follow</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-10 ml-auto mr-auto">
+                        <h2 class="title">{{ $event->title }}</h2>
+                        <p>{{ $event->summary }}</p>
+                    </div>
+                </div>
+                    <div class="section col-md-12 ml-auto mr-auto text-center">
+                        <img class="img-raised rounded img-fluid" alt="Raised Image" src="{{ url('assets/img/event/' .$event->cover_image) }}">
+                    </div>
 
+                    <div class="col-md-10 ml-auto mr-auto">
+                        {!! htmlspecialchars_decode($event->body) !!}
+                    </div>
 
+            </div>
+            <div class="section section-blog-info">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="blog-tags">
+                                    Tags:
+
+                                    <span class="badge badge-primary badge-pill"> {!! ($event->tag)? $event->tag:'-' !!}</span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="blog-tags">
+                                    Category:
+
+                                    @foreach($event->categories as $category)
+                                    <a href="#"><span class="badge badge-success badge-pill"> {{ $category->name}}</span></a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card card-profile card-plain">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="card-avatar">
+                                        <a href="#pablo">
+                                            <img class="img" src="{{ url($event->user->avatar)  }}">
+                                        </a>
+                                        <div class="ripple-container"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h4 class="card-title">{{ $event->user->name }}</h4>
+                                    <p class="description">{{ $event->user->body }}</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-default pull-right btn-round">Follow</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            {!! $event->body !!}
             <hr>
             <div id="comments">
                 <div class="row">
@@ -73,8 +149,110 @@
 
 
 
+
+            <!--
+
+            <div class="section section-comments">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <div class="media-area">
+                            <h3 class="title text-center">3 Comments</h3>
+                            <div class="media">
+                                <a class="float-left" href="#pablo">
+                                    <div class="avatar">
+                                        <img class="media-object" src="../assets/img/kit/pro/faces/card-profile4-square.jpg" alt="...">
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Tina Andrew
+                                        <small>&#xB7; 7 minutes ago</small>
+                                    </h4>
+                                    <h6 class="text-muted"></h6>
+                                    <p>Chance too good. God level bars. I&apos;m so proud of @LifeOfDesiigner #1 song in the country. Panda! Don&apos;t be scared of the truth because we need to restart the human foundation in truth I stand with the most humility. We are so blessed!</p>
+                                    <div class="media-footer">
+                                        <a href="#pablo" class="btn btn-primary btn-link float-right" rel="tooltip" title="Reply to Comment">
+                                            <i class="material-icons">reply</i> Reply
+                                        </a>
+                                        <a href="#pablo" class="btn btn-danger btn-link float-right">
+                                            <i class="material-icons">favorite</i> 243
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <a class="float-left" href="#pablo">
+                                    <div class="avatar">
+                                        <img class="media-object" alt="Tim Picture" src="../assets/img/kit/pro/faces/card-profile1-square.jpg">
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">John Camber
+                                        <small>&#xB7; Yesterday</small>
+                                    </h4>
+                                    <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
+                                    <p> Don&apos;t forget, You&apos;re Awesome!</p>
+                                    <div class="media-footer">
+                                        <a href="#pablo" class="btn btn-primary btn-link float-right" rel="tooltip" title="Reply to Comment">
+                                            <i class="material-icons">reply</i> Reply
+                                        </a>
+                                        <a href="#pablo" class="btn btn-link float-right">
+                                            <i class="material-icons">favorite</i> 25
+                                        </a>
+                                    </div>
+                                    <div class="media">
+                                        <a class="float-left" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object" alt="64x64" src="../assets/img/kit/pro/faces/card-profile4-square.jpg">
+                                            </div>
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Tina Andrew
+                                                <small>&#xB7; 12 Hours Ago</small>
+                                            </h4>
+                                            <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
+                                            <p> Don&apos;t forget, You&apos;re Awesome!</p>
+                                            <div class="media-footer">
+                                                <a href="#pablo" class="btn btn-primary btn-link float-right" rel="tooltip" title="Reply to Comment">
+                                                    <i class="material-icons">reply</i> Reply
+                                                </a>
+                                                <a href="#pablo" class="btn btn-link btn-secondary float-right">
+                                                    <i class="material-icons">favorite</i> 2
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="title text-center">Post your comment</h3>
+                        <div class="media media-post">
+                            <a class="author float-left" href="#pablo">
+                                <div class="avatar">
+                                    <img class="media-object" alt="64x64" src="../assets/img/kit/pro/faces/card-profile6-square.jpg">
+                                </div>
+                            </a>
+                            <div class="media-body">
+                                <div class="form-group label-floating bmd-form-group">
+                                    <label class="form-control-label bmd-label-floating" for="exampleBlogPost"> Write some nice stuff or nothing...</label>
+                                    <textarea class="form-control" rows="5" id="exampleBlogPost"></textarea>
+                                </div>
+                                <div class="media-footer">
+                                    <a href="#pablo" class="btn btn-primary btn-round btn-wd float-right">Post Comment</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            -->
         </div>
     </div>
+
+
+
+
     <!--
     <div class="section">
         <div class="container">
@@ -152,59 +330,12 @@
 -->
 
 
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{ route('events.destroy',$event->id) }}" method="post" accept-charset="UTF-8">
-                {{ method_field('DELETE') }}
-                {{ csrf_field() }}
-                <div class="modal-body">
-                    Are you sure you want to delete this Event?
-                    <input type="hidden" name="event_id" id="cat_id" value=" ">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
-                </div>
-            </form>
 
-        </div>
-    </div>
-</div>
 @include('inc._footer')
 @endsection
 @section('scripts')
 
 
-    <script type="text/javascript">
 
-        $('#delete').on('show.bs.modal', function (event) {
-
-            var button = $(event.relatedTarget)
-            var cat_id = button.data('catid')
-            var modal = $(this)
-
-            modal.find('.modal-body #cat_id').val(cat_id);
-
-        })
-        $('#delete').on('show.bs.modal', function (event) {
-
-            var button = $(event.relatedTarget)
-            var cat_id = button.data('catid')
-            var modal = $(this)
-
-            modal.find('.modal-body #cat_id').val(cat_id);
-
-        })
-    </script>
-
-
-
-    @endsection
+@endsection
 

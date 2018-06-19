@@ -10,7 +10,7 @@
     <div class="page-header header-filter" style="background-image: url(&apos;{{ url(Auth::user()->avatarcover)  }}&apos;); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 ml-auto mr-auto">
+                <div class="col-md-10 ml-auto mr-auto">
                     <div class="card card-signup">
                         <div class="card-body">
                             <div class="row">

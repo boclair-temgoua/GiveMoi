@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\user\category;
 use App\Model\user\event;
+use App\Model\user\tag;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
+use Alert;
+use Image;
+use Storage;
 
 class EventsController extends Controller
 {
@@ -16,7 +22,7 @@ class EventsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => ['index','show']]);
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +31,11 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Event::orderBy('created_at','DESC')->paginate(10);
+
+        //$events = Event::orderBy('title','DESC')->paginate(12);
+
+
+        $events = Event::where('status',1)->orderBy('created_at','DESC')->paginate(12);
         return view('site.event.index')->with('events',$events);
     }
 
@@ -36,7 +46,9 @@ class EventsController extends Controller
      */
     public function create()
     {
-        return view('site.event.create');
+        $tags =tag::all();
+        $categories =category::all();
+        return view('site.event.create',compact('tags','categories'));
     }
 
     /**
@@ -51,34 +63,56 @@ class EventsController extends Controller
         $this->validate($request,[
 
             'title'=>'required|string|max:255',
-            'body'=>'required',
+            'body'=>'required|min:2',
             'city'=>'required|string|max:100',
-            'country'=>'required|string|max:100',
+            'summary'=>'required|string|max:255',
+            'color'=>'required',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
 
         ]);
 
+
+
         $event = new Event;
+
         $event->title = $request->input('title');
         $event->city= $request->input('city');
+        $event->color= $request->input('color');
         $event->body = $request->input('body');
         $event->country = $request->input('country');
-        $event->category= $request->input('category');
+        $event->summary = $request->input('summary');
         $event->name = $request->input('name');
         $event->tag = $request->input('tag');
         $event->slug = $request->input('slug');
         $event->status = $request->input('status');
-        $event->posted_by = $request->input('posted_by');
+        $event->user_id = Auth::user()->id;
 
 
+
+
+
+        // Check if file is present
+        if ($request->hasFile('cover_image')) {
+            $cover_image = $request->file('cover_image');
+            $filename = time().'.'.$cover_image->getClientOriginalName();
+            $destinationPath = public_path('assets/img/event/'.$filename);
+            Image::make($cover_image)->resize(1000, 500)->save($destinationPath);
+
+
+            $event->cover_image = $filename;
+
+        }
 
 
 
         $event->save();
+        $event->tags()->sync($request->tags);
+        $event->categories()->sync($request->categories);
 
 
-
-        alert()->success('Success', "L'Evenement a été cree avec succès");
-        return redirect(route('events.index',$event->slug));
+        Toastr::success('Event create with success','', ["positionClass" => "toast-top-center"]);
+        return redirect(route('myaccount.home'))->with('success','Event create with success!');
 
     }
 
@@ -107,8 +141,20 @@ class EventsController extends Controller
     public function edit($id)
     {
 
+        $tags =tag::all();
+        $categories =category::all();
         $event = Event::where('id',$id)->first();
-        return view('site.event.edit',compact('event'));
+
+
+        if(auth()->user()->id !==$event->user_id){
+
+            return redirect('events')
+                ->with('message',"Unauthorized edit this event click here to create you event.")
+                ->with('status', 'danger');
+        }
+
+
+        return view('site.event.edit',compact('event','categories','tags'));
     }
 
     /**
@@ -123,31 +169,57 @@ class EventsController extends Controller
         $this->validate($request,[
 
             'title'=>'required|string|max:255',
-            'body'=>'required',
+            'body'=>'required|min:2',
             'city'=>'required|string|max:100',
             'country'=>'required|string|max:100',
+            'summary'=>'required|string|max:255',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4999',
 
         ]);
 
+
+
         $event = Event::find($id);
+
         $event->title = $request->input('title');
         $event->city= $request->input('city');
+        $event->color= $request->input('color');
         $event->body = $request->input('body');
         $event->country = $request->input('country');
+        $event->summary = $request->input('summary');
         $event->category= $request->input('category');
         $event->name = $request->input('name');
         $event->tag = $request->input('tag');
         $event->slug = $request->input('slug');
         $event->status = $request->input('status');
-        $event->posted_by = $request->input('posted_by');
+
+
+        if ($request->hasFile('cover_image')) {
+            $cover_image = $request->file('cover_image');
+            $filename = time().'.'.$cover_image->getClientOriginalName();
+            $destinationPath = public_path('assets/img/event/'.$filename);
+            Image::make($cover_image)->resize(1000, 500)->save($destinationPath);
+            $oldFilename = $event->cover_image;
+
+            //Update to data base
+            $event->cover_image = $filename;
+            // Delete old Image
+            Storage::delete($oldFilename);
+
+
+        }
 
 
 
+        $event->tags()->sync($request->tags);
+        $event->categories()->sync($request->categories);
+        $event->user_id = Auth::user()->id;
 
-        $event->user_id = auth()->user()->id;
         $event->save();
-        alert()->success('Success', "L'evenement a été mise a jour avec succès");
-        return redirect(route('events.index',$event->slug));
+
+
+        Toastr::success('Event update with success','', ["positionClass" => "toast-top-center"]);
+        return redirect(route('myaccount.home',$event->slug))->with('success','Event update with success!');
     }
 
     /**
@@ -159,9 +231,19 @@ class EventsController extends Controller
     public function destroy(Request $request)
     {
         $event = Event::findOrFail($request->event_id);
-        $event->delete();
 
-        Alert::success('Deleted!', 'Your file has been deleted.');
-        return redirect(route('events.index'));
+
+
+        if(auth()->user()->id !==$event->user_id){
+
+            return redirect('events')
+                ->with('message',"Unauthorized delete this event contact Author .")
+                ->with('status', 'danger');
+        }
+
+
+        $event->delete();
+        Toastr::success('Event delete with success','', ["positionClass" => "toast-top-center"]);
+        return redirect()->back()->with('success','Event delete with success!');
     }
 }

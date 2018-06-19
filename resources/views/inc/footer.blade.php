@@ -34,8 +34,8 @@
                     <h5>Market</h5>
                     <ul class="links-vertical">
                         <li>
-                            <a href="#">
-                                Blog
+                            <a href="{{ route('events') }}">
+                                Events
                             </a>
                         </li>
                         <li>
@@ -71,6 +71,11 @@
                         <li>
                             <a href="#">
                                 Terms &amp; Conditions
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/testimonial">
+                                Testimonial
                             </a>
                         </li>
                         <li>

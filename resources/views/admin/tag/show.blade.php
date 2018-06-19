@@ -121,7 +121,7 @@
             <br>
             <div class="card card-signup card-plain">
                 <div class="modal-body">
-                    <form id="RegisterValidation" role="form" method="POST" action="{{route('tag.update',$lk->id)}}"
+                    <form id="RegisterValidation" role="form" method="POST" action="{{route('tag.update','slug')}}"
                           accept-charset="UTF-8">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
@@ -151,7 +151,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('tag.destroy',$lk->id) }}" method="post">
+            <form action="{{ route('tag.destroy','slug') }}" method="post">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">

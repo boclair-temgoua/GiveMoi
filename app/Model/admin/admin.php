@@ -65,15 +65,15 @@ class admin extends Authenticatable
     {
         if ($avatar)
         {
-            return "/assets/img/avatars/{$this->id}.jpg";
+            return "/assets/img/admin/profile/{$this->id}.jpg";
         }
-        return "assets/img/avatars/face.jpg";
+        return "assets/img/admin/profile/face.jpg";
     }
     public function setAvatarAttribute($avatar)
     {
         if (is_object($avatar) && $avatar->isValid())
         {
-            Image::make($avatar)->fit(300,300)->save(public_path()."/assets/img/avatars/{$this->id}.jpg");
+            Image::make($avatar)->fit(300,300)->save(public_path()."/assets/img/admin/profile/{$this->id}.jpg");
             $this->attributes['avatar'] = true;
         }
     }

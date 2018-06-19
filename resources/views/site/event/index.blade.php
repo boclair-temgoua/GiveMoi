@@ -11,35 +11,28 @@
                 <div class="col-md-8 ml-auto mr-auto text-center">
                     <h1 class="title">Let&apos;s get started</h1>
                     <h4>To get started, you will need to choose a plan for your needs. You can opt in for the monthly of annual options and go with one fo the three listed below.</h4>
+
+                    @include('inc.alert')
                 </div>
             </div>
         </div>
     </div>
     <div class="main main-raised">
+
         <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="title">
-                        <h2 id="coloredShadows">Dynamic Shadows&#x2122;</h2>
-                        <h4>Material Kit PRO is coming with the famous colored shadows. That means each image from the cards is getting an unique color shadow. You don&apos;t have to do anything to activate them, just enjoy the new look of your website.</h4>
-                        <br>
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
 
 
                 @if(count($events) > 0)
-
                 @foreach($events as $event)
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="card card-blog">
                         <div class="card-header card-header-image">
-                            <a href="{{ route('events.show',$event->slug) }}">
-                                <img class="img" src="../assets/img/kit/pro/examples/card-blog1.jpg">
+                            <a href="{{ route('topic.events',$event->slug) }}">
+                                <img class="img" src="{{ asset('assets/img/event/' .$event->cover_image) }}">
                                 <div class="card-title text-center">
-                                    {{ $event->title }}
+                                    {{ str_limit($event->title, 100,'...')}}
                                 </div>
                             </a>
                         </div>
@@ -47,18 +40,17 @@
                             <h6 class="card-category text-{{ $event->color }} text-center">{{ $event->name }}</h6>
                             <h6 class="card-title text-center text-{{ $event->color }}">Lieux: {{ $event->country }} {{ $event->city }}</h6>
                             <p class="card-description">
-                                {!! htmlspecialchars_decode(str_limit($event->body, 100,'...')) !!}
+                                {!! htmlspecialchars_decode(str_limit($event->summary, 150,'...')) !!}
                             </p>
                         </div>
                         <div class="card-footer">
                             <div class="author">
                                 <a href="#pablo">
-                                    <img src="../assets/img/kit/pro/faces/avatar.jpg" alt="..." class="avatar img-raised">
-                                    <span> </span>
+                                    <img src="{{ url($event->user->avatar)  }}" alt="..." class="avatar img-raised">
+                                    <span>{{ $event->user->username }}</span>
                                 </a>
                             </div>
                             <div class="stats ml-auto">
-                                <i class="material-icons">favorite</i> 2.4K &#xB7;
                                 <i class="material-icons">schedule</i> {{ $event->created_at->diffForHumans()  }}
                             </div>
                         </div>
@@ -67,13 +59,19 @@
                 @endforeach
                 @endif
             </div>
-            {{ $events->links()}}
+            <div class="submit text-center">
+                {{ $events->links() }}
+            </div>
+
             <br>
         </div>
     </div>
 @include('inc._footer')
 @endsection
 
-@section('script')
+@section('scripts')
 
 @endsection
+
+
+

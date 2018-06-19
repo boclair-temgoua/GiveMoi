@@ -54,7 +54,7 @@
                                 <tr>
                                     <td>{{ $lk->name}}</td>
                                     <td>{{ $lk->slug}}</td>
-                                    <td>{{ $lk->created_at->format('d M Y') }}</td>
+                                    <td>{!! $lk->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</td>
                                     <td class="td-actions text-right">
 
                                         <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "
@@ -121,7 +121,7 @@
             <br>
             <div class="card card-signup card-plain">
                 <div class="modal-body">
-                    <form id="RegisterValidation" role="form" method="POST" action="{{route('category.update',$lk->id)}}"
+                    <form id="RegisterValidation" role="form" method="POST" action="{{route('category.update','slug')}}"
                           accept-charset="UTF-8">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
@@ -152,7 +152,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('category.destroy',$lk->id) }}" method="post">
+            <form action="{{ route('category.destroy','slug') }}" method="post">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">

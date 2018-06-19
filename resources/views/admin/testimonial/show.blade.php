@@ -94,7 +94,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('testimonial.destroy',$ts->id) }}" method="post">
+            <form action="{{ route('testimonial.destroy','slug') }}" method="post">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">

@@ -99,8 +99,7 @@
                                     <div class="form-group">
                                         <label>About Me</label>
                                         <div class="form-group">
-                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                                            <textarea class="form-control" rows="5">{{ $user->body }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -117,14 +116,17 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="#pablo">
-                            <img class="img" src="../../assets/img/faces/marc.jpg" />
+                            <img class="img" src="{{ url($user->avatar)  }}" />
                         </a>
                     </div>
                     <div class="card-body">
                         <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                        <h4 class="card-title">Alec Thompson</h4>
+                        <h4 class="card-title">{{ $user->name }}</h4>
+                        <b class="card-title ">Member Since {{ Auth::user()->created_at->format('j F Y') }}</b>
+
+                        <br>
                         <p class="card-description">
-                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                            {{ str_limit($user->body, 100,'...') }}
                         </p>
                         <a href="#pablo" class="btn btn-rose btn-round">Follow</a>
                     </div>

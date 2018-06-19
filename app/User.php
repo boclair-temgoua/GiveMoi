@@ -52,11 +52,29 @@ class User extends Authenticatable
 
     public function events()
     {
-        return $this->hasMany('App\Model\user\event');
+        return $this->hasMany('App\Model\user\event','user_id');
     }
+
+    /**
+     * @return int
+     * EventsCont()
+     */
+    public function getEventsCountAttribute(){
+        return $this->events()->count();
+    }
+
+
+
     public function posts()
     {
-        return $this->hasMany('App\Model\user\post');
+        return $this->hasMany('App\Model\user\post','user_id');
+    }
+    /**
+     * @return int
+     * PostsCount
+     */
+    public function getPostsCountAttribute(){
+        return $this->posts()->count();
     }
 
 

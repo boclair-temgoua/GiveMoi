@@ -85,7 +85,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('link.destroy',$lk->id) }}" method="post">
+            <form action="{{ route('user.destroy',$lk->id) }}" method="post">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">

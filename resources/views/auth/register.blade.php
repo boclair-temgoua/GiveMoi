@@ -2,7 +2,7 @@
 @section('title', '| Register')
 
 @section('style')
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 @section('content')
 
@@ -126,5 +126,6 @@
 </div>
 @endsection
 @section('scripts')
-<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
 @endsection

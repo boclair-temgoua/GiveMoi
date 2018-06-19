@@ -56,6 +56,7 @@
 </script>
 {!! Toastr::message() !!}
 @include('sweetalert::alert')
+@include('sweet::alert')
 
 @section('scripts')
 

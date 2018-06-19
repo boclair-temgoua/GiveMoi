@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Account;
 
 use App\Model\admin\admin;
-use App\Model\admin\role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -42,8 +41,8 @@ class ProfileController extends Controller
      */
     public function create()
     {
-         $roles = role::all();
-        return view('admin.partials.administrator.create', compact('roles'));
+
+        return view('admin.partials.administrator.create');
     }
 
     /**
@@ -55,6 +54,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
       //  dd(\request()->all()); // pour tester les donner qui entre dans la base de donner
+
         $this->validate($request,[
 
             'name' => 'required|string|max:255',
@@ -63,6 +63,11 @@ class ProfileController extends Controller
 
         ]);
 
+
+
+
+
+        //Password
         if ($request->has('password') && !empty($request->password)) {
             $password = trim($request->password);
         }else{
@@ -144,18 +149,15 @@ class ProfileController extends Controller
         $admin = admin::findOrFail($id);
         $admin->name = $request->name;
         $admin->username = $request->username;
+        $admin->avatar = $request->avatar;
         $admin->email = $request->email;
 
-        if ($request->hasFile('avatar')) {
-            $image = $request->file('avatar');
-            $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/admin/profile/'.$filename);
-            Image::make($image)->resize(600, 600)->save($destinationPath);
 
 
-         $admin->image = $filename;
-
+        if (isset($data['avatar'])) {
+            $admin->addMediaFromRequest('avatar')->toMediaCollection('avatars');
         }
+
 
 
         if ($request->password_options == 'auto'){

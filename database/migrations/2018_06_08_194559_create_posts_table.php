@@ -24,6 +24,8 @@ class CreatePostsTable extends Migration
             $table->string('image')->nullable();
             $table->string('color_category')->nullable();
             $table->timestamps();
+
+            $table->integer('user_id')->unsigned()->nullable();
         });
     }
 
