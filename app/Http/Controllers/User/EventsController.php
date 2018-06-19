@@ -27,11 +27,16 @@ class EventsController extends Controller
     }
 
 
+
+
+
     public function category(category $category)
     {
 
+        //return $category->events();
+
         $events = $category->events();
-        return view('site.event.show',compact('events'));
+        return view('site.event.index',compact('events'));
 
     }
 

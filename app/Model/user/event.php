@@ -74,6 +74,10 @@ class event extends Model
     {
         return $this->belongsToMany('App\Model\user\tag','event_tags')->withTimestamps();
     }
+    public function colors()
+    {
+        return $this->belongsToMany('App\Model\user\partial\color','event_colors')->withTimestamps();
+    }
 
 
     public function categories()

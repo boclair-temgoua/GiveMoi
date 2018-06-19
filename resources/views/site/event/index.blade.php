@@ -60,7 +60,7 @@
                 @endif
             </div>
             <div class="submit text-center">
-                {{ $events->links() }}
+                {!! $events->links() !!}
             </div>
 
             <br>

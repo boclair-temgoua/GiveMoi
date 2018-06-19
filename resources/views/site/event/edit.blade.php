@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 <div  class="login-page  ">
-    <div class="page-header header-filter" style=" background-size: cover; background-position: top center;">
+    <div class="page-header header-filter" style="background-image: url(&apos;{{ url(Auth::user()->avatarcover)  }}&apos;); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 ml-auto mr-auto">
@@ -119,17 +119,27 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6 row-block">
-                                                <select class="selectpicker " data-style="select-with-transition" title="{{$event->color}}"  name="color" data-size="7">
+                                                <select class="selectpicker " data-style="select-with-transition" title="Choose Color" id="" name="colors[]" data-size="7">
                                                     <option disabled>Choose color</option>
-                                                    <option value="danger">Danger</option>
-                                                    <option value="warning">Warning</option>
-                                                    <option value="info">Info</option>
-                                                    <option value="rose">Rose</option>
+                                                    @foreach($colors as $color)
+                                                    <option value="{{ $color->id }}"
+                                                            @foreach ($event->colors as $eventColor)
+                                                        @if ($eventColor->id == $color->id)
+                                                        selected
+                                                        @endif
+                                                        @endforeach
+                                                        >{{ $color->slug }}
+                                                    </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-sm-6  row-block">
-                                                <select class="selectpicker" data-size="7" data-style="select-with-transition" title="Single Select" tabindex="-1" aria-hidden="true" name="categories[]">
-                                                    <option disabled selected>Choisir une Categorie</option>
+
+
+
+                                                <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Category" data-size="7" aria-hidden="true" name="categories[]">
+                                                    <option disabled>Choose Category</option>
+
                                                     @foreach($categories as $category)
                                                     <option value="{{ $category->id }}"
                                                             @foreach ($event->categories as $eventCategory)
@@ -141,31 +151,26 @@
                                                     </option>
                                                     @endforeach
                                                 </select>
+
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 ml-auto mr-auto">
                                                 <div class="profile text-center">
                                                     <br>
-                                                    <div class="fileinput fileinput-new text-center"
-                                                         data-provides="fileinput">
-                                                        <div class="fileinput-new thumbnail img-circle img-raised">
 
-                                                            <img src="" alt="...">
-
+                                                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail img-raised">
+                                                            <img src="{{ url('assets/img/event/' .$event->cover_image) }}" alt="...">
                                                         </div>
-                                                        <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
                                                         <div>
                                                         <span class="btn btn-raised btn-round btn-info btn-file">
-                                                            <span class="fileinput-new">Selectioner une image</span>
+                                                            <span class="fileinput-new">Select image</span>
                                                             <span class="fileinput-exists">Change</span>
                                                             <input id="cover_image" type="file" class="form-control" name="cover_image">
                                                         </span>
-                                                            <br/>
-                                                            <a href="#pablo"
-                                                               class="btn btn-danger btn-round fileinput-exists"
-                                                               data-dismiss="fileinput"><i class="fa fa-times"></i>
-                                                                Remove</a>
+                                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -189,7 +194,12 @@
                                         </div>
 
                                         <div class="submit text-center">
-                                            <input type="submit" class="btn btn-warning btn-raised btn-round " value="Update">
+                                            <input type="submit" class="btn btn-warning btn-raised btn-round " value="Update event">
+                                        </div>
+                                        <div class="submit text-center">
+                                            <a href="{{ route('myaccount.home') }}" class="btn btn-info btn-round btn-raised">
+                                                <i class="material-icons">arrow_back_ios</i> Back profile page
+                                            </a>
                                         </div>
 
                                     </form>

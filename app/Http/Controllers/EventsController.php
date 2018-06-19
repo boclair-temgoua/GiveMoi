@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Model\user\category;
 use App\Model\user\event;
+use App\Model\user\partial\color;
 use App\Model\user\tag;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Alert;
-use Image;
 use Storage;
+use Image;
+
 
 class EventsController extends Controller
 {
@@ -47,8 +49,9 @@ class EventsController extends Controller
     public function create()
     {
         $tags =tag::all();
+        $colors = color::all();
         $categories =category::all();
-        return view('site.event.create',compact('tags','categories'));
+        return view('site.event.create',compact('tags','categories','colors'));
     }
 
     /**
@@ -66,8 +69,7 @@ class EventsController extends Controller
             'body'=>'required|min:2',
             'city'=>'required|string|max:100',
             'summary'=>'required|string|max:255',
-            'color'=>'required',
-            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
 
 
         ]);
@@ -102,12 +104,15 @@ class EventsController extends Controller
 
             $event->cover_image = $filename;
 
-        }
+        }else{
+            $destinationPath = 'noimage.jpg';
+    }
 
 
 
         $event->save();
         $event->tags()->sync($request->tags);
+        $event->colors()->sync($request->colors);
         $event->categories()->sync($request->categories);
 
 
@@ -142,6 +147,7 @@ class EventsController extends Controller
     {
 
         $tags =tag::all();
+        $colors =color::all();
         $categories =category::all();
         $event = Event::where('id',$id)->first();
 
@@ -154,7 +160,7 @@ class EventsController extends Controller
         }
 
 
-        return view('site.event.edit',compact('event','categories','tags'));
+        return view('site.event.edit',compact('event','categories','tags','colors'));
     }
 
     /**
@@ -173,10 +179,9 @@ class EventsController extends Controller
             'city'=>'required|string|max:100',
             'country'=>'required|string|max:100',
             'summary'=>'required|string|max:255',
-            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4999',
+            'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4999',
 
         ]);
-
 
 
         $event = Event::find($id);
@@ -194,6 +199,8 @@ class EventsController extends Controller
         $event->status = $request->input('status');
 
 
+
+
         if ($request->hasFile('cover_image')) {
             $cover_image = $request->file('cover_image');
             $filename = time().'.'.$cover_image->getClientOriginalName();
@@ -205,13 +212,13 @@ class EventsController extends Controller
             $event->cover_image = $filename;
             // Delete old Image
             Storage::delete($oldFilename);
-
-
         }
 
 
 
+
         $event->tags()->sync($request->tags);
+        $event->colors()->sync($request->colors);
         $event->categories()->sync($request->categories);
         $event->user_id = Auth::user()->id;
 
@@ -239,6 +246,11 @@ class EventsController extends Controller
             return redirect('events')
                 ->with('message',"Unauthorized delete this event contact Author .")
                 ->with('status', 'danger');
+        }
+
+        if ($event->cover_image != 'no_image'){
+
+            Storage::delete('assets/img/event/'.$event->cover_image);
         }
 
 

@@ -25,6 +25,7 @@
                     <div class="card-body">
                         <div class="toolbar">
                             <div class="submit text-center">
+                                @include('inc.alert')
                                 <button class="btn btn-warning btn-raised btn-round " data-toggle="modal" data-target="#createModal">
                                     Créer une Categorie
                                 </button>

@@ -8,11 +8,11 @@
 @section('content')
 <div class="blog-post ">
 
-    <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;../assets/img/material-kit/bg2.jpg&apos;);">
+    <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{ url('assets/img/event/' .$event->cover_image) }}')">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto text-center">
-                    <h1 class="title">{!! $event->title !!}</h1>
+                    <h3 class="title">{!! $event->title !!}</h3>
                     <a href="{{ route('events') }}" class="btn btn-rose btn-round ">
                         <i class="material-icons">arrow_back_ios</i> Back
                     </a>
@@ -83,11 +83,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="blog-tags">
-                                    Category:
+                                    @if(count($event->categories ) > 0)
+
 
                                     @foreach($event->categories as $category)
-                                    <a href="#"><span class="badge badge-success badge-pill"> {{ $category->name}}</span></a>
+                                    <a href="{{ route('topic.category', $category->slug) }}"><span class="badge badge-success badge-pill"> {{ $category->name}}</span></a>
                                     @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -114,7 +116,206 @@
                     </div>
                 </div>
             </div>
-            <hr>
+
+
+            <div id="comments">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <div class="media-area">
+                            <h3 class="title text-center">10 Comments</h3>
+                            <div class="media">
+                                <a class="float-left" href="#pablo">
+                                    <div class="avatar">
+                                        <img class="media-object" src="/assets/img/kit/pro/faces/avatar.jpg" alt="...">
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Tina Andrew
+                                        <small>&#xB7; 7 minutes ago</small>
+                                    </h4>
+                                    <p>Chance too good. God level bars. I&apos;m so proud of @LifeOfDesiigner #1 song in the country. Panda! Don&apos;t be scared of the truth because we need to restart the human foundation in truth I stand with the most humility. We are so blessed!</p>
+                                    <p>All praises and blessings to the families of people who never gave up on dreams. Don&apos;t forget, You&apos;re Awesome!</p>
+                                    <div class="media-footer">
+                                        <a href="#pablo" class="btn btn-primary btn-link float-right" rel="tooltip" title="Reply to Comment">
+                                            <i class="material-icons">reply</i> Reply
+                                        </a>
+                                        <a href="#pablo" class="btn btn-danger btn-link float-right">
+                                            <i class="material-icons">favorite</i> 243
+                                        </a>
+                                    </div>
+                                    <div class="media media-post">
+                                        <a class="author float-left" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object" alt="64x64" src="/assets/img/kit/pro/faces/kendall.jpg">
+                                            </div>
+                                        </a>
+                                        <div class="media-body">
+                                            <textarea class="form-control" placeholder="Write a nice reply or go home..." rows="4"></textarea>
+                                            <div class="media-footer">
+                                                <a href="#pablo" class="btn btn-primary float-right">
+                                                    <i class="material-icons">reply</i> Reply
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <a class="float-left" href="#pablo">
+                                    <div class="avatar">
+                                        <img class="media-object" alt="Tim Picture" src="/assets/img/kit/pro/faces/marc.jpg">
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">John Camber
+                                        <small>&#xB7; Yesterday</small>
+                                    </h4>
+                                    <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
+                                    <p> Don&apos;t forget, You&apos;re Awesome!</p>
+                                    <div class="media-footer">
+                                        <a href="#pablo" class="btn btn-primary btn-link float-right" rel="tooltip" title="Reply to Comment">
+                                            <i class="material-icons">reply</i> Reply
+                                        </a>
+                                        <a href="#pablo" class="btn btn-link btn-secondary float-right">
+                                            <i class="material-icons">favorite</i> 25
+                                        </a>
+                                    </div>
+                                    <div class="media">
+                                        <a class="float-left" href="#pablo">
+                                            <div class="avatar">
+                                                <img class="media-object" alt="64x64" src="/assets/img/kit/pro/faces/avatar.jpg">
+                                            </div>
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Tina Andrew
+                                                <small>&#xB7; 2 Days Ago</small>
+                                            </h4>
+                                            <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
+                                            <p> Don&apos;t forget, You&apos;re Awesome!</p>
+                                            <div class="media-footer">
+                                                <a href="#pablo" class="btn btn-primary btn-link float-right" rel="tooltip" title="Reply to Comment">
+                                                    <i class="material-icons">reply</i> Reply
+                                                </a>
+                                                <a href="#pablo" class="btn btn-danger btn-link float-right">
+                                                    <i class="material-icons">favorite</i> 243
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <a class="float-left" href="#pablo">
+                                    <div class="avatar">
+                                        <img class="media-object" alt="64x64" src="/assets/img/kit/pro/faces/kendall.jpg">
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Rosa Thompson
+                                        <small>&#xB7; 2 Days Ago</small>
+                                    </h4>
+                                    <p>Hello guys, nice to have you on the platform! There will be a lot of great stuff coming soon. We will keep you posted for the latest news.</p>
+                                    <p> Don&apos;t forget, You&apos;re Awesome!</p>
+                                    <div class="media-footer">
+                                        <a href="#pablo" class="btn btn-primary btn-link float-right" rel="tooltip" title="Reply to Comment">
+                                            <i class="material-icons">reply</i> Reply
+                                        </a>
+                                        <a href="#pablo" class="btn btn-danger btn-link float-right">
+                                            <i class="material-icons">favorite</i> 243
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pagination-area">
+                                <ul class="pagination justify-content-center text-center">
+                                    <li class="page-item">
+                                        <a href="#pablo" class="page-link">&#xAB;</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#pablo" class="page-link">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#pablo" class="page-link">2</a>
+                                    </li>
+                                    <li class="active page-item">
+                                        <a href="#pablo" class="page-link">3</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#pablo" class="page-link">4</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#pablo" class="page-link">5</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="#pablo" class="page-link">&#xBB;</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h3 class="text-center">Post your comment
+                            <br>
+                            <small>- Logged In User -</small>
+                        </h3>
+                        <div class="media media-post">
+                            <a class="author float-left" href="#pablo">
+                                <div class="avatar">
+                                    <img class="media-object" alt="64x64" src="/assets/img/kit/pro/faces/avatar.jpg">
+                                </div>
+                            </a>
+                            <div class="media-body">
+                                <textarea class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea>
+                                <div class="media-footer">
+                                    <a href="#pablo" class="btn btn-primary btn-wd float-right">Post Comment</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end media-post -->
+                        <h3 class="text-center">Post your comment
+                            <br>
+                            <small>- Not Logged In User -</small>
+                        </h3>
+                        <div class="media media-post">
+                            <a class="author float-left" href="#pablo">
+                                <div class="avatar">
+                                    <img class="media-object" alt="64x64" src="/assets/img/kit/pro/placeholder.jpg">
+                                </div>
+                            </a>
+                            <div class="media-body">
+                                <form class="form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Your Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" placeholder="Your email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <textarea class="form-control" placeholder="Write some nice stuff or nothing..." rows="6"></textarea>
+                                    <div class="media-footer">
+                                        <h6>Sign in with</h6>
+                                        <a href="" class="btn btn-just-icon btn-round btn-twitter">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="" class="btn btn-just-icon btn-round btn-facebook">
+                                            <i class="fab fa-facebook-square"></i>
+                                        </a>
+                                        <a href="" class="btn btn-just-icon btn-round btn-google">
+                                            <i class="fab fa-google-plus-square"></i>
+                                        </a>
+                                        <a href="#pablo" class="btn btn-primary float-right">Post Comment</a>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- end media-body -->
+                        </div>
+                        <!-- end media-post -->
+                    </div>
+                </div>
+            </div>
             <div id="comments">
                 <div class="row">
                     <div class="col-md-12 ml-auto mr-auto">

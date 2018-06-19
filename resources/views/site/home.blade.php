@@ -15,16 +15,16 @@
                         <div class="profile">
                             <div class="avatar">
                                 @if(Auth::user()->avatar)
-                                <img src="{{ url(Auth::user()->avatar)  }}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                <img src="{{ url(Auth::user()->avatar)  }}" alt="{!! Auth::user()->username !!}" class="img-raised rounded-circle img-fluid">
                                 @endif
                             </div>
                             <div class="name">
                                 <h3 class="title">{{ Auth::user()->name }}</h3>
                                 <p >Member Since {{ Auth::user()->created_at->format('j F Y') }}</p>
                                 <h6>{!! Auth::user()->work  !!}</h6>
-                                <a href="https://facebook.com/{{ Auth::user()->fblink }}" class="btn btn-just-icon btn-link btn-facebook"><i class="fab fa-facebook-f"></i></a>
-                                <a href="https://instagram.com/{{ Auth::user()->instalink }}" class="btn btn-just-icon btn-link btn-instagram"><i class="fab fa-instagram"></i></a>
-                                <a href="https://twitter.com/{{ Auth::user()->twlink }}" class="btn btn-just-icon btn-link btn-twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="https://facebook.com/{{ Auth::user()->fblink }}" class="btn btn-just-icon btn-link btn-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://instagram.com/{{ Auth::user()->instalink }}" class="btn btn-just-icon btn-link btn-instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="https://twitter.com/{{ Auth::user()->twlink }}" class="btn btn-just-icon btn-link btn-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
                             </div>
                         </div>
                         <div class="follow">
@@ -79,7 +79,7 @@
 
 
                                                 <div class="stats text-center">
-                                                    <a href="{{ route('topic.events',$event->slug) }}" class="btn btn-info btn-just-icon btn-fill btn-round">
+                                                    <a href="{{ route('topic.events',$event->slug) }}" class="btn btn-info btn-just-icon btn-fill btn-round" target="_blank">
                                                         <i class="material-icons">visibility</i>
                                                     </a>
                                                     <a href="{{ route('events.edit',$event->id) }}" class="btn btn-success btn-just-icon btn-fill btn-round btn-wd">
@@ -92,8 +92,8 @@
                                                     <br>
                                                 </div>
 
-                                                @foreach($event->categories as $category)
-                                                <label class="badge badge-{{ $event->color }}">{{ $category->name }} {!! $event->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</label>
+                                                @foreach($event->colors as $color)
+                                                <label class="badge badge-{!! $color->slug !!}">{!! $event->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</label>
                                                 @endforeach
                                                 <a href="{{ route('events.show',$event->slug) }}">
                                                     <h6 class="card-title"> {{ str_limit($event->title, 40,'...') }}</h6>

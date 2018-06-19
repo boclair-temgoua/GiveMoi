@@ -47,6 +47,8 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
     });
 
 
+    //Color Route
+    Route::resource('color','Partials\ColorController');
     //Abouts Route
     Route::resource('/about','AboutController');
     //Presentation Routes
@@ -91,7 +93,9 @@ Route::group(['namespace' =>'User'],function (){
 
     Route::get('topic/events','EventsController@index')->name('events');
     Route::get('topic/events/{event}', 'EventsController@event')->name('topic.events');
-    Route::get('topic/category/{category}', 'EventsController@category')->name('category');
+
+
+    Route::get('topics/{category}', 'EventsController@category')->name('topic.category');
 
 
 

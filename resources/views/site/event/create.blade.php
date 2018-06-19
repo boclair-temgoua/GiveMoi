@@ -119,16 +119,15 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6 row-block">
-                                            <select class="selectpicker " data-style="select-with-transition" title="Choose color"  name="color" data-size="7" required autocomplete="warning">
-                                                <option disabled>Choose color</option>
-                                                <option value="danger">Danger</option>
-                                                <option value="warning">Warning</option>
-                                                <option value="info">Info</option>
-                                                <option value="rose">Rose</option>
+                                            <select class="selectpicker " data-style="select-with-transition" title="Choose color"  data-size="7" name="colors[]" required>
+                                                @foreach($colors as $color)
+                                                <option value="{{$color->id}}">{{$color->slug}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-6  row-block">
-                                            <select class="selectpicker " data-style="select-with-transition" title="Choose Category" tabindex="-1" aria-hidden="true" name="categories[]" data-size="7" required autofocus>
+
+                                            <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Category" data-size="7" aria-hidden="true" name="categories[]" required autofocus>
                                                 <option disabled>Choose Category</option>
 
                                                 @foreach($categories as $category)
@@ -140,6 +139,7 @@
                                                 </span>
                                                 @endif
                                             </select>
+
                                         </div>
                                     </div>
 
@@ -147,25 +147,18 @@
                                         <div class="col-md-6 ml-auto mr-auto">
                                             <div class="profile text-center">
                                                 <br>
-                                                <div class="fileinput fileinput-new text-center"
-                                                     data-provides="fileinput">
-                                                    <div class="fileinput-new thumbnail img-circle img-raised">
-
-                                                        <img src="" alt="...">
-
+                                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                    <div class="fileinput-new thumbnail img-raised">
+                                                        <img src=" " alt="...">
                                                     </div>
-                                                    <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
                                                     <div>
                                                         <span class="btn btn-raised btn-round btn-info btn-file">
-                                                            <span class="fileinput-new">Selectioner une image</span>
+                                                            <span class="fileinput-new">Select image</span>
                                                             <span class="fileinput-exists">Change</span>
                                                             <input id="cover_image" type="file" class="form-control" name="cover_image">
                                                         </span>
-                                                        <br/>
-                                                        <a href="#pablo"
-                                                           class="btn btn-danger btn-round fileinput-exists"
-                                                           data-dismiss="fileinput"><i class="fa fa-times"></i>
-                                                            Remove</a>
+                                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,9 +182,14 @@
                                     </div>
 
                                     <div class="submit text-center">
-                                        <input type="submit" class="btn btn-warning btn-raised btn-round " value="Continuer">
+                                        <input type="submit" class="btn btn-warning btn-raised btn-round " value="Create Event">
                                     </div>
 
+                                        <div class="submit text-center">
+                                            <a href="{{ route('myaccount.home') }}" class="btn btn-info btn-round btn-raised">
+                                                <i class="material-icons">arrow_back_ios</i> Back profile page
+                                            </a>
+                                        </div>
                                     </form>
 
                                     <br>

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class color extends Model
 {
 
+    public function events()
+    {
+        return $this->belongsToMany('App\Model\user\event','event_colors')->orderBy('created_at','DESC')->paginate(12);
+    }
 
 
 

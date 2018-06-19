@@ -142,16 +142,16 @@
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#formsExamples">
                     <i class="material-icons">content_paste</i>
-                    <p> Forms
+                    <p> Styles
                         <b class="caret"></b>
                     </p>
                 </a>
                 <div class="collapse" id="formsExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="./forms/regular.html">
-                                <span class="sidebar-mini"> RF </span>
-                                <span class="sidebar-normal"> Regular Forms </span>
+                            <a class="nav-link" href="/admin/color">
+                                <span class="sidebar-mini"> CO </span>
+                                <span class="sidebar-normal"> Colors </span>
                             </a>
                         </li>
                         <li class="nav-item ">

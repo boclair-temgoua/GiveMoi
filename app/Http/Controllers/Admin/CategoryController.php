@@ -49,7 +49,7 @@ class CategoryController extends Controller
     {
         $this->validate($request,[
 
-            'name'=>'required',
+            'name'=>'required|string|unique:categories',
 
 
         ]);
