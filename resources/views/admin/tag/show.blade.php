@@ -65,7 +65,7 @@
 
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon "
                                                 data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">close</i>
+                                            <i class="material-icons">delete</i>
                                         </button>
                                     </td>
                                 </tr>

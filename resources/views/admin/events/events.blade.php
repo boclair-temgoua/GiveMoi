@@ -25,7 +25,7 @@
                             <div class="submit text-center">
                                 <button class="btn btn-warning btn-raised btn-round " data-toggle="modal"
                                         data-target="#createModal">
-                                    Créer un Tag
+                                    Create New Event
                                 </button>
                             </div>
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
@@ -37,8 +37,9 @@
                                 <tr>
                                     <th>Posted by</th>
                                     <th>Title</th>
-                                    <th>Status Event</th>
-                                    <th>Date de creation</th>
+                                    <th>Status</th>
+                                    <th><i class="material-icons text-info">forum</i></th>
+                                    <th>Create_at</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
@@ -46,8 +47,9 @@
                                 <tr>
                                     <th>Posted by</th>
                                     <th>Title</th>
-                                    <th>Status Event</th>
-                                    <th>Date de creation</th>
+                                    <th>Status</th>
+                                    <th>Comments</th>
+                                    <th>Create_at</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
@@ -56,17 +58,21 @@
                                 <tr>
                                     <td>{{ $lk->user->username }}</td>
                                     <td>{{ $lk->title}}</td>
-                                    <td class="text-info">{{ $lk->status? 'Event posted' : 'Event non posted' }}</td>
+                                    <td>{!! $lk->status? '<b style="color: #55B559">Posted</b>' : '<b style="color: red">Non posted</b>' !!}</td>
+                                    <td>{{ $lk->comments()->count()}}</td>
                                     <td>{{ $lk->created_at->diffForHumans() }}</td>
                                     <td class="td-actions text-right">
 
 
 
-                                        <a href="{{ route('event.edit',$lk->id) }}" class="btn btn-success btn-just-icon btn-fill btn-round btn-wd">
+                                        <a href="{{ route('topic.events',$lk->slug) }}" class="btn btn-link  btn-info btn-round btn-just-icon" target="_blank">
+                                             <i class="material-icons">visibility</i>
+                                        </a>
+                                        <a href="{{ route('event.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon "">
                                             <i class="material-icons">mode_edit</i>
                                         </a>
 
-                                        <button type="button" class="btn btn-danger btn-just-icon btn-fill btn-round"
+                                        <button type="button" class="btn btn-link  btn-danger btn-round btn-just-icon "
                                                 data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
                                             <i class="material-icons">delete</i>
                                         </button>

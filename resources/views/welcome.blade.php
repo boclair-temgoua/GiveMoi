@@ -95,4 +95,8 @@
 </html>
 
 
-->middleware('role::superadministrator|administrator|editor|author|contributor')
+
+
+
+
+

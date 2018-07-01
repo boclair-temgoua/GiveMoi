@@ -14,6 +14,18 @@ class admin extends Authenticatable
 
     protected $guarded = 'admin';
 
+
+    protected $admin;
+    protected $email;
+
+    public function __construct() {
+
+        $this->admin = config('admin.name');
+        $this->email = config('admin.email');
+    }
+
+
+
     /**
      * The attributes that are mass assignable.
      *

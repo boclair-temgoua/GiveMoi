@@ -1,7 +1,13 @@
-@extends('inc.main_account')
+@extends('inc.app')
 
 @section('style')
 
+@endsection
+
+
+@section('navbar')
+
+<nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
 @endsection
 @section('content')
 <div  class="login-page  ">
@@ -22,14 +28,14 @@
                                 <br>
                                 <div class="col-md-10 ml-auto mr-auto">
 
-                                    <form id="RegisterValidation" role="form" method="POST" action="{{route('events.store')}}" enctype="multipart/form-data" accept-charset="UTF-8">
+                                    <form id="RegisterValidation"  role="form" method="POST" action="{{route('events.store')}}" enctype="multipart/form-data" accept-charset="UTF-8">
                                         {{ csrf_field() }}
 
                                     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                         <label class="bmd-label-floating">{{ __('Title')}}</label>
                                         <input id="title" type="text"
                                                class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
-                                               name="title" value="{{ old('title') }}" >
+                                               name="title" value="{{ old('title') }}" minLength="3" >
                                         @if ($errors->has('title'))
                                         <span class="invalid-feedback">
                                                  <strong>{{ $errors->first('title') }}</strong>
@@ -205,8 +211,11 @@
  @endsection
 
  @section('scripts')
+
  <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
  <script>
      CKEDITOR.replace( 'article-ckeditor' );
  </script>
+
+
  @endsection

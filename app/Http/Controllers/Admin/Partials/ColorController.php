@@ -49,7 +49,7 @@ class ColorController extends Controller
     {
         $this->validate($request,[
 
-            'name'=>'required',
+            'name'=>'required|string|unique:colors',
 
         ]);
 
@@ -60,9 +60,12 @@ class ColorController extends Controller
 
 
 
-        // $.notify("Enter: Fade In and DownExit: Fade Out and Up");
-        alert()->success('Success', "The Color has been successfully Created");
-        return redirect()->back();
+        $notification = array(
+            'message' => 'The Color has been successfully Created',
+            'alert-type' => 'success',
+
+        );
+        return back()->with($notification);
     }
 
     /**
@@ -94,17 +97,22 @@ class ColorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $color = Color::findOrFail($request->tag_id);
+        $color = Color::findOrFail($request->color_id);
 
         $color->name = $request->name;
         $color->slug = $request->slug;
         $color->save();
 
 
-        alert()->success('Success', "The Color has been successfully Updated");
-        return redirect()->back();
+
+        $notification = array(
+            'message' => 'The Color has been successfully Update',
+            'alert-type' => 'success',
+
+        );
+        return back()->with($notification);
     }
 
     /**
@@ -120,7 +128,12 @@ class ColorController extends Controller
         $color->delete();
 
         //session()->put('success','Item created successfully.');
-        Alert::success('Deleted!', 'Your file has been deleted.');
-        return redirect()->back();
+        //Alert::success('Deleted!', 'Your file has been deleted.');
+        $notification = array(
+            'message' => 'The Color has been successfully Created',
+            'alert-type' => 'success',
+
+        );
+        return back()->with($notification);
     }
 }

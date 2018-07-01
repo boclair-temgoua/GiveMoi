@@ -27,7 +27,6 @@ class CreateEventsTable extends Migration
             $table->string('slug')->nullable();
             $table->boolean('status')->nullable();
             $table->string('cover_image')->nullable();
-            $table->integer('like')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

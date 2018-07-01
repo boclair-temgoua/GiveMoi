@@ -20,6 +20,9 @@ class UsersController extends Controller
         $this->middleware('auth');
     }
 
+
+
+
     /**
      * Show the application Profile
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -40,6 +43,7 @@ class UsersController extends Controller
         $user = Auth()->user();
         $this->validate($request,[
             'username' => "required|string|min:2|max:25|unique:users,username,{$user->id}",
+            'email' => "required|email|max:255|unique:users,email,{$user->id}",
             'avatar' =>"image",
             'avatarcover' =>"image",
             "birthday" =>"date",

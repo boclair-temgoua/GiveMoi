@@ -93,9 +93,18 @@ Route::group(['namespace' =>'User'],function (){
 
     Route::get('topic/events','EventsController@index')->name('events');
     Route::get('topic/events/{event}', 'EventsController@event')->name('topic.events');
-
-
     Route::get('topics/{category}', 'EventsController@category')->name('topic.category');
+
+
+
+
+    Route::post('ajaxRequest', 'EventsController@ajaxRequest')->name('ajaxRequest');
+
+    //Route::get('product/like/{id}', ['as' => 'product.like', 'uses' => 'LikeController@likeProduct']);
+   // Route::get('event/like/{id}', ['as' => 'event.like', 'uses' => 'LikeController@likeEvent']);
+
+
+
 
 
 
@@ -108,16 +117,73 @@ Route::group(['namespace' =>'User'],function (){
 Route::group(['namespace' =>'Api'],function (){
 
     Route::resource('/newsletter','NewsletterController');
+
+    // Route Contact Us
+
+    Route::get('contact', 'ContactController@create')->name('contact.create');
+    Route::post('contact', 'ContactController@store')->name('contact.store');
+
+
 });
 
 
-Route::resource('events','EventsController');
-Route::group(['prefix'=>'myaccount'],function (){
+Route::post('like',[
+    'uses' => 'CommentsController@postLikeComment',
+    'as' => 'like'
 
+
+]);
+
+
+
+
+
+
+
+
+
+
+Route::group(['middleware' => 'web'], function () {
+
+
+    Route::get('/profiles/users','MyaccountController@usersfollow');
+    Route::post('/profiles/toggle','MyaccountController@toggle');
+
+});
+
+Route::resource('events','EventsController');
+
+//Comments
+Route::resource('comments', 'CommentsController');
+
+// functionne bien
+Route::get('/@{username}', [
+    'as'    => '/',
+    'uses'  => 'MyaccountController@viewProfile'
+]);
+
+
+Route::get('/@{username}/followers', [
+    'as'    => '/',
+    'uses'  => 'MyaccountController@viewfollowers'])->name('@{username}/followers');
+Route::get('/@{username}/followings', [
+    'as'    => '/',
+    'uses'  => 'MyaccountController@viewfollowings'])->name('@{username}/followings');
+
+Route::group(['prefix'=>'account'],function (){
+
+/* *************************** Init Route **************/
     Route::get('/','MyaccountController@index');
     Route::get('home','MyaccountController@home')->name('myaccount.home');
     Route::get('profile', 'UsersController@edit')->name('myaccount.profile');
     Route::post('profile', 'UsersController@update');
+
+
+
+/* **************************** end *********************/
+
+
+
 
 
 
@@ -133,6 +199,15 @@ Route::get('/site', function (){
 
     return view('site.test');
 });
+
+
+
+
+//Likes Route
+Route::get('events/like/{id}', ['as' => 'events.like', 'uses' => 'LikeController@likeEvent']);
+
+
+
 
 
 

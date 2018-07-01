@@ -40,6 +40,7 @@ class CompileTableSeeder extends Seeder
         for ($i = 0; $i < 2; $i++){
             \Illuminate\Support\Facades\DB::table('categories')->insert([
                 'name' =>'Temgoua'.$i,
+                'slug' =>'temgoua'.$i,
                 'created_at' => Carbon\Carbon::now(),
 
             ]);
@@ -61,7 +62,7 @@ class CompileTableSeeder extends Seeder
 
             ]);
         }
-        for ($i = 0; $i < 1; $i++){
+        for ($i = 0; $i < 900; $i++){
             \Illuminate\Support\Facades\DB::table('users')->insert([
                 'username' =>'bokino1'.$i,
                 'name' =>'Temgoua'.$i,

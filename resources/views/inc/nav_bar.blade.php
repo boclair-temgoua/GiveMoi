@@ -1,6 +1,8 @@
 
+@section('navbar')
 
-<nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
+@show
+
     <div class="container">
         <div class="navbar-translate">
             <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'GiveMoi') }} </a>
@@ -76,13 +78,13 @@
                 <!-- Authentication Links -->
                 @guest
                 <li class="dropdown nav-item">
-                    <a href="{{ route('login') }}" class=" nav-link">
+                    <a href="{{ route('login') }}" class=" nav-link" data-toggle="modal" data-target="#loginModal">
                         <i class="material-icons">fingerprint</i> {{__('Connexion')}}
                     </a>
                 </li>
                 <li class="dropdown nav-item">
                     <a href="{{ route('register') }}" class=" nav-link">
-                        <i class="material-icons">add</i> {{ __('Ouvrire un compte')}}
+                        <i class="material-icons">add</i> {{ __('Commencer')}}
                     </a>
                 </li>
                 @else
@@ -106,10 +108,10 @@
                         <a href="../sections.html#blogs" class="dropdown-item">
                             <i class="material-icons">list</i> Blogs
                         </a>
-                        <a href="../sections.html#teams" class="dropdown-item">
-                            <i class="material-icons">people</i> Teams
+                        <a href="{{ route('/', Auth::user()->username) }}" class="dropdown-item">
+                            <i class="material-icons">person</i> Profile
                         </a>
-                        <a href="#" class="dropdown-item">
+                        <a href="/account" class="dropdown-item">
                             <i class="material-icons">settings</i> Paramètres
                         </a>
                         <a class="dropdown-item" href="{{ route('user.logout') }}">

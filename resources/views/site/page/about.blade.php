@@ -4,6 +4,10 @@
 @section('style')
 
 @endsection
+@section('navbar')
+
+<nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
+    @endsection
 @section('content')
 <div class="about-us ">
     <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;../assets/img/kit/pro/bg9.jpg&apos;);">
@@ -43,11 +47,12 @@
                             </div>
                             <div class="card-body">
                                 <h4 class="card-title">{{$about->fullname}}</h4>
-                                <h6 class="category text-muted">{{$about->role}}</h6>
+                                <h6 class="category text-muted">{!! $about->role !!}</h6>
                                 <p class="card-description">
                                     {!! str_limit($about->body, 150,'&raquo') !!}
                                 </p>
                             </div>
+
                             <div class="card-footer justify-content-center">
                                 <a href="{{$about->twlink}}" class="btn btn-just-icon btn-link btn-twitter">
                                     <i class="fab fa-twitter"></i>
@@ -72,6 +77,7 @@
                                 </a>
                                 -->
                             </div>
+
                         </div>
                     </div>
                     @endforeach
@@ -85,20 +91,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach($presentations as $presentation)
+                    @if(count($presentations) > 0)
+                        @foreach($presentations as $presentation)
+                            @foreach($presentation->colors as $color)
                     <div class="col-md-4">
+
                         <div class="info info-horizontal">
-                            <div class="icon icon-{{$presentation->color}}">
+                            <div class="icon icon-{!! $color->slug !!}">
                                 <i class="material-icons">{{$presentation->icon}}</i>
                             </div>
                             <div class="description">
                                 <h4 class="info-title">{{$presentation->title}}</h4>
                                 {!! str_limit($presentation->body, 150,'...') !!}<br>
-                                <a href="{{ route('presentation',$presentation->slug) }}" class="text-{{$presentation->color}}">Find more...</a>
+                                <a href="{{ route('presentation',$presentation->slug) }}" class="text-{!! $color->slug !!}">Find more...</a>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                            @endforeach
+                        @endforeach
+                    @endif
                 </div>
             </div>
 

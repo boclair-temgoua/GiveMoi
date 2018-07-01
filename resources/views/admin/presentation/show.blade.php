@@ -53,8 +53,8 @@
                                 <tr>
                                     <td>{{ $item->title}}</td>
                                     <td>{{ $item->slug}}</td>
-                                    <td><i class="material-icons text-{{ $item->color}}">{{ $item->icon}}</i></td>
-                                    <td>{{ str_limit($item->body, 33,'...') }}</td>
+                                    <td><i class="material-icons">{{ $item->icon}}</i></td>
+                                    <td>{!! htmlspecialchars_decode(str_limit($item->body, 33,'...'))!!}</td>
                                     <td class="td-actions text-right">
                                         <a href="{{ route('presentation.show',$item->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
                                         <a href="{{ route('presentation.edit',$item->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
@@ -93,7 +93,7 @@
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">
-                    Are you sure you want to delete this Member?
+                    Are you sure you want to delete this Presentation?
                     <input type="hidden" name="presentation_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">

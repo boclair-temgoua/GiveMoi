@@ -1,5 +1,5 @@
 @extends('inc.admin._main')
-@section('title', '- Tags')
+@section('title', '- Admin Colors')
 
 
 @section('style')
@@ -17,7 +17,7 @@
                         <div class="card-icon">
                             <i class="material-icons">assignment</i>
                         </div>
-                        <h4 class="card-title">All Tags</h4>
+                        <h4 class="card-title">All Colors</h4>
                     </div>
                     <div class="card-body">
                         <div class="toolbar">
@@ -36,7 +36,7 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Slug</th>
+                                    <th>Color</th>
                                     <th>Date de creation</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
@@ -44,7 +44,7 @@
                                 <tfoot>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Slug</th>
+                                    <th>Color</th>
                                     <th>Date de creation</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
@@ -114,10 +114,13 @@
 <!-- End create Tag -->
 <!-- Update Tag -->
 <div class="modal fade" id="editedModal" tabindex="-1" role="">
-    <div class="modal-dialog modal-login" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editedLabel">Update Tag</h5>
+                <h5 class="modal-title" id="editedLabel">Update Color</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <br>
             <div class="card card-signup card-plain">

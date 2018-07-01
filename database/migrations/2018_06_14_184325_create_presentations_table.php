@@ -23,6 +23,13 @@ class CreatePresentationsTable extends Migration
             $table->string('image')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('presentation_colors', function (Blueprint $table) {
+            $table->integer('presentation_id')->unsigned()->index();
+            $table->integer('color_id')->unsigned()->index();
+            $table->foreign('presentation_id')->references('id')->on('presentations')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -33,5 +40,7 @@ class CreatePresentationsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('presentations');
+
+        Schema::dropIfExists('presentations_colors');
     }
 }

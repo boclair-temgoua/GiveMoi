@@ -1,5 +1,5 @@
 @extends('inc.admin._main')
-@section('title', '- User View')
+@section('title', '- Admin View')
 
 
 

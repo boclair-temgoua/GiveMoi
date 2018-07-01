@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\user\partial\color;
 use App\Model\user\presentation;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
+use Image;
+use Storage;
 
 class PresentationController extends Controller
 {
@@ -38,7 +41,8 @@ class PresentationController extends Controller
      */
     public function create()
     {
-        return view('admin.presentation.create');
+        $colors = color::all();
+        return view('admin.presentation.create',compact('colors'));
     }
 
     /**
@@ -54,8 +58,9 @@ class PresentationController extends Controller
 
             'title'=>'required',
             'icon'=>'required',
-            'color'=>'required',
             'body'=>'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg'
+
 
         ]);
 
@@ -64,15 +69,28 @@ class PresentationController extends Controller
         $presentation = new Presentation;
         $presentation->title = $request->title;
         $presentation->slug = $request->slug;
-        $presentation->color = $request->color;
         $presentation->icon = $request->icon;
         $presentation->body = $request->body;
 
 
 
+        // Check if file is present
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time().'.'.$image->getClientOriginalName();
+            $destinationPath = public_path('assets/img/about/'.$filename);
+            Image::make($image)->resize(1000, 500)->save($destinationPath);
+
+
+            $presentation->image = $filename;
+
+        }else{
+            $destinationPath = 'noimage.jpg';
+        }
 
 
         $presentation->save();
+        $presentation->colors()->sync($request->colors);
 
 
         //Session::flash('success','Your Presentation has been created');
@@ -94,6 +112,7 @@ class PresentationController extends Controller
     public function show($id)
     {
 
+
         $presentation = Presentation::where('id',$id)->first();;
         return view('admin.presentation.view',compact('presentation'));
     }
@@ -107,8 +126,9 @@ class PresentationController extends Controller
     public function edit($id)
     {
 
+        $colors = color::all();
         $presentation = Presentation::where('id',$id)->first();;
-        return view('admin.presentation.edit',compact('presentation'));
+        return view('admin.presentation.edit',compact('presentation','colors'));
     }
 
     /**
@@ -125,14 +145,34 @@ class PresentationController extends Controller
             'title'=>'required',
             'icon'=>'required',
             'body'=>'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $presentation = Presentation::find($id);
         $presentation->title = $request->title;
         $presentation->slug = $request->slug;
-        $presentation->color = $request->color;
         $presentation->icon = $request->icon;
-        $presentation->body = $request->body;;
+        $presentation->body = $request->body;
+
+
+
+
+
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time().'.'.$image->getClientOriginalName();
+            $destinationPath = public_path('assets/img/about/'.$filename);
+            Image::make($image)->resize(1000, 500)->save($destinationPath);
+            $oldFilename = $presentation->image;
+
+            //Update to data base
+            $presentation->image = $filename;
+            // Delete old Image
+            Storage::delete($oldFilename);
+        }
+
+        $presentation->colors()->sync($request->colors);
         $presentation->save();
 
 

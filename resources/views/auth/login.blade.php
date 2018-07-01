@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6 ml-auto mr-auto">
                     <div class="card card-signup">
-                        <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                        <form id="RegisterValidation" class="form-horizontal" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
 
                             <div class="card-header card-header-warning text-center">
@@ -42,25 +42,25 @@
                             @include('inc.alert')
                             <div class="card-body">
                                 <div class="form-group{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}">
-                                    <label class="bmd-label-floating">{{ __('Email or Username')}}</label>
-                                    <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" >
+                                    <label for="exampleFormControlInput1">{{ __('Email or Username')}}</label>
+                                    <input id="username" type="text" placeholder="name@example.com or username" class="form-control" name="username" value="{{ old('username') }}" >
 
                                     @if ($errors->has('username'))
-                                    <span class="help-block">
-                                        <strong class="text-center">{{ $errors->first('username') }}</strong>
+                                    <span class="help-feedback">
+                                        <strong class="text-center text-danger">{{ $errors->first('username') }}</strong>
                                     </span>
                                     @endif
                                     @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong class="text-center">{{ $errors->first('email') }}</strong>
+                                    <span class="help-feedback">
+                                        <strong class="text-center text-danger">{{ $errors->first('email') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label class="bmd-label-floating">{{ __('Mot de passe') }}</label>
+                                    <label for="exampleFormControlInput1">{{ __('Mot de passe') }}</label>
                                     <input id="password" type="password" value="{{ old('password') }}"
                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                           name="password" >
+                                           name="password" placeholder="password...">
 
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback">
@@ -103,6 +103,7 @@
     </div>
 </div>
 @endsection
-@section('script')
+@section('scripts')
+
 
 @endsection

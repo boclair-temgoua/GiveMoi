@@ -24,39 +24,39 @@
                                 <div class="row">
                                     <div class="col-sm-6 row-block">
                                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                            <label class="bmd-label-floating">{{ __('Pseudo')}}</label>
-                                            <input id="pseudo" type="text"
+                                            <label for="username" ">{{ __('Pseudo')}}</label>
+                                            <input id="username" type="text"
                                                    class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                                   name="username" value="{{ old('username') }}" >
+                                                   name="username" value="{{ old('username') }}" minLength="3" placeholder="Username" required >
 
                                             @if ($errors->has('username'))
                                             <span class="invalid-feedback">
                                         <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
+                                             </span>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-6 row-block">
                                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                            <label class="bmd-label-floating">{{ __('Nom')}}</label>
-                                            <input id="firstname" type="text"
+                                            <label for="name">{{ __('Nom')}}</label>
+                                            <input id="name" type="text"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                   name="name" value="{{ old('name') }}" minLength="3" maxlength="20">
+                                                   name="name" value="{{ old('name') }}" minLength="3" maxlength="20" placeholder="name" required>
 
                                             @if ($errors->has('name'))
                                             <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
+                                            </span>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <label class="bmd-label-floating">{{ __('Email address')}}</label>
-                                    <input id="email" type="email"
+                                    <label for="exampleInputEmail1">{{ __('Email address')}}</label>
+                                    <input type="email"
                                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                                           value="{{ old('email') }}" required>
+                                           value="{{ old('email') }}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
 
                                     @if ($errors->has('email'))
                                     <span class="invalid-feedback">
@@ -65,10 +65,10 @@
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label class="bmd-label-floating">{{ __('Mot de passe') }}</label>
+                                    <label for="password">{{ __('Mot de passe') }}</label>
                                     <input id="password" type="password"
                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                           name="password" value="{{ old('password') }}" required>
+                                           name="password" value="{{ old('password') }}" placeholder="Password" required>
 
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback">
@@ -77,10 +77,10 @@
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                    <label for="phone" class="bmd-label-floating">{{ __('Confirmez le mot de passe')
+                                    <label for="password-confirm">{{ __('Confirmez le mot de passe')
                                         }}</label>
                                     <input id="password-confirm" type="password" class="form-control"
-                                           name="password_confirmation" value="{{ old('password_confirmation') }}" required>
+                                           name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm password" required>
                                     @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>

@@ -26,12 +26,15 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
+
+
+
+    //protected $redirectTo = 'back';
+
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect()->back();
+    }
 
     protected function sendFailedLoginResponse(Request $request)
     {
@@ -109,6 +112,7 @@ class LoginController extends Controller
         $notification = array(
             'message' => 'Nous espérons vous voir très bientôt!'. ' chez ' . config('app.name'),
             'alert-type' => 'success',
+
         );
         return redirect('/')->with($notification);
     }

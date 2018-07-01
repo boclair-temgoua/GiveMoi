@@ -21,7 +21,7 @@
                                 </div>
                                 <br>
                                 <div class="col-md-10 ml-auto mr-auto">
-                                    <form id="RegisterValidation" role="form" method="POST" action="{{route('events.update',$event->id)}}" enctype="multipart/form-data" accept-charset="UTF-8">
+                                    <form id="RegisterValidation" role="form" method="POST" action="{{route('event.update',$event->id)}}" enctype="multipart/form-data" accept-charset="UTF-8">
                                         {{ csrf_field() }}
                                         {{ method_field('PATCH') }}
 
@@ -119,17 +119,27 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6 row-block">
-                                                <select class="selectpicker " data-style="select-with-transition" title="{{$event->color}}"  name="color" data-size="7">
+                                                <select class="selectpicker " data-style="select-with-transition" title="Choose Color" id="" name="colors[]" data-size="7">
                                                     <option disabled>Choose color</option>
-                                                    <option value="danger">Danger</option>
-                                                    <option value="warning">Warning</option>
-                                                    <option value="info">Info</option>
-                                                    <option value="rose">Rose</option>
+                                                    @foreach($colors as $color)
+                                                    <option value="{{ $color->id }}"
+                                                            @foreach ($event->colors as $eventColor)
+                                                        @if ($eventColor->id == $color->id)
+                                                        selected
+                                                        @endif
+                                                        @endforeach
+                                                        >{{ $color->slug }}
+                                                    </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-sm-6  row-block">
-                                                <select class="selectpicker" data-size="7" data-style="select-with-transition" title="Single Select" tabindex="-1" aria-hidden="true" name="categories[]">
-                                                    <option disabled selected>Choisir une Categorie</option>
+
+
+
+                                                <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Category" data-size="7" aria-hidden="true" name="categories[]">
+                                                    <option disabled>Choose Category</option>
+
                                                     @foreach($categories as $category)
                                                     <option value="{{ $category->id }}"
                                                             @foreach ($event->categories as $eventCategory)
@@ -141,6 +151,7 @@
                                                     </option>
                                                     @endforeach
                                                 </select>
+
                                             </div>
                                         </div>
                                         <div class="row">

@@ -1,4 +1,5 @@
-<div class="sidebar" data-color="rose" data-background-color="black" data-image="/assets/dashboard/assets/img/sidebar-1.jpg">
+
+<div class="sidebar" data-color="rose" data-background-color="black" data-image="../assets/img/sidebar-1.jpg">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -22,7 +23,7 @@
             <div class="user-info">
                 <a data-toggle="collapse" href="#collapseExample" class="username">
               <span>
-      {{ Auth::user()->name }}
+              {{ Auth::user()->name }}
                 <b class="caret"></b>
               </span>
                 </a>
@@ -43,6 +44,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
+                                <span class="sidebar-mini"> EP </span>
+                                <span class="sidebar-normal"> Edit Profile </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
                                 <span class="sidebar-mini"> S </span>
                                 <span class="sidebar-normal"> Settings </span>
                             </a>
@@ -57,16 +64,14 @@
                 </div>
             </div>
         </div>
-
-
         <ul class="nav">
-            <li class="nav-item  ">
+            <li class="nav-item {{ active_check('admin') }}">
                 <a class="nav-link" href="/admin">
                     <i class="material-icons">dashboard</i>
                     <p> Dashboard </p>
                 </a>
             </li>
-            <li class="nav-item  ">
+            <li class="nav-item {{ active_check('admin/link') }}">
                 <a class="nav-link" href="{{route('link.index')}}">
                     <i class="material-icons">more_horiz</i>
                     <p> Liens </p>
@@ -81,59 +86,22 @@
                 </a>
                 <div class="collapse" id="pagesExamples">
                     <ul class="nav">
-                        <li class="nav-item ">
+                        <li class="nav-item {{ active_check('admin/about') }}">
                             <a class="nav-link" href="{{route('about.index')}}">
                                 <span class="sidebar-mini"> AB </span>
                                 <span class="sidebar-normal"> About </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item {{ active_check('admin/presentation') }}">
                             <a class="nav-link" href="{{route('presentation.index')}}">
                                 <span class="sidebar-mini"> PR </span>
                                 <span class="sidebar-normal"> Presentation about </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item {{ active_check('admin/testimonial') }}">
                             <a class="nav-link" href="{{route('testimonial.index')}}">
                                 <span class="sidebar-mini"> TE </span>
                                 <span class="sidebar-normal"> Testimonial </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-                    <i class="material-icons">apps</i>
-                    <p> Event
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="componentsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('events.index')}}">
-                                <span class="sidebar-mini"> Ar </span>
-                                <span class="sidebar-normal"> Articles </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('category.index')}}">
-                                <span class="sidebar-mini"> Ca </span>
-                                <span class="sidebar-normal"> Categories </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('tag.index')}}">
-                                <span class="sidebar-mini"> Ta </span>
-                                <span class="sidebar-normal"> Tags </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> US </span>
-                                <span class="sidebar-normal"> Users </span>
                             </a>
                         </li>
                     </ul>
@@ -176,152 +144,55 @@
                 </div>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
-                    <i class="material-icons">grid_on</i>
-                    <p> News and Events
+                <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
+                    <i class="material-icons">apps</i>
+                    <p> Events
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse" id="tablesExamples">
+                <div class="collapse" id="componentsExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> CA </span>
-                                <span class="sidebar-normal"> Category </span>
+                            <a class="nav-link" data-toggle="collapse" href="#componentsCollapse">
+                                <span class="sidebar-mini"> CO </span>
+                                <span class="sidebar-normal"> Components
+                                  <b class="caret"></b>
+                                </span>
                             </a>
+                            <div class="collapse" id="componentsCollapse">
+                                <ul class="nav">
+                                    <li class="nav-item {{ active_check('admin/tag') }}">
+                                        <a class="nav-link" href="{{route('tag.index')}}">
+                                            <span class="sidebar-mini"> TA </span>
+                                            <span class="sidebar-normal"> Tags </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav">
+                                    <li class="nav-item {{ active_check('admin/category') }}">
+                                        <a class="nav-link" href="{{route('category.index')}}">
+                                            <span class="sidebar-mini"> CA </span>
+                                            <span class="sidebar-normal"> Categories </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> NAE </span>
-                                <span class="sidebar-normal"> News and Events </span>
+                        <li class="nav-item {{ active_check('admin/event') }}">
+                            <a class="nav-link" href="/admin/event">
+                                <span class="sidebar-mini"> EV </span>
+                                <span class="sidebar-normal"> Events </span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#galleryExamples">
-                    <i class="material-icons">perm_media</i>
-                    <p> Gallery
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="galleryExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> AL </span>
-                                <span class="sidebar-normal"> Album </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> PH</span>
-                                <span class="sidebar-normal"> Photo</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
-                    <i class="material-icons">thumbs_up_down</i>
-                    <p> Corporate
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="mapsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> TE </span>
-                                <span class="sidebar-normal"> Tenders </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> VA </span>
-                                <span class="sidebar-normal"> Vacancies </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> AR </span>
-                                <span class="sidebar-normal"> Annual Report </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#faqsExamples">
-                    <i class="material-icons">priority_high</i>
-                    <p> Faqs
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="faqsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> GA </span>
-                                <span class="sidebar-normal"> Categories </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> FQ </span>
-                                <span class="sidebar-normal"> FAQ Questions </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#newsletterExamples">
-                    <i class="material-icons">markunread</i>
-                    <p> Newsletter
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="newsletterExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> SU </span>
-                                <span class="sidebar-normal"> Subscribes </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#reportsExamples">
-                    <i class="material-icons">show_chart</i>
-                    <p> Reports
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="reportsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> SU </span>
-                                <span class="sidebar-normal"> Summary </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> CU </span>
-                                <span class="sidebar-normal"> Contact Us </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
+
+
+
+
+
+            <li class="nav-item {{ Active::check(['admin/user','admin/administrators','categories']) }} ">
                 <a class="nav-link" data-toggle="collapse" href="#settingsExamples">
                     <i class="material-icons">settings</i>
                     <p> Settings
@@ -330,28 +201,16 @@
                 </a>
                 <div class="collapse" id="settingsExamples">
                     <ul class="nav">
-                        <li class="nav-item ">
+                        <li class="nav-item  {{ active_check('admin/user') }}">
                             <a class="nav-link" href="{{route('user.index')}}">
                                 <span class="sidebar-mini"> US </span>
                                 <span class="sidebar-normal"> Users </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item {{ active_check('admin/administrators') }} ">
                             <a class="nav-link" href="{{route('administrators.index')}}">
                                 <span class="sidebar-mini"> AD </span>
                                 <span class="sidebar-normal"> Administrators </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('permissions.index')}}">
-                                <span class="sidebar-mini"> PM </span>
-                                <span class="sidebar-normal"> Permissions </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('roles.index')}}">
-                                <span class="sidebar-mini"> RO </span>
-                                <span class="sidebar-normal"> Roles </span>
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -375,8 +234,86 @@
                     </ul>
                 </div>
             </li>
+
+
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
+                    <i class="material-icons">grid_on</i>
+                    <p> Tables
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="tablesExamples">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/tables/regular.html">
+                                <span class="sidebar-mini"> RT </span>
+                                <span class="sidebar-normal"> Regular Tables </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/tables/extended.html">
+                                <span class="sidebar-mini"> ET </span>
+                                <span class="sidebar-normal"> Extended Tables </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/tables/datatables.net.html">
+                                <span class="sidebar-mini"> DT </span>
+                                <span class="sidebar-normal"> DataTables.net </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
+                    <i class="material-icons">place</i>
+                    <p> Maps
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="mapsExamples">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/maps/google.html">
+                                <span class="sidebar-mini"> GM </span>
+                                <span class="sidebar-normal"> Google Maps </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/maps/fullscreen.html">
+                                <span class="sidebar-mini"> FSM </span>
+                                <span class="sidebar-normal"> Full Screen Map </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/maps/vector.html">
+                                <span class="sidebar-mini"> VM </span>
+                                <span class="sidebar-normal"> Vector Map </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="../examples/widgets.html">
+                    <i class="material-icons">widgets</i>
+                    <p> Widgets </p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="../examples/charts.html">
+                    <i class="material-icons">timeline</i>
+                    <p> Charts </p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="../examples/calendar.html">
+                    <i class="material-icons">date_range</i>
+                    <p> Calendar </p>
+                </a>
+            </li>
         </ul>
-
-
     </div>
 </div>

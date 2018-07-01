@@ -23,15 +23,19 @@
 <script src="/assets/js/plugins/jasny-bootstrap.min.js"></script>
 <!--    Plugin for Small Gallery in Product Page -->
 <script src="/assets/js/plugins/jquery.flexisel.js"></script>
+<!-- Plugin infinite-scroll.min -->
+<script src="/assets/js/plugins/jquery-scroll.min.js"></script>
 <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
 <script src="/assets/js/material-kit.js?v=2.0.3"></script>
 <!--  Notifications Plugin, full documentation here: http://bootstrap-notify.remabledesigns.com/    -->
 <script src="/assets/dashboard/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Forms Validations Plugin -->
 <script src="/assets/js/plugins/jquery.validate.min.js"></script>
+<script src="/assets/js/plugins/parsley.min.js"></script>
 <!-- Sweet Alert 2 plugin -->
 <script src="/assets/js/plugins/sweetalert2.js"></script>
 <script src="/assets/js/plugins/toastr.min.js"></script>
+<script src="/assets/js/plugins/zoom.min.js"></script>
 <script>
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type', 'info') }}";
@@ -53,6 +57,29 @@
             break;
     }
     @endif
+</script>
+<script type="text/javascript">
+
+    function setFormValidation(id){
+        $(id).validate({
+            highlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-danger');
+            },
+            success: function(element) {
+                $(element).closest('.form-group').removeClass('has-danger').addClass('has-success');
+            },
+            errorPlacement : function(error, element) {
+                $(element).append(error);
+            },
+        });
+    }
+
+    $(document).ready(function(){
+        setFormValidation('#RegisterValidation');
+        setFormValidation('#TypeValidation');
+        setFormValidation('#LoginValidation');
+        setFormValidation('#RangeValidation');
+    });
 </script>
 {!! Toastr::message() !!}
 @include('sweetalert::alert')

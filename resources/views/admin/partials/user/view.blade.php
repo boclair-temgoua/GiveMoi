@@ -5,7 +5,7 @@
 
 @section('style')
 @parent
-<link rel="stylesheet" href="/assets/dashboard/assets/css/plugins/emojionearea.min.css">
+
 
 
 @endsection
@@ -148,15 +148,6 @@
 @parent
 
 
-
-<script src="/assets/dashboard/assets/js/plugins/emojionearea.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#example5").emojioneArea({
-            template: "<filters/><tabs/><editor/>"
-        });
-    });
-</script>
 @endsection
 
 

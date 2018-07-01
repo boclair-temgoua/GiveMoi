@@ -59,17 +59,44 @@
                                             @endif
                                         </div>
                                         <div class="col-sm-4">
-                                            <select class="selectpicker" name="color" id="color" data-style="select-with-transition" title="{{$presentation->color}}" data-size="7">
-                                                <option disabled>Choose Color icon</option>
-                                                <option value="rose">rose</option>
-                                                <option value="info">info</option>
-                                                <option value="danger">danger</option>
-                                                <option value="warning">warning</option>
+                                            <select class="selectpicker " data-style="select-with-transition" title="Choose Color" id="" name="colors[]" data-size="7">
+                                                <option disabled>Choose color</option>
+                                                @foreach($colors as $color)
+                                                <option value="{{ $color->id }}"
+                                                        @foreach ($presentation->colors as $presentationColor)
+                                                    @if ($presentationColor->id == $color->id)
+                                                    selected
+                                                    @endif
+                                                    @endforeach
+                                                    >{!! $color->slug !!}
+                                                </option>
+                                                @endforeach
                                             </select>
                                         </div>
 
                                     </div>
-                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6 ml-auto mr-auto">
+                                            <div class="profile text-center">
+                                                <br>
+
+                                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                    <div class="fileinput-new thumbnail img-raised">
+                                                        <img src="{{ url('assets/img/about/' .$presentation->image) }}" alt="...">
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                                    <div>
+                                                        <span class="btn btn-raised btn-round btn-info btn-file">
+                                                            <span class="fileinput-new">Select image</span>
+                                                            <span class="fileinput-exists">Change</span>
+                                                            <input id="image" type="file" class="form-control" name="image">
+                                                        </span>
+                                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <br>
                                     <div class="col-md-12 ml-auto mr-auto">
 

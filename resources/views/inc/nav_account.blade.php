@@ -88,6 +88,44 @@
                 @else
 
 
+
+
+                <li class="dropdown nav-item">
+                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">email</i>
+                        <span class="notification">21</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">notifications</i>
+                        <span class="notification">{{count(Auth::user()->unreadNotifications)}}</span>
+
+                    </a>
+
+
+
+
+
+
+
+
+
+                    <div class="dropdown-menu notification-body" style="height:200px; width:300px; overflow:scroll;" >
+
+
+                        @foreach (Auth::user()->unreadNotifications as $notification)
+                        <a class="dropdown-item" href="{{ route('events.show', $notification->data['event']['slug']) }}">
+                            <i>{{ $notification->data["user"]["name"] }}</i> has commented in<b> {{ $notification->data["event"]["title"] }} </b>
+                        </a>
+                        @endforeach
+
+                    </div>
+                </li>
+
+
+
+
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" style="position: relative; padding-left: 50px;">
 

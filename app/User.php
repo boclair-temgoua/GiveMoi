@@ -2,16 +2,22 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManagerStatic;
 use Laratrust\Traits\LaratrustUserTrait;
+use Overtrue\LaravelFollow\Traits\CanBeFollowed;
+use Overtrue\LaravelFollow\Traits\CanFollow;
+use Overtrue\LaravelFollow\Traits\CanLike;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, LaratrustUserTrait;
+    use Notifiable, CanFollow,CanBeFollowed,CanLike;
+
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +28,7 @@ class User extends Authenticatable
         'name',
         'lastname',
         'username',
+        'slug',
         'email',
         'password',
         'confirmation_token',
@@ -49,6 +56,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+   
+
 
     public function events()
     {
@@ -65,6 +74,19 @@ class User extends Authenticatable
 
 
 
+
+
+    public function profile()
+    {
+        return $this->hasOne('App\Model\user\myaccount');
+    }
+
+
+
+
+
+
+
     public function posts()
     {
         return $this->hasMany('App\Model\user\post','user_id');
@@ -77,9 +99,21 @@ class User extends Authenticatable
         return $this->posts()->count();
     }
 
+    //Like init
 
+    public function likedEvents()
+    {
+        return $this->morphedByMany('App\Model\user\event', 'likeable')->whereDeletedAt(null);
+    }
 
+    //like end
 
+    /* Comment init */
+    public function comments()
+    {
+        return $this->hasMany('App\Model\user\comment');
+    }
+    /* End comment */
     /**
      * @param $avatar_cover
      * @return string

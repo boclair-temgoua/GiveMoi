@@ -10,7 +10,9 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Alert;
-use Storage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Mews\Purifier\Purifier;
 use Image;
 
 
@@ -25,6 +27,7 @@ class EventsController extends Controller
     public function __construct()
     {
         $this->middleware('auth',['except' => ['index','show']]);
+        //$this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -65,7 +68,7 @@ class EventsController extends Controller
         //dd(\request()->all());
         $this->validate($request,[
 
-            'title'=>'required|string|max:255',
+            'title'=>'required|unique:events|max:255',
             'body'=>'required|min:2',
             'city'=>'required|string|max:100',
             'summary'=>'required|string|max:255',
@@ -81,7 +84,8 @@ class EventsController extends Controller
         $event->title = $request->input('title');
         $event->city= $request->input('city');
         $event->color= $request->input('color');
-        $event->body = $request->input('body');
+        $event->body= clean(Input::get('body'));
+        //$event->body = $request->input('body');
         $event->country = $request->input('country');
         $event->summary = $request->input('summary');
         $event->name = $request->input('name');
@@ -154,8 +158,9 @@ class EventsController extends Controller
 
         if(auth()->user()->id !==$event->user_id){
 
+
             return redirect('events')
-                ->with('message',"Unauthorized edit this event click here to create you event.")
+                ->with('message',"Unauthorized edit this event contact Author.")
                 ->with('status', 'danger');
         }
 
@@ -179,7 +184,7 @@ class EventsController extends Controller
             'city'=>'required|string|max:100',
             'country'=>'required|string|max:100',
             'summary'=>'required|string|max:255',
-            'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4999',
+            'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg',
 
         ]);
 
@@ -189,7 +194,7 @@ class EventsController extends Controller
         $event->title = $request->input('title');
         $event->city= $request->input('city');
         $event->color= $request->input('color');
-        $event->body = $request->input('body');
+        $event->body= clean(Input::get('body'));
         $event->country = $request->input('country');
         $event->summary = $request->input('summary');
         $event->category= $request->input('category');
@@ -243,9 +248,8 @@ class EventsController extends Controller
 
         if(auth()->user()->id !==$event->user_id){
 
-            return redirect('events')
-                ->with('message',"Unauthorized delete this event contact Author .")
-                ->with('status', 'danger');
+            Toastr::error('','Unauthorized delete this event contact Author ', ["positionClass" => "toast-top-center"]);
+            return redirect('events');
         }
 
         if ($event->cover_image != 'no_image'){

@@ -169,7 +169,11 @@
                                             @endif
                                         </div>
                                     <div class="submit text-center">
-                                        <input type="submit" class="btn btn-danger btn-raised btn-round" value="Mettre a jour">
+                                        <button class="btn btn-rose btn-raised btn-round" type="submit">
+                                            <span class="btn-label">
+                                              <i class="material-icons">save_alt</i>
+                                            </span>
+                                        </button>
                                     </div>
 
 
@@ -250,7 +254,12 @@
                                     </div>
                                     <br>
                                         <div class="submit text-center">
-                                            <input type="submit" class="btn btn-danger btn-raised btn-round" value="Mettre a jour">
+                                            <button class="btn btn-rose btn-raised btn-round" type="submit">
+                                                  <span class="btn-label">
+                                                    <i class="material-icons">save_alt</i>
+                                                  </span>
+                                                        Mettre a jour
+                                            </button>
                                         </div>
                                         <br>
                                         <div class="submit text-center">

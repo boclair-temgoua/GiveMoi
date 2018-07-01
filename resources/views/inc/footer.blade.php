@@ -1,5 +1,6 @@
 
 
+@include('inc.login_modal')
 <footer class="footer footer-white footer-big">
     <div class="container">
         <div class="content">
@@ -145,7 +146,7 @@
         </div>
     </div>
 </footer>
-@include('inc.loginpopup')
+
 
 
 

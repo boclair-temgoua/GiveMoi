@@ -3,6 +3,10 @@
 @section('style')
 
 @endsection
+@section('navbar')
+
+<nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
+@endsection
 @section('content')
 <div class="landing-page">
     <div class="page-header header-filter" data-parallax="true"
@@ -12,11 +16,6 @@
                 <div class="col-md-12 ml-auto mr-auto text-center">
                     <h2 class="title">GV {{ config('app.name') }}</h2>
 
-                    @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                    @endif
 
                     @guest
                     <a href="{{ route('register') }}" class="btn btn-warning btn-raised btn-round">
@@ -32,6 +31,15 @@
     <div class="main main-raised">
         <div class="container">
             <div class="section text-center">
+                <div class="row">
+                    <div class="col-md-12 ml-auto mr-auto">
+                        @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                        @endif
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12 ml-auto mr-auto">
                         <h2 class="title">{{ config('app.name') }}</h2>
@@ -98,6 +106,6 @@
  @include('inc.footer')
  @endsection
 
- @section('script')
+ @section('scripts')
 
  @endsection

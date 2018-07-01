@@ -10,7 +10,11 @@ class color extends Model
 
     public function events()
     {
-        return $this->belongsToMany('App\Model\user\event','event_colors')->orderBy('created_at','DESC')->paginate(12);
+        return $this->belongsToMany('App\Model\user\event','event_colors')->withTimestamps();
+    }
+    public function presentations()
+    {
+        return $this->belongsToMany('App\Model\user\presentation','presentation_colors')->withTimestamps();
     }
 
 

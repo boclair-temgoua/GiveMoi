@@ -1,5 +1,5 @@
 @extends('inc.admin._main')
-@section('title', '- Links')
+@section('title', '- Users')
 
 
 
@@ -57,7 +57,7 @@
 
                                         <a href="{{ route('user.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">close</i>
+                                            <i class="material-icons">delete</i>
                                         </button>
                                     </td>
                                 </tr>
@@ -132,4 +132,13 @@
 
 
 
+<script>
+    $(document).ready(function() {
+        // Initialise the wizard
+        demo.initMaterialWizard();
+        setTimeout(function() {
+            $('.card.card-wizard').addClass('active');
+        }, 600);
+    });
+</script>
 @endsection

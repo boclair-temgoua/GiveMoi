@@ -167,6 +167,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -191,6 +192,12 @@ return [
         Brian2694\Toastr\ToastrServiceProvider::class,
         DevMarketer\LaraFlash\LaraFlashServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Overtrue\LaravelFollow\FollowServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class,
+        Pyaesone17\ActiveState\ActiveStateServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Overtrue\LaravelFollow\FollowServiceProvider::class,
+
 
     ],
 
@@ -251,6 +258,9 @@ return [
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'LaraFlash' => DevMarketer\LaraFlash\LaraFlashFacade::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
+
 
 
     ],

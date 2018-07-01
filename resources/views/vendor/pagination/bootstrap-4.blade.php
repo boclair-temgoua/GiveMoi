@@ -10,7 +10,7 @@
                     @if ($paginator->onFirstPage())
                     <li class="page-item disabled"><span class="page-link"></span></li>
                     @else
-                    <li class="page-item"><a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev"><i class="material-icons">arrow_back</i> Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev">Previous</a></li>
                     @endif
 
                     {{-- Pagination Elements --}}
@@ -34,7 +34,7 @@
 
                     {{-- Next Page Link --}}
                     @if ($paginator->hasMorePages())
-                    <li class="page-item"><a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">Next <i class="material-icons">arrow_forward</i></a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next">Next</a></li>
                     @else
                     <li class="page-item disabled"><span class="page-link"></span></li>
                     @endif

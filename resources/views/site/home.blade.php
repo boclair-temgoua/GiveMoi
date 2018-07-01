@@ -19,6 +19,10 @@
                                 @endif
                             </div>
                             <div class="name">
+                                <br>
+                                <a href="" class="btn btn-rose btn-round btn-raised">
+                                    {{ Auth::user()->followers()->get()->count() }} followers
+                                </a>
                                 <h3 class="title">{{ Auth::user()->name }}</h3>
                                 <p >Member Since {{ Auth::user()->created_at->format('j F Y') }}</p>
                                 <h6>{!! Auth::user()->work  !!}</h6>
@@ -78,16 +82,32 @@
                                             <div class="card-body">
 
 
+                                                @if(!Auth::guest())
+                                                @if(Auth::user()->id == $event->user->id)
+                                                <label class="badge card-title">
+                                                    {!! $event->status? '<span style="color: #55B559">Event posted</span>' : '<span style="color: red">Event non posted</span>' !!}
+                                                </label>
+                                                @endif
+                                                @endif
+                                                <br>
                                                 <div class="stats text-center">
-                                                    <a href="{{ route('topic.events',$event->slug) }}" class="btn btn-info btn-just-icon btn-fill btn-round" target="_blank">
-                                                        <i class="material-icons">visibility</i>
-                                                    </a>
+                                                    @if(!Auth::guest())
+                                                    @if(Auth::user()->id == $event->user->id)
                                                     <a href="{{ route('events.edit',$event->id) }}" class="btn btn-success btn-just-icon btn-fill btn-round btn-wd">
                                                         <i class="material-icons">mode_edit</i>
                                                     </a>
+                                                    @endif
+                                                    @endif
+                                                    <a href="{{ route('topic.events',$event->slug) }}" class="btn btn-info btn-just-icon btn-fill btn-round" target="_blank">
+                                                        <i class="material-icons">visibility</i>
+                                                    </a>
+                                                    @if(!Auth::guest())
+                                                    @if(Auth::user()->id == $event->user->id)
                                                     <button type="button" class="btn btn-danger btn-just-icon btn-fill btn-round" data-toggle="modal" data-target="#delete" data-catid="{{ $event->id }}" data-placement="bottom" title="Delete your event" >
                                                         <i class="material-icons">delete</i>
                                                     </button>
+                                                    @endif
+                                                    @endif
                                                     <br>
                                                     <br>
                                                 </div>
@@ -100,13 +120,35 @@
                                                 </a>
                                                 <br>
                                                 <span class="text-white">
-                                                   {!! htmlspecialchars_decode(str_limit($event->summary, 100,'...')) !!}
+                                                    {!! htmlspecialchars_decode(str_limit($event->summary, 100,'...')) !!}
                                                 </span>
 
+
+
+                                                <br>
+                                                <div class="card-stats text-white">
+                                                    <div class="author">
+                                                        <a href="#{!! Auth::user()->username !!}">
+                                                            <img src="{{ url($event->user->avatar)  }}" alt="..." class="avatar img-raised">
+                                                        </a>
+                                                    </div>
+                                                    <div class="stats ml-auto">
+                                                        <i class="material-icons text-rose">favorite</i> 2.4K &#xB7;
+                                                        @foreach($event->colors as $color)
+                                                        <i class="material-icons text-{!! $color->slug !!}">forum</i> {{ $event->comments()->count() }}
+                                                        @endforeach
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
+
                                     @endforeach
                                     @else
                                     <div class="submit text-center">
@@ -120,6 +162,12 @@
                             <div class="col-md-2 mr-auto ml-auto stats">
                                 <h4 class="title">Stats</h4>
                                 <ul class="list-unstyled">
+                                    <li>
+                                        <b>{{ Auth::user()->followers()->get()->count() }}</b> Followers</li>
+                                    <li>
+                                    <li>
+                                        <b>{{ Auth::user()->followings()->get()->count() }}</b> Following</li>
+                                    <li>
                                     @if(count($events) > 0)
                                     <li>
                                         <b>{{ $event->user->events_count }}</b> Events
@@ -144,6 +192,7 @@
                         </div>
                     </div>
                 </div>
+
 
 
 
@@ -183,10 +232,6 @@
 @endsection
 
 @section('scripts')
-
-
-
-
 
 <script type="text/javascript">
 
