@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="row">
-
+                    @if(count($abouts) > 0)
                     @foreach($abouts as $about)
                     <div class="col-md-3">
                         <div class="card card-profile card-plain">
@@ -81,6 +81,7 @@
                         </div>
                     </div>
                     @endforeach
+                    @endif
                 </div>
             </div>
             <div class="about-services features-2">

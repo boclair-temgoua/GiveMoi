@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Model\user\condition;
 use App\User;
 use App\Notifications\RegisteredUsers;
 use App\Http\Controllers\Controller;

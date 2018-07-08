@@ -1,45 +1,129 @@
-{{ $user->name}}///
-{{ $user->email}}///
-{{ $user->username}} //{{ $user->avatar }}
+@extends('inc.app')
 
+@section('style')
 
+@endsection
+@section('navbar')
 
+<nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
+    @endsection
+    @section('content')
+    <div class="signup-page sidebar-collapse">
 
-
-@foreach($events as $event)
-<div class="col-md-6">
-    <div class="card card-background" style="background-image: url(&apos;{{ asset('assets/img/event/' .$event->cover_image) }}')">
-        <a href="#pablo"></a>
-        <div class="card-body">
-
-
-            <div class="stats text-center">
-                <a href="{{ route('topic.events',$event->slug) }}" class="btn btn-info btn-just-icon btn-fill btn-round" target="_blank">
-                    <i class="material-icons">visibility</i>
-                </a>
-                <a href="{{ route('events.edit',$event->id) }}" class="btn btn-success btn-just-icon btn-fill btn-round btn-wd">
-                    <i class="material-icons">mode_edit</i>
-                </a>
-                <button type="button" class="btn btn-danger btn-just-icon btn-fill btn-round" data-toggle="modal" data-target="#delete" data-catid="{{ $event->id }}" data-placement="bottom" title="Delete your event" >
-                    <i class="material-icons">delete</i>
-                </button>
-                <br>
-                <br>
+        <div class="page-header header-filter" filter-color="red" style="background-image: url('../assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 ml-auto mr-auto">
+                        <div class="card card-signup">
+                            <h2 class="card-title text-center">Register</h2>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-5 ml-auto">
+                                        <div class="info info-horizontal">
+                                            <div class="icon icon-rose">
+                                                <i class="material-icons">timeline</i>
+                                            </div>
+                                            <div class="description">
+                                                <h4 class="info-title">Marketing</h4>
+                                                <p class="description">
+                                                    We've created the marketing campaign of the website. It was a very interesting collaboration.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="info info-horizontal">
+                                            <div class="icon icon-primary">
+                                                <i class="material-icons">code</i>
+                                            </div>
+                                            <div class="description">
+                                                <h4 class="info-title">Fully Coded in HTML5</h4>
+                                                <p class="description">
+                                                    We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="info info-horizontal">
+                                            <div class="icon icon-info">
+                                                <i class="material-icons">group</i>
+                                            </div>
+                                            <div class="description">
+                                                <h4 class="info-title">Built Audience</h4>
+                                                <p class="description">
+                                                    There is also a Fully Customizable CMS Admin Dashboard for this product.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 mr-auto">
+                                        <div class="social text-center">
+                                            <button class="btn btn-just-icon btn-round btn-twitter">
+                                                <i class="fa fa-twitter"></i>
+                                            </button>
+                                            <button class="btn btn-just-icon btn-round btn-dribbble">
+                                                <i class="fa fa-dribbble"></i>
+                                            </button>
+                                            <button class="btn btn-just-icon btn-round btn-facebook">
+                                                <i class="fa fa-facebook"> </i>
+                                            </button>
+                                            <h4> or be classical </h4>
+                                        </div>
+                                        <form class="form" method="" action="">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text">
+                                                        <i class="material-icons">face</i>
+                                                      </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="First Name...">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text">
+                                                        <i class="material-icons">mail</i>
+                                                      </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Email...">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text">
+                                                        <i class="material-icons">lock_outline</i>
+                                                      </span>
+                                                    </div>
+                                                    <input type="password" placeholder="Password..." class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                                    <span class="form-check-sign">
+                                                      <span class="check"></span>
+                                                    </span>
+                                                    I agree to the
+                                                    <a href="#something">terms and conditions</a>.
+                                                </label>
+                                            </div>
+                                            <div class="text-center">
+                                                <a href="#pablo" class="btn btn-primary btn-round">Get Started</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            @foreach($event->colors as $color)
-            <label class="badge badge-{!! $color->slug !!}">{!! $event->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</label>
-            @endforeach
-            <a href="{{ route('events.show',$event->slug) }}">
-                <h6 class="card-title"> {{ str_limit($event->title, 40,'...') }}</h6>
-            </a>
-            <br>
-            <span class="text-white">
-                {!! htmlspecialchars_decode(str_limit($event->summary, 100,'...')) !!}
-            </span>
-
-
+            @include('inc._footer')
         </div>
     </div>
-</div>
-@endforeach
+
+@endsection
+
+@section('scripts')
+
+@endsection

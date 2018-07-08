@@ -14,7 +14,7 @@
     <div class="page-header header-filter" style="background-image: url(&apos;{{ url(Auth::user()->avatarcover)  }}&apos;); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
-                <div class="col-md-10 ml-auto mr-auto">
+                <div class="col-md-8 ml-auto mr-auto">
                     <div class="card card-signup">
                         <div class="card-body">
                             <div class="row">
@@ -26,8 +26,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="col-md-10 ml-auto mr-auto">
-
+                                <div class="col-md-12 ml-auto mr-auto">
                                     <form id="RegisterValidation"  role="form" method="POST" action="{{route('events.store')}}" enctype="multipart/form-data" accept-charset="UTF-8">
                                         {{ csrf_field() }}
 
@@ -96,43 +95,14 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6 row-block">
-                                            <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                                                <label class="bmd-label-floating">{{ __('Category')}}</label>
-                                                <input id="category" type="text"
-                                                       class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}"
-                                                       name="category" value="{{ old('category') }}" >
-                                                @if ($errors->has('category'))
-                                                <span class="invalid-feedback">
-                                                        <strong>{{ $errors->first('category') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 row-block">
-                                            <div class="form-group{{ $errors->has('tag') ? ' has-error' : '' }}">
-                                                <label class="bmd-label-floating">{{ __('Tag ( Saisir vos tags )')}}</label>
-                                                <input id="tag" type="text" name="tag" value="{{ old('tag') }}" class="tagsinput form-control{{ $errors->has('tag') ? ' is-invalid' : '' }}"  data-role="tagsinput" data-color="success">
-
-                                                <!-- You can change data-color="rose" with one of our colors primary | warning | info | danger | success -->
-                                                @if ($errors->has('tag'))
-                                                <span class="invalid-feedback">
-                                                        <strong>{{ $errors->first('tag') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 row-block">
+                                        <div class="col-sm-4 row-block">
                                             <select class="selectpicker " data-style="select-with-transition" title="Choose color"  data-size="7" name="colors[]" required>
                                                 @foreach($colors as $color)
                                                 <option value="{{$color->id}}">{{$color->slug}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-6  row-block">
-
+                                        <div class="col-sm-4 row-block">
                                             <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Category" data-size="7" aria-hidden="true" name="categories[]" required autofocus>
                                                 <option disabled>Choose Category</option>
 
@@ -145,7 +115,20 @@
                                                 </span>
                                                 @endif
                                             </select>
+                                        </div>
+                                        <div class="col-sm-4 row-block">
+                                            <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Tag" data-size="7" aria-hidden="true" name="tags[]" required autofocus>
+                                                <option disabled>Choose Tag</option>
 
+                                                @foreach($tags as $tag)
+                                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                                @endforeach
+                                                @if ($errors->has('tag_id'))
+                                                <span class="invalid-feedback">
+                                                 <strong>{{ $errors->first('tag_id') }}</strong>
+                                                </span>
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
 
@@ -197,8 +180,6 @@
                                             </a>
                                         </div>
                                     </form>
-
-                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +188,9 @@
             </div>
         </div>
 
- @include('inc._footer')
+        @include('inc._footer')
+    </div>
+</div>
  @endsection
 
  @section('scripts')

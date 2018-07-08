@@ -297,9 +297,9 @@
                 </div>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="../examples/widgets.html">
+                <a class="nav-link" href="/admin/conditions">
                     <i class="material-icons">widgets</i>
-                    <p> Widgets </p>
+                    <p> Conditions and terms </p>
                 </a>
             </li>
             <li class="nav-item ">

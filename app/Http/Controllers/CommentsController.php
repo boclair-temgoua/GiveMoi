@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
+
 class CommentsController extends Controller
 {
 
@@ -53,18 +54,30 @@ class CommentsController extends Controller
 
         $event = Event::findOrFail($request->event_id);
 
+        if(Response()->json()){
+            $comment = new Comment();
+            $comment->comment = Input::get('comment');
+            $comment->user_id = Auth::id();
+            $comment->event_id = $event->id;
+            $comment->save();
 
-        $comment = Comment::create([
-            'comment' => $request->comment,
-            'parent_id'  => Input::get('parent_id'),
-            'user_id' => Auth::id(),
-            'event_id' => $event->id
-        ]);
 
-        if ($event->user_id != $comment->user_id) {
-            $user = User::find($event->user_id);
-            $user->notify(new NewCommentEvent($comment));
         }
+
+
+
+
+       // $comment = Comment::create([
+       //     'comment' => $request->comment,
+       //     'parent_id'  => Input::get('parent_id'),
+       //     'user_id' => Auth::id(),
+       //     'event_id' => $event->id
+       // ]);
+
+       // if ($event->user_id != $comment->user_id) {
+       //     $user = User::find($event->user_id);
+       //     $user->notify(new NewCommentEvent($comment));
+       // }
 
 
 

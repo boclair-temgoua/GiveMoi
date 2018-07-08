@@ -2,8 +2,10 @@
 
 namespace App\Model\user;
 
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use phpDocumentor\Reflection\Types\Null_;
 
 class comment extends Model
 {
@@ -51,4 +53,7 @@ class comment extends Model
     {
         return $this->hasMany('App\Model\user\comment', 'parent_id');
     }
+
+
+
 }

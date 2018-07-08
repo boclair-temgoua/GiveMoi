@@ -12,7 +12,7 @@ class tag extends Model
     {
         return $this->belongsToMany('App\Model\user\event','event_tags')->orderBy('created_at','DESC')->paginate(10);
     }
-
+    public $timestamps = true;
     public function getRouteKeyName()
     {
         return 'slug';

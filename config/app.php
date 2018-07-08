@@ -199,6 +199,7 @@ return [
         Overtrue\LaravelFollow\FollowServiceProvider::class,
 
 
+
     ],
 
     /*
@@ -260,6 +261,7 @@ return [
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 
 
 

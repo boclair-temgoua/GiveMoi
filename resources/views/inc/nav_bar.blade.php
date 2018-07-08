@@ -7,6 +7,7 @@
         <div class="navbar-translate">
             <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'GiveMoi') }} </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
                 <span class="navbar-toggler-icon"></span>
@@ -111,7 +112,7 @@
                         <a href="{{ route('/', Auth::user()->username) }}" class="dropdown-item">
                             <i class="material-icons">person</i> Profile
                         </a>
-                        <a href="/account" class="dropdown-item">
+                        <a href="/account/profile" class="dropdown-item">
                             <i class="material-icons">settings</i> Paramètres
                         </a>
                         <a class="dropdown-item" href="{{ route('user.logout') }}">

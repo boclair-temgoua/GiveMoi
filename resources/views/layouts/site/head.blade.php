@@ -21,7 +21,7 @@
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
 <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/material-kit.min.css?v=2.0.3">
+<link rel="stylesheet" href="/assets/css/material-kit.min.css?v=2.1.0">
 <link rel="stylesheet" href="/assets/css/style.css">
 <!-- Sweet Alert 2 plugin -->
 <link rel="stylesheet" href="/assets/css/plugins/sweetalert2.css">

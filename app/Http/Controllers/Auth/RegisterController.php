@@ -106,6 +106,7 @@ class RegisterController extends Controller
             'username' => 'required|alpha_dash|string|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'status' => 'required|string',
             'g-recaptcha-response' => 'required|captcha',
         ]);
     }
@@ -121,6 +122,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'username' => $data['username'],
+            'status' => $data['status'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirmation_token'=> str_replace('/','',bcrypt(str_random(16)))

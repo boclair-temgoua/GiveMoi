@@ -8,14 +8,13 @@
 <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-inverse" color-on-scroll="100" id="sectionsNav">
     @endsection
     @section('content')
-    <div class="blog-post ">
-
+    <div class="blog-post sidebar-collapse">
         <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{$user->avatarcover }}&apos;);">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
                         <h3 class="title">{{ $user->name }}</h3>
-                        <small class="title">Member Since {{ $user->created_at->format('F Y') }}</small><br>
+                        <small class="title">Member Since {!! $user->created_at->format('F Y') !!}</small><br>
                         <b class="card-category-social">{!! htmlspecialchars_decode($user->body) !!}</b>
                     </div>
                 </div>

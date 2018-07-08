@@ -45,6 +45,11 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
         //Event Routes
         Route::resource('/event','EventsController');
     });
+    Route::group(['namespace' => 'Info'], function (){
+
+        //Conditions Routes
+        Route::resource('/conditions','ConditionController');
+    });
 
 
     //Color Route
@@ -84,8 +89,9 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
 
 Route::group(['namespace' =>'User'],function (){
 
-
-    Route::get('presentation','PresentationController@index');
+    //Conditions utilisation Routes
+    Route::get('/terms_conditions/','ConditionController@index');
+    Route::get('register','PresentationController@index')->name('register');
     Route::get('presentation/{presentation}', 'PresentationController@presentation')->name('presentation');
     Route::get('testimonial','TestimonialController@index')->name('testimonial');
     Route::get('about','AboutController@index')->name('about');
@@ -94,6 +100,7 @@ Route::group(['namespace' =>'User'],function (){
     Route::get('topic/events','EventsController@index')->name('events');
     Route::get('topic/events/{event}', 'EventsController@event')->name('topic.events');
     Route::get('topics/{category}', 'EventsController@category')->name('topic.category');
+    Route::get('topics/tag/{tag}', 'EventsController@tag')->name('topic.tag');
 
 
 
@@ -122,6 +129,18 @@ Route::group(['namespace' =>'Api'],function (){
 
     Route::get('contact', 'ContactController@create')->name('contact.create');
     Route::post('contact', 'ContactController@store')->name('contact.store');
+
+
+
+
+
+
+    Route::get('invite', 'InviteController@invite')->name('invite');
+    Route::post('invite', 'InviteController@process')->name('process');
+    Route::get('account/add_info', 'InviteController@edit')->name('account.add_info');
+    Route::post('account/add_info', 'InviteController@addinfo');
+// {token} is a required parameter that will be exposed to us in the controller method
+    Route::get('accept/{token}', 'InviteController@accept')->name('accept');
 
 
 });

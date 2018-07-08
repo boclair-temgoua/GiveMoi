@@ -68,6 +68,7 @@
                                         <a href="{{ route('/', $event->user->username) }}">
                                             {{ $event->user->name }}
                                         </a>
+                                        <small>&#xB7; {!! $event->user->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</small>
                                     </h4>
                                     <p class="description text-left">{{ $event->user->body}}</p>
                                 </div>
@@ -115,7 +116,7 @@
                         </div>
 
                         <div class="col-md-10 ml-auto mr-auto">
-                            {!! htmlspecialchars_decode($event->body) !!}
+                            {!! \Michelf\Markdown::defaultTransform($event->body) !!}
                         </div>
 
                 </div>
@@ -160,6 +161,7 @@
                                             <a href="{{ route('/', $event->user->username) }}">
                                                 {{ $event->user->name }}
                                             </a>
+                                            <small>&#xB7; {!! $event->user->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</small>
                                         </h4>
                                         <p class="description">{{ $event->user->body}}</p>
                                     </div>
@@ -208,17 +210,16 @@
                                         </div>
                                     </a>
                                     <div class="media-body">
-                                        @foreach($event->categories as $category)
                                         <h4 class="media-heading">
                                             <a href="{{ route('/', $comment->user->username) }}" class="text-{!! $color->slug !!}">
                                                 {{ $comment->user->username }}
                                             </a>
                                             <small>&#xB7; {!! $comment->created_at->diffForHumans() !!}</small>
                                         </h4>
-                                        @endforeach
                                         <h6 class="text-muted"></h6>
 
-                                        <p>{{ $comment->comment }}</p>
+                                       {!! \Michelf\Markdown::defaultTransform($comment->comment) !!}
+
 
 
 
@@ -269,36 +270,8 @@
                      <!-- End Post comment -->
                     <!--init create comment create -->
 
+                            @include('site.comment.form')
 
-                            {!! Form::open(['route' => ['comments.store'], 'id'=>'', 'data-parsley-remote' => '' , 'method' => 'POST']) !!}
-                            <div class="media media-post">
-                                <a class="author float-left" href="#pablo">
-                                    <div class="avatar">
-                                        <img class="media-object" alt="64x64" src="{{ url(Auth::user()->avatar) }}">
-                                    </div>
-                                </a>
-                                <div class="media-body">
-                                    <div class="form-group{{ $errors->has('comment') ? ' is-invalid' : '' }} label-floating bmd-form-group">
-                                        <label class="form-control-label bmd-label-floating" for="exampleBlogPost"> Post your comment...</label>
-                                        <textarea class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" name="comment" rows="5" id="exampleBlogPost" minLength="3" required></textarea>
-                                        @if ($errors->has('comment'))
-                                        <span class="invalid-feedback">
-                                             <strong>{{ $errors->first('comment') }}</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                    <div class="media-footer">
-                                        <button class="btn btn-{!! $color->slug !!} btn-raised btn-round float-right" type="submit">
-                                          <span class="btn-label">
-                                            <i class="material-icons">forum</i>
-                                          </span>
-                                            Post Comment
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            {!! Form::hidden('event_id', $event->id) !!}
-                            {!! Form::close() !!}
                             @endguest
                     <!-- End create comment -->
 
@@ -413,10 +386,11 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox"  checked="checked" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Restez connecte') }}
+                                        <input class="form-check-input" type="checkbox" checked="checked"
+                                               name="remember" {{ old('remember') ? 'checked' : '' }} > {{ __('Restez connecte') }}
                                         <span class="form-check-sign">
-                                       <span class="check"></span>
-                                 </span>
+                                                   <span class="check"></span>
+                                            </span>
                                     </label>
                                 </div>
                             </div>
@@ -443,6 +417,40 @@
 
     @endsection
 @section('scripts')
+
+
+    <script>
+        $(document).ready(function () {
+            // moved AjaxSetup here
+            $.ajaxSetup({
+                headers: {'X-CSRF-Token': $('meta[name=csrf-token"]').attr('content')}
+            });
+            $('.send').click(function () {
+                $('form').submit(function (e) {
+                    // e.preventDefault(); in correct function
+                    e.preventDefault();
+                    var formdata = $(this).serialize();
+                    $.ajax({
+                        url: '/comments',
+                        type: "POST",
+                        data: {
+                            // you didn't use your 'var formdata'
+                            formdata: formdata,
+                            'csrf-token"': $('input[name=csrf-token"]').val()
+                        },
+                        success: function (response) {
+                            alert('works');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+
+
+
+
 
 
     <script type="text/javascript">

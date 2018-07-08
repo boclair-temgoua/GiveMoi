@@ -67,6 +67,7 @@
 
 
 @include('inc.admin._footer')
+
 </div>
 </div>
 

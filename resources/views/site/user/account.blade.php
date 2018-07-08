@@ -6,8 +6,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 @endsection
 @section('content')
-<div  class="profile-page ">
-    <div class="page-header header-filter" data-parallax="true" style="background-image: url(&apos;{{ url($user->avatarcover)  }}&apos;);"></div>
+<div  class="profile-page sidebar-collapse">
+   <div class="page-header header-filter" data-parallax="true" style="background-image: url(&apos;{{ url($user->avatarcover)  }}&apos;);"></div>
     <div class="main main-raised">
         <div class="profile-content">
             <div class="container">
@@ -20,6 +20,28 @@
                                 @endif
                             </div>
                             <div class="name">
+                                @if(Auth::guest())
+                                <button class="btn btn-rose btn-round follow" data-toggle="modal" data-target="#loginModal">
+                                    <strong>
+                                        Suivre
+                                    </strong>
+                                </button>
+                                @else
+                                @if(Auth::check())
+                                <button class="btn btn-rose btn-round follow"  data-id="{{ $user->id }}">
+                                    <strong>
+                                        @if(auth()->user()->isFollowing($user))
+                                        <b>{{ $user->followers()->get()->count() }}</b> Ne plus suivre
+                                        @else
+                                        <b>{{ $user->followers()->get()->count() }}</b> Suivre
+                                        @endif
+                                    </strong>
+                                </button>
+                                @endif
+                                @endguest
+
+
+
                                 @if(!Auth::guest())
                                 @if(Auth::user()->id == $user->id)
                                 <a href="{{route('myaccount.profile')}}" class="btn btn-fab btn-rose btn-round" rel="tooltip" title="Edit your'are profile">
@@ -35,27 +57,6 @@
                                 <a href="https://twitter.com/{{ $user->twlink }}" class="btn btn-just-icon btn-link btn-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
                             </div>
                         </div>
-
-
-                        @if(Auth::guest())
-                        <button class="btn btn-danger btn-round follow" data-toggle="modal" data-target="#loginModal">
-                            <strong>
-                                Suivre
-                            </strong>
-                        </button>
-                        @else
-                        @if(Auth::check())
-                        <button class="btn btn-danger btn-round follow"  data-id="{{ $user->id }}">
-                            <strong>
-                                @if(auth()->user()->isFollowing($user))
-                                <b>{{ $user->followers()->get()->count() }}</b> Ne plus suivre
-                                @else
-                                <b>{{ $user->followers()->get()->count() }}</b> Suivre
-                                @endif
-                            </strong>
-                        </button>
-                        @endif
-                        @endguest
                     </div>
                 </div>
 
@@ -139,11 +140,11 @@
                                                 <label class="badge badge-{!! $color->slug !!}">{!! $event->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</label>
                                                 @endforeach
                                                 <a href="{{ route('events.show',$event->slug) }}">
-                                                    <h6 class="card-title"> {{ str_limit($event->title, 40,'...') }}</h6>
+                                                    <h6 class="card-title"> {{ str_limit($event->title, 40,'[...]') }}</h6>
                                                 </a>
                                                 <br>
                                                 <span class="text-white">
-                                                    {!! htmlspecialchars_decode(str_limit($event->summary, 100,'...')) !!}
+                                                    {!! htmlspecialchars_decode(str_limit($event->summary, 100,'[...]')) !!}
                                                  </span>
 
                                                 <br>
@@ -209,9 +210,10 @@
                                 <h4 class="title">About his Work</h4>
                                 <p class="description">French luxury footwear and fashion. The footwear has incorporated shiny, red-lacquered soles that have become his signature.</p>
                                 <hr>
-                                <h4 class="title">Focus</h4>
-                                <span class="badge badge-primary">Footwear</span>
-                                <span class="badge badge-rose">Luxury</span>
+                                <h4 class="title">Tags</h4>
+                                @foreach($event->tags as $tag)
+                                <span class="badge badge-primary">{!! $tag->name !!}</span>
+                                @endforeach
                             </div>
 
                         </div>

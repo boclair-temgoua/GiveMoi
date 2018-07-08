@@ -13,11 +13,11 @@ class PresentationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $presentations = Presentation::orderBy('created_at','DESC')->get();
-
-        return view('site.page.about',compact('presentations'));
+        return view('auth.register',compact('presentations'));
     }
 
     public function presentation(presentation $presentation)

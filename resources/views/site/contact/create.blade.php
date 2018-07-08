@@ -145,7 +145,7 @@
                     </div>
                     <div class="description">
                         <h4 class="info-title">Contact direct</h4>
-                        <a href="" ><p>temgoua2013@yahoo.fr</p></a>
+                        <a href="mailto:temgoua2013@gmail.com" ><p>temgoua213@gmail.com</p></a>
                     </div>
                 </div>
             </div>

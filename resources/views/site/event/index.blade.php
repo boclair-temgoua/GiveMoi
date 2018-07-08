@@ -95,7 +95,6 @@
                 $('.infinite-scroll').jscroll({
                     autoTrigger: true,
                     debug: true,
-                    loadingHtml: '<img class="center-block" src="https://demos.laraget.com/images/loading.gif" alt="Loading..." />',
                     padding: 0,
                     nextSelector: '.pagination li.active + li a',
                     contentSelector: 'div.infinite-scroll',

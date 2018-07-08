@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Model\user\event;
 use App\Model\user\myaccount;
+use App\Model\user\tag;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -82,8 +83,7 @@ class MyaccountController extends Controller
     }
     public function viewfollowings($username) {
 
-        $user = User::where('username', $username)->firstOrFail();
-
+        $user = User::where('username', $username)->orderBy('id','DESC')->firstOrFail();
         return view('site.user.partials.following', [
             'user' => $user,
             'followings' => $user->followings,
@@ -145,10 +145,12 @@ class MyaccountController extends Controller
             'user' => $user,
             'events' => $user->events,
 
+
         ]);
 
 
     }
+
 
 
 

@@ -1,5 +1,3 @@
-
-
 @extends('inc.main')
 @section('title', '| Login')
 
@@ -9,19 +7,17 @@
 @endsection
 @section('content')
 @section('content')
-<div class="login-page ">
-    <div class="page-header header-filter"
-         style="background-image: url(&apos;{{asset('assets/img/bg5.jpg')}}&apos;); background-size: cover; background-position: top center;">
+<div class="signup-page sidebar-collapse">
+
+    <div class="page-header header-filter" style="background-image: url(&apos;{{asset('assets/img/bg5.jpg')}}&apos;); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-6 ml-auto mr-auto">
-                    <div class="card card-signup">
-                        <form id="RegisterValidation" class="form-horizontal" method="POST" action="{{ route('login') }}">
+                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                    <div class="card card-login">
+                        <form id="RegisterValidation" class="form" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
-
                             <div class="card-header card-header-warning text-center">
                                 <h4 class="card-title">Connexion</h4>
-
                                 <div class="social-line">
                                     <a href="{{ url('auth/facebook') }}" class="btn btn-just-icon btn-facebook btn-round"
                                        data-toggle="tooltip" title="Facebook login" data-placement="bottom"
@@ -34,63 +30,65 @@
                                         <i class="fab fa-google-plus"></i>
                                     </a>
                                 </div>
-                             </div>
+                            </div>
 
-
-
-
+                            <p class="description text-center">Or Be Classical</p>
                             @include('inc.alert')
                             <div class="card-body">
-                                <div class="form-group{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}">
-                                    <label for="exampleFormControlInput1">{{ __('Email or Username')}}</label>
-                                    <input id="username" type="text" placeholder="name@example.com or username" class="form-control" name="username" value="{{ old('username') }}" >
-
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="material-icons">mail</i>
+                                        </span>
+                                    </div>
+                                    <input id="username" type="text" placeholder="name@example.com or username"
+                                           class="form-control" name="username" value="{{ old('username') }}" >
                                     @if ($errors->has('username'))
                                     <span class="help-feedback">
-                                        <strong class="text-center text-danger">{{ $errors->first('username') }}</strong>
-                                    </span>
+                                            <strong class="text-center text-danger">{{ $errors->first('username') }}</strong>
+                                        </span>
                                     @endif
                                     @if ($errors->has('email'))
                                     <span class="help-feedback">
-                                        <strong class="text-center text-danger">{{ $errors->first('email') }}</strong>
-                                    </span>
+                                            <strong class="text-center text-danger">{{ $errors->first('email') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label for="exampleFormControlInput1">{{ __('Mot de passe') }}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="material-icons">lock_outline</i>
+                                        </span>
+                                    </div>
                                     <input id="password" type="password" value="{{ old('password') }}"
                                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                            name="password" placeholder="password...">
-
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback">
-                                        <strong class="text-center">{{ $errors->first('password') }}</strong>
-                                    </span>
+                                            <strong class="text-center">{{ $errors->first('password') }}</strong>
+                                        </span>
                                     @endif
-
-                                    <div class="text-right">
-                                        <a class="text-info"
-                                           href="{{ route('password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
-                                    </div>
                                 </div>
-
+                                <div class="text-right">
+                                    <a class="text-info"
+                                       href="{{ route('password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" checked="checked"
+                                               name="remember" {{ old('remember') ? 'checked' : '' }} > {{ __('Restez connecte') }}
+                                        <span class="form-check-sign">
+                                                   <span class="check"></span>
+                                            </span>
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" checked="checked"
-                                           name="remember" {{ old('remember') ? 'checked' : '' }} > {{ __('Restez connecte') }}
-                                    <span class="form-check-sign">
-                                       <span class="check"></span>
-                                 </span>
-                                </label>
-                            </div>
-                            <br>
-                            <div class="submit text-center">
+                            <div class="footer text-center">
                                 <button class="btn btn-warning btn-raised btn-round" type="submit">
                                           <span class="btn-label">
                                             <i class="material-icons">fingerprint</i>
                                           </span>
-                                    Connexion au compte
+                                    Get Started
                                 </button>
                             </div>
                             <br>
