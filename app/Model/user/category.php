@@ -2,6 +2,7 @@
 
 namespace App\Model\user;
 
+
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,12 +13,21 @@ class category extends Model
 
     protected $dates = ['deleted_at'];
 
+    public $guarded = [];
 
     public function events()
     {
-        return $this->belongsToMany('App\Model\user\event','event_categories')->orderBy('created_at','DESC')->paginate(12);
+        return $this->belongsToMany(Event::class,'event_categories')->orderBy('created_at','DESC')->paginate(12);
     }
-    public $timestamps = true;
+
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class,'article_categories')->orderBy('created_at','DESC')->paginate(12);
+    }
+
+
+
+
     public function getRouteKeyName()
     {
         return 'slug';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Model\user\category;
 use App\Model\user\event;
 use App\Model\user\like;
+use App\Model\user\tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class EventsController extends Controller
 
     public function index()
     {
-        $events = Event::where('status',1)->orderBy('created_at','DESC')->paginate(3);
+        $events = Event::where('status',1)->orderBy('created_at','DESC')->paginate(12);
 
         return view('site.event.index',compact('events'));
     }
@@ -60,7 +61,11 @@ class EventsController extends Controller
 
 
 
-
+    public function tag(tag $tag)
+    {
+        $events = $tag->events();
+        return view('site.event.index',compact('events'));
+    }
 
     public function category(category $category)
     {

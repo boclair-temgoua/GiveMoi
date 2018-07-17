@@ -73,8 +73,32 @@
             </li>
             <li class="nav-item {{ active_check('admin/link') }}">
                 <a class="nav-link" href="{{route('link.index')}}">
-                    <i class="material-icons">more_horiz</i>
+                    <i class="material-icons">http</i>
                     <p> Liens </p>
+                </a>
+            </li>
+            <li class="nav-item {{ active_check('admin/articles') }}">
+                <a class="nav-link" href="/admin/articles">
+                    <i class="material-icons">more_horiz</i>
+                    <p> Articles </p>
+                </a>
+            </li>
+            <li class="nav-item {{ active_check('admin/category') }}">
+                <a class="nav-link" href="{{route('category.index')}}">
+                    <i class="material-icons">label</i>
+                    <p> Categories </p>
+                </a>
+            </li>
+            <li class="nav-item {{ active_check('admin/event') }}">
+                <a class="nav-link" href="/admin/event">
+                    <i class="material-icons">receipt</i>
+                    <p> Events </p>
+                </a>
+            </li>
+            <li class="nav-item {{ active_check('admin/tag') }}">
+                <a class="nav-link" href="{{route('tag.index')}}">
+                    <i class="material-icons">local_offer</i>
+                    <p> Tags </p>
                 </a>
             </li>
             <li class="nav-item ">
@@ -143,54 +167,6 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-                    <i class="material-icons">apps</i>
-                    <p> Events
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="componentsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" data-toggle="collapse" href="#componentsCollapse">
-                                <span class="sidebar-mini"> CO </span>
-                                <span class="sidebar-normal"> Components
-                                  <b class="caret"></b>
-                                </span>
-                            </a>
-                            <div class="collapse" id="componentsCollapse">
-                                <ul class="nav">
-                                    <li class="nav-item {{ active_check('admin/tag') }}">
-                                        <a class="nav-link" href="{{route('tag.index')}}">
-                                            <span class="sidebar-mini"> TA </span>
-                                            <span class="sidebar-normal"> Tags </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav">
-                                    <li class="nav-item {{ active_check('admin/category') }}">
-                                        <a class="nav-link" href="{{route('category.index')}}">
-                                            <span class="sidebar-mini"> CA </span>
-                                            <span class="sidebar-normal"> Categories </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item {{ active_check('admin/event') }}">
-                            <a class="nav-link" href="/admin/event">
-                                <span class="sidebar-mini"> EV </span>
-                                <span class="sidebar-normal"> Events </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-
-
 
             <li class="nav-item {{ Active::check(['admin/user','admin/administrators','categories']) }} ">
                 <a class="nav-link" data-toggle="collapse" href="#settingsExamples">

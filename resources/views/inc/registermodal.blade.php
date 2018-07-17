@@ -13,7 +13,6 @@
     <i class="material-icons">assignment</i>
     SignUp
 </button>
-
 <div class="modal fade" id="signupModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-signup" role="document">
         <div class="modal-content">

@@ -2,6 +2,8 @@
 
 namespace App\Model\user;
 
+use App\Model\user\partial\color;
+use App\User;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -76,7 +78,7 @@ class event extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     //Likeable
@@ -84,7 +86,7 @@ class event extends Model
 
     public function likes()
     {
-        return $this->morphToMany('App\User', 'likeable')->whereDeletedAt(null);
+        return $this->morphToMany(User::class, 'likeable')->whereDeletedAt(null);
     }
 
     public function getIsLikedAttribute()
@@ -99,22 +101,22 @@ class event extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Model\user\comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function tags()
     {
-        return $this->belongsToMany('App\Model\user\tag','event_tags')->withTimestamps();
+        return $this->belongsToMany(Tag::class,'event_tag')->withTimestamps();
     }
     public function colors()
     {
-        return $this->belongsToMany('App\Model\user\partial\color','event_colors')->withTimestamps();
+        return $this->belongsToMany(Color::class,'event_colors')->withTimestamps();
     }
 
 
     public function categories()
     {
-        return $this->belongsToMany('App\Model\user\category','event_categories')->withTimestamps();
+        return $this->belongsToMany(Category::class,'event_categories')->withTimestamps();
     }
 
 }

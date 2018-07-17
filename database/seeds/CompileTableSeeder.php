@@ -30,13 +30,7 @@ class CompileTableSeeder extends Seeder
 
             ]);
         }
-        for ($i = 0; $i < 2; $i++){
-            \Illuminate\Support\Facades\DB::table('tags')->insert([
-                'name' =>'Temgoua'.$i,
-                'created_at' => Carbon\Carbon::now(),
 
-            ]);
-        }
         for ($i = 0; $i < 2; $i++){
             \Illuminate\Support\Facades\DB::table('categories')->insert([
                 'name' =>'Temgoua'.$i,

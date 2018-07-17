@@ -3,7 +3,6 @@
         <div class="modal-content">
             <div class="card card-signup card-plain">
                 <div class="modal-header">
-
                     <div class="card-header card-header-warning text-center">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
                         <h4 class="card-title">Connexion</h4>
@@ -28,9 +27,9 @@
                             <div class="form-group{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="material-icons">mail</i>
-                                            </span>
+                                       <span class="input-group-text">
+                                           <i class="material-icons">mail</i>
+                                       </span>
                                     </div>
                                     <input type="text" class="form-control{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}" id="username" name="username" placeholder="Email or Pseudo"  value="{{ old('username') }}" required autofocus>
                                     @if ($errors->has('username'))
@@ -49,13 +48,11 @@
                             <div class="form-group{{ $errors->has('password') ? ' is-invalid' : '' }}">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="material-icons">lock_outline</i>
-                                            </span>
+                                       <span class="input-group-text">
+                                           <i class="material-icons">lock_outline</i>
+                                       </span>
                                     </div>
-
                                     <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password..." name="password" required>
-
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback">
                                         <strong class="text-center">{{ $errors->first('password') }}</strong>
@@ -76,10 +73,10 @@
                             </div>
                         </div>
                         <div class="submit text-center">
-                            <button class="btn btn-warning btn-raised" type="submit">
-                                          <span class="btn-label">
-                                            <i class="material-icons">fingerprint</i>
-                                          </span>
+                            <button class="btn btn-warning btn-raised btn-round" type="submit">
+                                <span class="btn-label">
+                                  <i class="material-icons">fingerprint</i>
+                                </span>
                                 Connexion
                             </button>
                         </div>

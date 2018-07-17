@@ -8,7 +8,7 @@
 <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-inverse" color-on-scroll="100" id="sectionsNav">
     @endsection
     @section('content')
-    <div class="blog-post sidebar-collapse">
+    <div class="profile-page sidebar-collapse">
         <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{$user->avatarcover }}&apos;);">
             <div class="container">
                 <div class="row">
@@ -36,8 +36,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h4 class="card-title">{{ $user->name }}</h4>
-                                        <p class="description">{{ $user->body}}</p>
+                                        <h4 class="card-title float-left">{{ $user->name }}</h4>
+                                        <p class="description float-left">{{ $user->body}}</p>
                                     </div>
                                     <div class="col-md-2">
                                         @guest
@@ -77,7 +77,7 @@
                                 <div class="media">
                                     <a class="float-left" href="{{ route('/', $item->username) }}">
                                         <div class="avatar">
-                                            <img class="media-object" src="{{ url($item->avatar)  }}" alt="...">
+                                            <img class="media-object" src="{{ url($item->avatar)  }}" alt="{!! $item->username !!}">
                                         </div>
                                     </a>
                                     <div class="media-body">
@@ -109,31 +109,6 @@
 
 
 
-                            <div class="pagination-area">
-                                <ul class="pagination justify-content-center text-center">
-                                    <li class="page-item">
-                                        <a href="#pablo" class="page-link">&#xAB;</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#pablo" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#pablo" class="page-link">2</a>
-                                    </li>
-                                    <li class="active page-item">
-                                        <a href="#pablo" class="page-link">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#pablo" class="page-link">4</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#pablo" class="page-link">5</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#pablo" class="page-link">&#xBB;</a>
-                                    </li>
-                                </ul>
-                            </div>
                             <!-- end media-post -->
                         </div>
                     </div>

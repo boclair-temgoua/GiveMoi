@@ -40,6 +40,8 @@
                         @endif
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-md-12 ml-auto mr-auto">
                         <h2 class="title">{{ config('app.name') }}</h2>

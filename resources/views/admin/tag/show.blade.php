@@ -36,7 +36,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Slug</th>
-                                    <th>Date de creation</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
@@ -44,7 +43,6 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Slug</th>
-                                    <th>Date de creation</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
@@ -53,7 +51,6 @@
                                 <tr>
                                     <td>{{ $lk->name}}</td>
                                     <td>{{ $lk->slug}}</td>
-                                    <td>{{ $lk->created_at->diffForHumans() }}</td>
                                     <td class="td-actions text-right">
 
                                         <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "

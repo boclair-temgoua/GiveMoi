@@ -10,7 +10,7 @@
 <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
 @endsection
 @section('content')
-<div  class="login-page  ">
+<div  class="signup-page sidebar-collapse">
     <div class="page-header header-filter" style="background-image: url(&apos;{{ url(Auth::user()->avatarcover)  }}&apos;); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
@@ -168,6 +168,7 @@
                                     <div class="form-group label-floating">
                                         <label class="form-control-label bmd-label-floating" for="example5"></label>
                                         <textarea class="form-control" id="article-ckeditor" name="body" type="text" cols="80"   >{{ old('body') }}</textarea>
+                                        <b >Use Markdown with <a href="https://help.github.com/categories/writing-on-github/" class="card-title text-danger">GitHub-flavored</a> code blocks.</b>
                                     </div>
 
                                     <div class="submit text-center">

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/assets/css/plugins/emojionearea.css">
 @endsection
 @section('content')
-<div class="login-page sidebar-collapse">
+<div class="signup-page sidebar-collapse">
     <div class="page-header header-filter" style="background-image: url(&apos;{{ url(Auth::user()->avatarcover)  }}&apos;); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
@@ -188,7 +188,6 @@
                                             </h4>
                                         </div>
 
-
                                         <div class="input-group form-control-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -235,13 +234,6 @@
                                     </span>
                                     @endif
 
-
-
-
-
-
-
-                                    <br>
                                     <div class="media-body">
 
                                         <label for="body" class="bmd-label-floating">Dis quelque chose à propos de toi en 200 mots</label>
@@ -253,21 +245,19 @@
                                         @endif
                                     </div>
                                     <br>
-                                        <div class="submit text-center">
-                                            <button class="btn btn-rose btn-raised btn-round" type="submit">
-                                                  <span class="btn-label">
-                                                    <i class="material-icons">save_alt</i>
-                                                  </span>
-                                                        Mettre a jour
-                                            </button>
-                                        </div>
-                                        <br>
-                                        <div class="submit text-center">
-                                            <a href="{{ route('myaccount.home') }}" class="btn btn-info btn-raised btn-round">
-                                                retourner au profil
-                                            </a>
-                                        </div>
-                                        <br>
+                                 <div class="submit text-center">
+                                     <button class="btn btn-rose btn-raised btn-round" type="submit">
+                                           <span class="btn-label">
+                                             <i class="material-icons">save_alt</i>
+                                           </span>
+                                                 Mettre a jour
+                                     </button>
+                                 </div>
+                                 <div class="submit text-center">
+                                     <a href="{{ route('/', Auth::user()->username) }}" class="btn btn-info btn-raised btn-round">
+                                         retourner au profil
+                                     </a>
+                                 </div>
                                     {!! Form::close() !!}
                                 </div>
                             </div>

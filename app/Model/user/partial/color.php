@@ -2,6 +2,9 @@
 
 namespace App\Model\user\partial;
 
+use App\Model\user\article;
+use App\Model\user\event;
+use App\Model\user\presentation;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +13,15 @@ class color extends Model
 
     public function events()
     {
-        return $this->belongsToMany('App\Model\user\event','event_colors')->withTimestamps();
+        return $this->belongsToMany(Event::class,'event_colors')->withTimestamps();
+    }
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class,'article_colors')->withTimestamps();
     }
     public function presentations()
     {
-        return $this->belongsToMany('App\Model\user\presentation','presentation_colors')->withTimestamps();
+        return $this->belongsToMany(Presentation::class,'presentation_colors')->withTimestamps();
     }
 
 

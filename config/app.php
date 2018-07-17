@@ -197,6 +197,8 @@ return [
         Pyaesone17\ActiveState\ActiveStateServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Overtrue\LaravelFollow\FollowServiceProvider::class,
+        Kryptonit3\Counter\CounterServiceProvider::class,
+        CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
 
 
 
@@ -261,6 +263,7 @@ return [
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
+        'Counter' => Kryptonit3\Counter\Facades\CounterFacade::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 
 

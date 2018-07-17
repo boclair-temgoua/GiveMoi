@@ -1,6 +1,6 @@
 @extends('inc.app')
 <?php $titleTag = htmlspecialchars($event->title); ?>
-@section('title',"| $titleTag" )
+@section('title',"- $titleTag" )
 
 @section('style')
 <link rel="stylesheet" href="/assets/css/plugins/zoom.css">
@@ -22,14 +22,17 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 ml-auto mr-auto text-center">
-                            <h3 class="title">{!! $event->title !!}</h3>
-                            <a href="{{ route('events') }}" class="btn btn-rose btn-round ">
-                                <i class="material-icons">arrow_back_ios</i> Back
-                            </a>
+                            <div class="brand text-center">
+                                <h3 class="title">{!! $event->title !!}</h3>
+                                <a href="{{ route('events') }}" class="btn btn-rose btn-round ">
+                                    <i class="material-icons">arrow_back_ios</i> Back
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         <div class="main main-raised">
             <div class="container">
                 @if(!Auth::guest())
@@ -57,7 +60,7 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="card-avatar">
-                                        <a href="#pablo">
+                                        <a href="{{ route('/', $event->user->username) }}">
                                             <img class="img" src="{{ url($event->user->avatar)  }}">
                                         </a>
                                         <div class="ripple-container"></div>
@@ -115,7 +118,7 @@
                             <img class="img-raised rounded img-fluid" data-action="zoom" alt="Raised Image" src="{{ url('assets/img/event/' .$event->cover_image) }}">
                         </div>
 
-                        <div class="col-md-10 ml-auto mr-auto">
+                        <div class="col-md-11 ml-auto mr-auto">
                             {!! \Michelf\Markdown::defaultTransform($event->body) !!}
                         </div>
 
@@ -126,8 +129,6 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="blog-tags">
-
-
 
                                         @if(count($event->categories ) > 0)
                                         @foreach($event->categories as $category)
@@ -150,7 +151,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="card-avatar">
-                                            <a href="#pablo">
+                                            <a href="{{ route('/', $event->user->username) }}">
                                                 <img class="img" src="{{ url($event->user->avatar)  }}">
                                             </a>
                                             <div class="ripple-container"></div>
@@ -206,7 +207,7 @@
                                 <div class="media">
                                     <a class="float-left" href="{{ route('/', $comment->user->username) }}">
                                         <div class="avatar">
-                                            <img class="media-object" src="{{ url($comment->user->avatar)  }}" alt="...">
+                                            <img class="media-object" src="{{ url($comment->user->avatar)  }}" alt="{!! $comment->user->username !!}">
                                         </div>
                                     </a>
                                     <div class="media-body">
@@ -262,7 +263,7 @@
                             <h3 class="text-center">
                                <h4 class="title text-center">Please
                                    <a href="{{ route('login') }}" class="text-info" data-toggle="modal" data-target="#loginModal">sign in</a> or
-                                   <a href="" class="text-info">Create an account</a> to leave a comment
+                                   <a href="{{route('register')}}" class="text-info">Create an account</a> to leave a comment
                                </h4>
                             </h3>
                             @else
@@ -316,105 +317,99 @@
 @include('inc._footer')
 
 
+
+
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-login" role="document">
+
             <div class="modal-content">
-                <div class="card card-signup card-plain">
-                    <div class="modal-header">
-
-                        <div class="card-header card-header-{!! $color->slug !!} text-center">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
-                            <h4 class="card-title">Connexion</h4>
-                            <div class="social-line">
-                                <a href="#pablo" class="btn btn-just-icon btn-google btn-round"  data-placement="bottom" data-container="body">
-                                    <i class="fab fa-google-plus"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-just-icon btn-twitter btn-round"  data-placement="bottom" data-container="body">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-just-icon btn-facebook btn-round"  data-placement="bottom" data-container="body">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card card-login card-plain">
                     <div class="modal-body">
-                        <form action="{{route('login')}}" accept-charset="UTF-8" method="POST">
-                            @csrf
-                            <p class="description text-center">Ou </p>
-                            <div class="card-body">
-                                <div class="form-group{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="material-icons">mail</i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}" id="username" name="username" placeholder="Email or Pseudo"  value="{{ old('username') }}" required autofocus>
-                                        @if ($errors->has('username'))
-                                        <span class="invalid-feedback">
-                                        <strong class="text-center">{{ $errors->first('username') }}</strong>
-                                    </span>
-                                        @endif
-
-                                        @if ($errors->has('email'))
-                                        <span class="invalid-feedback">
-                                        <strong class="text-center">{{ $errors->first('email') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
+                        <form id="RegisterValidation" class="form" method="POST" action="{{ route('login') }}">
+                            {{ csrf_field() }}
+                            <div class="card-header card-header-{!! $color->slug !!} text-center">
+                                <h4 class="card-title">Connexion</h4>
+                                <div class="social-line">
+                                    <a href="{{ url('auth/facebook') }}" class="btn btn-just-icon btn-facebook btn-round"
+                                       data-toggle="tooltip" title="Facebook login" data-placement="bottom"
+                                       data-container="body">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="{{ url('auth/google') }}"
+                                       class="btn btn-just-icon btn-google btn-round" data-placement="bottom"
+                                       data-container="body">
+                                        <i class="fab fa-google-plus"></i>
+                                    </a>
                                 </div>
-                                <div class="form-group{{ $errors->has('password') ? ' is-invalid' : '' }}">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="material-icons">lock_outline</i>
-                                            </span>
-                                        </div>
+                            </div>
 
-                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password..." name="password" required>
-
-                                        @if ($errors->has('password'))
-                                        <span class="invalid-feedback">
-                                        <strong class="text-center">{{ $errors->first('password') }}</strong>
-                                    </span>
-                                        @endif
+                            <p class="description text-center">Or Be Classical</p>
+                            @include('inc.alert')
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                    <i class="material-icons">mail</i>
+                                  </span>
                                     </div>
-                                    <div class="text-right">
-                                        <a class="text-{!! $color->slug !!}" href="{{ route('password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
+                                    <input id="username" type="text" placeholder="name@example.com or username"
+                                           class="form-control" name="username" value="{{ old('username') }}" >
+                                    @if ($errors->has('username'))
+                                    <span class="help-feedback">
+                                    <strong class="text-center text-danger">{{ $errors->first('username') }}</strong>
+                                </span>
+                                    @endif
+                                    @if ($errors->has('email'))
+                                    <span class="help-feedback">
+                                    <strong class="text-center text-danger">{{ $errors->first('email') }}</strong>
+                                </span>
+                                    @endif
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                 <span class="input-group-text">
+                                   <i class="material-icons">lock_outline</i>
+                                 </span>
                                     </div>
+                                    <input id="password" type="password" value="{{ old('password') }}"
+                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                           name="password" placeholder="password...">
+                                    @if ($errors->has('password'))
+                                    <span class="invalid-feedback">
+                                    <strong class="text-center">{{ $errors->first('password') }}</strong>
+                                </span>
+                                    @endif
+                                </div>
+                                <div class="text-right">
+                                    <a class="text-info"
+                                       href="{{ route('password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" checked="checked"
                                                name="remember" {{ old('remember') ? 'checked' : '' }} > {{ __('Restez connecte') }}
                                         <span class="form-check-sign">
-                                                   <span class="check"></span>
-                                            </span>
+                                            <span class="check"></span>
+                                     </span>
                                     </label>
                                 </div>
                             </div>
-                            <div class="submit text-center">
-                                <button class="btn btn-{!! $color->slug !!} btn-raised" type="submit">
-                                          <span class="btn-label">
-                                            <i class="material-icons">fingerprint</i>
-                                          </span>
-                                    Connexion
+                            <div class="footer text-center">
+                                <button class="btn btn-{!! $color->slug !!} btn-raised btn-round" type="submit">
+                                 <span class="btn-label">
+                                   <i class="material-icons">fingerprint</i>
+                                 </span>
+                                    Get Started
                                 </button>
                             </div>
-                            <div class="text-left">
-                                <span>Nouveau chez <b>{{ config('app.name') }}?</b> </span>
-                                <a class="text-info" href="{{ route('register') }}">{{ __('Inscris toi ici') }}</a>
-                            </div>
-                            <br>
                         </form>
                     </div>
                 </div>
             </div>
+
         </div>
         <br>
     </div>
-
     @endsection
 @section('scripts')
 

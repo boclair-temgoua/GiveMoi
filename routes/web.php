@@ -21,8 +21,25 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/confirm/{id}/{token}', 'Auth\RegisterController@confirmAccount');
 
-//Logout User
-Route::get('user/logout', 'Auth\LoginController@UserLogout')->name('user.logout');
+
+
+
+Route::group(['middleware' => 'web'], function () {
+
+
+    Route::get('/profiles/users','MyaccountController@usersfollow');
+    Route::post('/profiles/toggle','MyaccountController@toggle');
+
+    //Logout User
+    Route::get('user/logout', 'Auth\LoginController@UserLogout')->name('user.logout');
+
+
+    //Comments
+    Route::resource('comments', 'CommentsController');
+
+});
+
+
 
 
 
@@ -46,9 +63,12 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
         Route::resource('/event','EventsController');
     });
     Route::group(['namespace' => 'Info'], function (){
-
         //Conditions Routes
         Route::resource('/conditions','ConditionController');
+    });
+    Route::group(['namespace' => 'Articles'], function (){
+        //Conditions Routes
+        Route::resource('/articles','ArticlesController');
     });
 
 
@@ -97,10 +117,27 @@ Route::group(['namespace' =>'User'],function (){
     Route::get('about','AboutController@index')->name('about');
 
 
+    //Events Route
     Route::get('topic/events','EventsController@index')->name('events');
     Route::get('topic/events/{event}', 'EventsController@event')->name('topic.events');
     Route::get('topics/{category}', 'EventsController@category')->name('topic.category');
     Route::get('topics/tag/{tag}', 'EventsController@tag')->name('topic.tag');
+
+
+    //Articles Route
+    Route::get('topic/articles','ArticlesController@index')->name('articles');
+    Route::get('topic/articles/{article}', 'ArticlesController@article')->name('topic.articles');
+    Route::get('topics/{category}', 'ArticlesController@category')->name('topic.category');
+    Route::get('topics/tag/{tag}', 'ArticlesController@tag')->name('topic.tag');
+
+
+
+
+
+
+
+
+
 
 
 
@@ -162,18 +199,13 @@ Route::post('like',[
 
 
 
-Route::group(['middleware' => 'web'], function () {
-
-
-    Route::get('/profiles/users','MyaccountController@usersfollow');
-    Route::post('/profiles/toggle','MyaccountController@toggle');
-
-});
-
+//Events Route
 Route::resource('events','EventsController');
 
-//Comments
-Route::resource('comments', 'CommentsController');
+//Articles Route
+Route::resource('articles','ArticlesController');
+
+
 
 // functionne bien
 Route::get('/@{username}', [

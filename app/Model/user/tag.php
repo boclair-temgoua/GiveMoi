@@ -2,21 +2,36 @@
 
 namespace App\Model\user;
 
+
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class tag extends Model
 {
 
+    protected $fillable = [
+        'name'
+    ];
+
+    public $guarded = [];
+    public $timestamps = false;
+
     public function events()
     {
-        return $this->belongsToMany('App\Model\user\event','event_tags')->orderBy('created_at','DESC')->paginate(10);
+        return $this->belongsToMany(Event::class,'event_tag')->orderBy('created_at','DESC')->paginate(10);
     }
-    public $timestamps = true;
-    public function getRouteKeyName()
+
+
+    public function articles()
     {
-        return 'slug';
+        return $this->belongsToMany(Article::class,'article_tag')->orderBy('created_at','DESC')->paginate(10);
     }
+
+
+   public function getRouteKeyName()
+   {
+       return 'slug';
+   }
 
     use Sluggable;
 
@@ -33,4 +48,5 @@ class tag extends Model
             ]
         ];
     }
+
 }

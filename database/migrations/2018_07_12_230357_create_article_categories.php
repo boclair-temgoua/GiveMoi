@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventCategoriesTale extends Migration
+class CreateArticleCategories extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateEventCategoriesTale extends Migration
      */
     public function up()
     {
-        Schema::create('event_categories', function (Blueprint $table) {
-            $table->integer('event_id')->unsigned()->index();
+        Schema::create('article_categories', function (Blueprint $table) {
+            $table->integer('article_id')->unsigned()->index();
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->integer('category_id')->nullable()->unsigned()->index();
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 
@@ -28,6 +30,6 @@ class CreateEventCategoriesTale extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_categories');
+        Schema::dropIfExists('article_categories');
     }
 }

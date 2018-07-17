@@ -26,7 +26,7 @@ class EventsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['index','show']]);
+         $this->middleware('auth',['except' => ['index','show']]);
         //$this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
     }
     /**
@@ -135,7 +135,7 @@ class EventsController extends Controller
     {
 
 
-        $event = Event::where('slug',$slug)->first();
+        $event = Event::where('slug',$slug)->firstOrFail();
         return view('site.event.show',compact('event'));
 
 
@@ -153,7 +153,7 @@ class EventsController extends Controller
         $tags =tag::all();
         $colors =color::all();
         $categories =category::all();
-        $event = Event::where('id',$id)->first();
+        $event = Event::where('id',$id)->firstOrFail();
 
 
         if(auth()->user()->id !==$event->user_id){
@@ -231,7 +231,7 @@ class EventsController extends Controller
 
 
         Toastr::success('Event update with success','', ["positionClass" => "toast-top-center"]);
-        return redirect(route('myaccount.home',$event->slug))->with('success','Event update with success!');
+        return redirect(route('/', Auth::user()->username))->with('success','Event update with success!');
     }
 
     /**

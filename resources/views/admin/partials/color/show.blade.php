@@ -66,7 +66,7 @@
 
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon "
                                                 data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">close</i>
+                                            <i class="material-icons">delete</i>
                                         </button>
                                     </td>
                                 </tr>
@@ -102,7 +102,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-warning btn-raised ">Create Color</button>
+                            <button type="submit" class="btn btn-rose btn-raised btn-round ">Create Color</button>
                         </div>
                         <br>
                     </form>
@@ -163,8 +163,8 @@
                     <input type="hidden" name="color_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">No, Cancel</button>
+                    <button type="submit" class="btn btn-danger btn-round">Yes Delete</button>
                 </div>
             </form>
 

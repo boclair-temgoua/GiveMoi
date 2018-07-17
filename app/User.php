@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Model\user\article;
+use App\Model\user\comment;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -63,6 +65,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Model\user\event','user_id');
     }
+    public function articles()
+    {
+        return $this->hasMany(Article::class,'user_id');
+    }
 
     /**
      * @return int
@@ -70,6 +76,9 @@ class User extends Authenticatable
      */
     public function getEventsCountAttribute(){
         return $this->events()->count();
+    }
+    public function getArticlesCountAttribute(){
+        return $this->articles()->count();
     }
 
 
@@ -84,21 +93,6 @@ class User extends Authenticatable
 
 
 
-
-
-
-    public function posts()
-    {
-        return $this->hasMany('App\Model\user\post','user_id');
-    }
-    /**
-     * @return int
-     * PostsCount
-     */
-    public function getPostsCountAttribute(){
-        return $this->posts()->count();
-    }
-
     //Like init
 
     public function likedEvents()
@@ -111,7 +105,7 @@ class User extends Authenticatable
     /* Comment init */
     public function comments()
     {
-        return $this->hasMany('App\Model\user\comment');
+        return $this->hasMany(Comment::class);
     }
     /* End comment */
     /**

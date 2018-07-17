@@ -70,7 +70,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/terms_conditions">
                                 Terms &amp; Conditions
                             </a>
                         </li>

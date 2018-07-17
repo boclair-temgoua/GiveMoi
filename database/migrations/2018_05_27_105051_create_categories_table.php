@@ -20,6 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+
     }
 
     /**
@@ -29,6 +31,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+
         Schema::dropIfExists('categories');
     }
 }

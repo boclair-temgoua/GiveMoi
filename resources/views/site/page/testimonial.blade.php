@@ -9,7 +9,7 @@
 <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
     @endsection
 @section('content')
-<div class="sections-page  section-white ">
+<div class="sections-page  section-white">
     <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;../assets/img/kit/pro/bg9.jpg&apos;);">
         <div class="container">
             <div class="row">

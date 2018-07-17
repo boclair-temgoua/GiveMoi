@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\user\article;
 use App\Model\user\event;
 use App\Model\user\myaccount;
 use App\Model\user\tag;
@@ -100,6 +101,8 @@ class MyaccountController extends Controller
 
 
 
+
+
     public function toggle(Request $request)
     {
 
@@ -128,7 +131,12 @@ class MyaccountController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
-        return view('site.home')->with('events',$user->events,'posts',$user->posts);
+        return view('site.home', [
+
+            'events'=> $user->events,
+            'articles'=> $user->articles,
+
+        ]);
     }
 
     // View Profile
@@ -142,8 +150,10 @@ class MyaccountController extends Controller
         }
 
         return view('site.user.account', [
+
             'user' => $user,
             'events' => $user->events,
+            'articles' => $user->articles,
 
 
         ]);

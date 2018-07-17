@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\StoreCommentRequest;
 use App\Model\user\comment;
 use App\Model\user\event;
 use App\Notifications\NewCommentEvent;
@@ -11,13 +12,17 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 
 
 class CommentsController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth');
+        //$this->middleware('auth');
+
+        $this->middleware('auth',['except' => ['index','show']]);
+
     }
 
     /**
@@ -25,11 +30,12 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-
+        $comments = Comment::allFor(Input::get('type'), Input::get('id'));
+        return Response::json($comments,200,[],JSON_NUMERIC_CHECK);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -48,21 +54,47 @@ class CommentsController extends Controller
      */
 
 
-    public function store(CommentRequest $request)
+    public function store(StoreCommentRequest $request)
     {
 
 
-        $event = Event::findOrFail($request->event_id);
 
-        if(Response()->json()){
-            $comment = new Comment();
-            $comment->comment = Input::get('comment');
-            $comment->user_id = Auth::id();
-            $comment->event_id = $event->id;
-            $comment->save();
+        $model_id = Input::get('commentable_id');
+        $model = Input::get('commentable_type');
 
 
+        if (Comment::isCommentable($model,$model_id)){
+            $comment = Comment::create([
+                'user_id' => Auth::id(),
+                'commentable_id' => $model_id,
+                'commentable_type' => $model,
+                'comment' => Input::get('comment'),
+                'reply' => Input::get('reply',0),
+                'username' => Input::get('username'),
+                'email' => Input::get('email'),
+                'ip' => $request->ip(),
+
+            ]);
+            return Response::json($comment,200,[],JSON_NUMERIC_CHECK);
+        }else{
+            return Response::json("Ce contenu n'est pas commentable", 422);
         }
+
+
+
+
+
+      //$event = Event::findOrFail($request->event_id);
+
+      //if(Response()->json()){
+      //    $comment = new Comment();
+      //    $comment->comment = clean(Input::get('comment'));
+      //    $comment->user_id = Auth::id();
+      //    $comment->event_id = $event->id;
+      //    $comment->save();
+
+
+      //}
 
 
 
@@ -81,8 +113,8 @@ class CommentsController extends Controller
 
 
 
-        Toastr::success('Comment post with success','', ["positionClass" => "toast-top-center"]);
-        return redirect()->back();
+        //Toastr::success('Comment post with success','', ["positionClass" => "toast-top-center"]);
+        //return redirect()->back();
     }
 
 
@@ -129,21 +161,36 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+
+    public function destroy($id)
     {
-
-        $comment = Comment::findOrFail($request->comment_id);
-
-        if(auth()->user()->id !==$comment->user_id){
-
-            Toastr::error('Unauthorized delete this comment contact author!','', ["positionClass" => "toast-top-center"]);
-            return back();
-
+        $comment = Comment::find($id);
+        if ($comment->ip == \Illuminate\Support\Facades\Request::ip()){
+            Comment::where('reply','',$comment->id)->delete();
+            $comment->delete();
+            return Response::json($comment,200,[],JSON_NUMERIC_CHECK);
+        }else{
+            return Response::json('Ce commentaire ne vous appaetient pas', 403);
         }
-
-        $comment->delete();
-
-        Toastr::success('Your comment deleted with success','', ["positionClass" => "toast-top-center"]);
-        return redirect()->back()->with('success','Event delete with success!');
     }
+
+
+
+   //public function destroy(Request $request)
+   //{
+
+   //    $comment = Comment::findOrFail($request->comment_id);
+
+   //    if(auth()->user()->id !==$comment->user_id){
+
+   //        Toastr::error('Unauthorized delete this comment contact author!','', ["positionClass" => "toast-top-center"]);
+   //        return back();
+
+   //    }
+
+   //    $comment->delete();
+
+   //    Toastr::success('Your comment deleted with success','', ["positionClass" => "toast-top-center"]);
+   //    return redirect()->back()->with('success','Event delete with success!');
+   //}
 }

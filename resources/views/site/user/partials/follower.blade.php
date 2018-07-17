@@ -8,7 +8,7 @@
 <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-inverse" color-on-scroll="100" id="sectionsNav">
     @endsection
     @section('content')
-    <div class="blog-post sidebar-collapse">
+    <div class="profile-page sidebar-collapse">
         <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{$user->avatarcover }}&apos;);">
             <div class="container">
                 <div class="row">
