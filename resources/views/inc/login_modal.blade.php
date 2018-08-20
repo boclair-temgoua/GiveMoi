@@ -20,8 +20,8 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('login')}}" accept-charset="UTF-8" method="POST">
-                        @csrf
+                    <form id="login-form" class="form-horizontal" method="POST" action="{{ route('login') }}">
+                        {{ csrf_field() }}
                         <p class="description text-center">Ou </p>
                         <div class="card-body">
                             <div class="form-group{{ $errors->has('email') || $errors->has('username') ? ' has-error' : '' }}">

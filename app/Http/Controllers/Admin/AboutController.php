@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Model\user\about;
 use App\Model\user\presentation;
-use Faker\Provider\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Image;
-use Storage;
+use File;
 
 class AboutController extends Controller
 {
@@ -82,7 +82,7 @@ class AboutController extends Controller
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/'.$filename);
+            $destinationPath = public_path('assets/img/about/'.$filename);
             Image::make($image)->resize(600, 600)->save($destinationPath);
 
 
@@ -96,6 +96,26 @@ class AboutController extends Controller
 
         alert()->success('Success', "Le Membre a été cree avec succès");
         return redirect(route('about.index',$about->slug));
+    }
+
+    public function unactive_about($id)
+    {
+        DB::table('abouts')
+            ->where('id',$id)
+            ->update(['status' => null]);
+        toastr()->success('<b>Member unactive successfully</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
+    }
+
+    public function active_about($id)
+    {
+        DB::table('abouts')
+            ->where('id',$id)
+            ->update(['status' => 1]);
+        toastr()->success('<b>Member activated successfully</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
     }
 
     /**
@@ -158,14 +178,14 @@ class AboutController extends Controller
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/'.$filename);
+            $destinationPath = public_path('assets/img/about/'.$filename);
             Image::make($image)->resize(600, 600)->save($destinationPath);
             $oldFilename = $about->image;
 
             //Update to data base
             $about->image = $filename;
             // Delete old Image
-            Storage::delete($oldFilename);
+            File::delete(public_path('assets/img/about/'.$oldFilename));
 
 
         }
@@ -186,6 +206,11 @@ class AboutController extends Controller
     {
         $about = About::findOrFail($request->about_id);
         $about->delete();
+
+        if ($about->image != 'no_image'){
+
+            File::delete('assets/img/about/'.$about->image);
+        }
 
         Alert::success('Deleted!', 'Your file has been deleted.');
         return redirect()->back();

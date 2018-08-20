@@ -8,6 +8,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -31,19 +33,38 @@ class LoginController extends Controller
 
     //protected $redirectTo = 'back';
 
+
     protected function authenticated(Request $request, $user)
     {
-        return redirect()->back();
+        return redirect('/home');
     }
+
 
     protected function sendFailedLoginResponse(Request $request)
     {
 
-        alert()->error('Oops...', 'Quelque chose s\'est mal passé !');
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
-        ]);
+        if ( ! User::where('username', $request->username)->first() ) {
+
+            toastr()->error('<strong>Incorrect username try again</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors([
+                    $this->username() => Lang::get('auth.username'),
+                ]);
+        }
+
+        if ( ! User::where('username', $request->username)->where('password', bcrypt($request->password))->first() ) {
+
+            toastr()->error('<strong>Incorrect password</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors([
+                    'password' => Lang::get('auth.password'),
+                ]);
+        }
+
     }
+
     /**
      * Create a new controller instance.
      *
@@ -53,6 +74,8 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout','UserLogout');
     }
+
+
 
     public function username()
     {
@@ -82,15 +105,14 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     protected function sendLoginResponse(Request $request)
     {
-
-
         $request->session()->regenerate();
-
         $this->clearLoginAttempts($request);
 
-        Toastr::success('Welcome'.' to ' . config('app.name').' '.Auth::user()->username, '', ["positionClass" => "toast-top-center"]);
+
+        toastr()->success('<strong>Welcome to you </strong>'.' '.Auth::user()->username,'<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut'=>5000]);
         return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->intended($this->redirectPath());
     }
@@ -108,13 +130,18 @@ class LoginController extends Controller
 
 
 
-
-        $notification = array(
-            'message' => 'Nous espérons vous voir très bientôt!'. ' chez ' . config('app.name'),
-            'alert-type' => 'success',
-
-        );
-        return redirect('/')->with($notification);
+       // toastr()->success('See you soon!', '',['timeOut'=>5000]);
+        toastr()->success('<b>See you soon !</b> <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>','',['timeOut'=>5000]);
+        return redirect('/');
     }
 
 }
+
+
+
+
+
+
+
+
+

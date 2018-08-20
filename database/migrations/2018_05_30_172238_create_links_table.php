@@ -17,6 +17,7 @@ class CreateLinksTable extends Migration
             $table->increments('id');
             $table->string('link')->nullable();
             $table->string('name')->nullable();
+            $table->integer('status')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
         });

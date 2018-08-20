@@ -20,7 +20,6 @@ class EventsController extends Controller
     public function index()
     {
         $events = Event::where('status',1)->orderBy('created_at','DESC')->paginate(12);
-
         return view('site.event.index',compact('events'));
     }
 

@@ -1,5 +1,5 @@
 @extends('inc.admin._main')
-@section('title', '- User View')
+@section('title', '- Admin user View')
 
 
 
@@ -36,16 +36,16 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Company ({{ config('app.name') }})</label>
-                                        <input type="text" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Name</label>
-                                        <input type="text" class="form-control" name="name" id="name"  value="{{ $user->name  }}" disabled/>
+                                        <input type="text" class="form-control" name="name" id="name" value="{{ config('app.name') }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Full name</label>
+                                        <input type="text" class="form-control" name="name" id="name"  value="{{ $user->name  }} {{ $user->first_name }}" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Username</label>
                                         <input type="text" class="form-control" name="username"  id="username"  value="{{ $user->username }}" disabled/>
@@ -62,7 +62,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Tel</label>
-                                        <input type="text" class="form-control" name="telephone"  id="telephone"  value="{{ $user->telephone }}" disabled/>
+                                        <input type="text" class="form-control" name="cellphone"  id="telephone"  value="{{ $user->cellphone }}" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -116,19 +116,16 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="#pablo">
-                            <img class="img" src="{{ url($user->avatar)  }}" />
+                            <img class="img" src="{{ url($user->avatar)  }}?{{ time() }}" />
                         </a>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                        <h4 class="card-title">{{ $user->name }}</h4>
+                        <h6 class="card-category text-gray">{{ $user->work }}</h6>
+                        <h4 class="card-title"><b>Sex:</b> {{ $user->gender }}</h4>
+                        <h4 class="card-title"><b>Age:</b> {{ $user->age }} ans</h4>
+                        <h4 class="card-title"><strong>{{ $user->name }} {{ $user->first_name }}</strong></h4>
                         <b class="card-title ">Member Since {{ Auth::user()->created_at->format('j F Y') }}</b>
 
-                        <br>
-                        <p class="card-description">
-                            {{ str_limit($user->body, 100,'...') }}
-                        </p>
-                        <a href="#pablo" class="btn btn-rose btn-round">Follow</a>
                     </div>
                 </div>
             </div>

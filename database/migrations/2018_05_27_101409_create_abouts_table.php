@@ -19,6 +19,7 @@ class CreateAboutsTable extends Migration
             $table->string('slug')->nullable();
             $table->text('body');
             $table->string('role');
+            $table->integer('status')->nullable();
             $table->string('fblink')->nullable();
             $table->string('googlelink')->nullable();
             $table->string('instlink')->nullable();

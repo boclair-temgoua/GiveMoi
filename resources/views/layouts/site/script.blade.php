@@ -73,10 +73,11 @@
         setFormValidation('#RangeValidation');
     });
 </script>
-{!! Toastr::message() !!}
+
 @include('sweetalert::alert')
 @include('sweet::alert')
-
+@toastr_js
+@toastr_render
 @section('scripts')
 
 

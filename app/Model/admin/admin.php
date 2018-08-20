@@ -15,8 +15,6 @@ class admin extends Authenticatable
     protected $guarded = 'admin';
 
 
-    protected $admin;
-    protected $email;
 
     public function __construct() {
 
@@ -24,6 +22,8 @@ class admin extends Authenticatable
         $this->email = config('admin.email');
     }
 
+    protected $admin;
+    public $dates = ['birthday','created_ad','updated_ad'];
 
 
     /**

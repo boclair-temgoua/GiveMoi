@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Info;
 use App\Model\user\condition;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -82,6 +83,29 @@ class ConditionController extends Controller
         alert()->success('Good Job', "Conditions Create with success");
         return redirect(route('conditions.index'));
     }
+
+
+
+    public function unactive_condition($id)
+    {
+        DB::table('conditions')
+            ->where('id',$id)
+            ->update(['status' => null]);
+        toastr()->success('<b>Condition unactivated</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
+    }
+
+    public function active_condition($id)
+    {
+        DB::table('conditions')
+            ->where('id',$id)
+            ->update(['status' => 1]);
+        toastr()->success('<b>Condition activated</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
+    }
+
 
     /**
      * Display the specified resource.

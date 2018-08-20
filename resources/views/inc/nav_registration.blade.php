@@ -17,14 +17,9 @@
         <div class="collapse navbar-collapse">
             @guest
             <ul class="navbar-nav ml-auto">
-                <li class="dropdown nav-item">
-                    <a href="#" class=" nav-link">
-                        <i class="fab fa-facebook-square fa-lg"></i> {{__('Se connecter rapidement avec Facebook')}}
-                    </a>
-                </li>
                 <li class="button-container nav-item iframe-extern">
                     <a href="{{ route('register') }}"  class="btn  btn-warning   btn-round btn-block">
-                        {{ __('Ouvre ton compte ici')}}
+                        <i class="material-icons">person_add</i> <b>{{ __('Sign up')}}</b>
                     </a>
                 </li>
                 @endguest

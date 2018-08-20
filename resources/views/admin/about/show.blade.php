@@ -15,9 +15,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                @component('inc.admin.components.who')
 
-                @endcomponent
 
                 <div class="card">
                     <div class="card-header card-header-warning card-header-icon">
@@ -40,7 +38,9 @@
                                     <th>Nom Complet</th>
                                     <th>Role</th>
                                     <th>Body</th>
-                                    <th>Date de creation</th>
+                                    <th>Status</th>
+                                    <th>Created_at</th>
+                                    <th>Image</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
@@ -49,23 +49,49 @@
                                     <th>Nom Complet</th>
                                     <th>Role</th>
                                     <th>Body</th>
-                                    <th>Date de creation</th>
+                                    <th>Status</th>
+                                    <th>Created_at</th>
+                                    <th>Image</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($abouts as $about)
+                                @foreach($abouts as $lk)
                                 <tr>
-                                    <td>{{ $about->fullname}}</td>
-                                    <td>{{ $about->role}}</td>
-                                    <td>{!! str_limit($about->body, 33,'...') !!}</td>
-                                    <td>{{ $about->created_at->diffForHumans() }}</td>
+                                    <td>{{ $lk->fullname}}</td>
+                                    <td>{{ $lk->role}}</td>
+                                    <td>{!! str_limit($lk->body, 16,'...') !!}</td>
+                                    <td>
+                                        @if($lk->status==1)
+                                        <div class="timeline-heading">
+                                            <span class="badge badge-pill badge-info">activé</span>
+                                        </div>
+                                        @else
+                                        <div class="timeline-heading">
+                                            <span class="badge badge-pill badge-danger">desactivé</span>
+                                        </div>
+                                        @endif
+                                    </td>
+                                    <td>{{ $lk->created_at->diffForHumans() }}</td>
+                                    <td><img src="{{ URL::to('assets/img/about/' .$lk->image) }}" style="width: 40px; height: 40px;  top: 15px; left: 15px; border-radius: 50%" ></td>
                                     <td class="td-actions text-right">
-                                        <a href="{{ route('about.show',$about->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
-                                        <a href="{{ route('about.edit',$about->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
 
-                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $about->id }}">
-                                            <i class="material-icons">close</i>
+                                        @if($lk->status==1)
+                                        <a href="{{ route('unactive_about',$lk->id) }}" class="btn btn-link btn-info btn-round btn-just-icon " title="Désactiver le Membre">
+                                            <i class="material-icons">power_settings_new</i>
+                                        </a>
+                                        @else
+                                        <a href="{{ route('active_about',$lk->id) }}" class="btn btn-link btn-danger btn-round btn-just-icon " title="Activer la Membre">
+                                            <i class="material-icons">power_settings_new</i>
+                                        </a>
+                                        @endif
+
+
+                                        <a href="{{ route('about.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
+                                        <a href="{{ route('about.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
+
+                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
+                                            <i class="material-icons">delete_forever</i>
                                         </button>
                                     </td>
                                 </tr>
@@ -77,6 +103,9 @@
                     <!-- end content-->
                 </div>
                 <!--  end card  -->
+                @component('inc.admin.components.who')
+
+                @endcomponent
             </div>
             <!-- end col-md-12 -->
         </div>

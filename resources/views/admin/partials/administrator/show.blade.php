@@ -56,7 +56,7 @@
                                         <a href="{{ route('administrators.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
                                         <a href="{{ route('administrators.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">close</i>
+                                            <i class="material-icons">delete_forever</i>
                                         </button>
                                     </td>
                                 </tr>

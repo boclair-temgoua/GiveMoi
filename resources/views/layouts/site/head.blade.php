@@ -15,7 +15,7 @@
 <meta property="og:description" name="og:description" content="{{ isset($description) ? $description : config('app.description') }}">
 <meta property="og:image" name="og:image" content="{{ config('app.url') }}{{ isset($image) ? $image : '/images/logo.png' }}">
 
-<title>GiveMoi @yield('title')</title>
+<title>{{ config('app.name') }} @yield('title')</title>
 
 <link rel="stylesheet" type="text/css"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
@@ -28,6 +28,7 @@
 <!-- Notify Alert plugin -->
 <link rel="stylesheet" href="/assets/css/plugins/notify.css">
 <link rel="stylesheet" href="/assets/css/plugins/toastr.min.css">
+@toastr_css
 @section('style')
 
 @show

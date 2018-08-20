@@ -65,6 +65,8 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
     Route::group(['namespace' => 'Info'], function (){
         //Conditions Routes
         Route::resource('/conditions','ConditionController');
+        Route::get('/unactive_condition/{id}','ConditionController@unactive_condition')->name('unactive_condition');
+        Route::get('/active_condition/{id}','ConditionController@active_condition')->name('active_condition');
     });
     Route::group(['namespace' => 'Articles'], function (){
         //Conditions Routes
@@ -72,14 +74,26 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
     });
 
 
-    //Color Route
-    Route::resource('color','Partials\ColorController');
+    Route::group(['namespace' => 'Partials'], function (){
+        //Color Route
+        Route::resource('color','ColorController');
+        Route::get('/unactive_color/{id}','ColorController@unactive_color')->name('unactive_color');
+        Route::get('/active_color/{id}','ColorController@active_color')->name('active_color');
+    });
+
     //Abouts Route
     Route::resource('/about','AboutController');
+    Route::get('/unactive_about/{id}','AboutController@unactive_about')->name('unactive_about');
+    Route::get('/active_about/{id}','AboutController@active_about')->name('active_about');
     //Presentation Routes
     Route::resource('/presentation','PresentationController');
+    //Route::get('/presentation','PresentationController@all_presentation')->name('presentation.index');
+    Route::get('/unactive_presentation/{id}','PresentationController@unactive_presentation')->name('unactive_presentation');
+    Route::get('/active_presentation/{id}','PresentationController@active_presentation')->name('active_presentation');
     //Testimonials Route
     Route::resource('/testimonial','TestimonialController');
+    Route::get('/unactive_testimonial/{id}','TestimonialController@unactive_testimonial')->name('unactive_testimonial');
+    Route::get('/active_testimonial/{id}','TestimonialController@active_testimonial')->name('active_testimonial');
 
     //Tags Route
     Route::resource('/tag','TagController');
@@ -112,7 +126,12 @@ Route::group(['namespace' =>'User'],function (){
     //Conditions utilisation Routes
     Route::get('/terms_conditions/','ConditionController@index');
     Route::get('register','PresentationController@index')->name('register');
+
+    //Presentation Route
     Route::get('presentation/{presentation}', 'PresentationController@presentation')->name('presentation');
+
+
+
     Route::get('testimonial','TestimonialController@index')->name('testimonial');
     Route::get('about','AboutController@index')->name('about');
 
@@ -164,7 +183,7 @@ Route::group(['namespace' =>'Api'],function (){
 
     // Route Contact Us
 
-    Route::get('contact', 'ContactController@create')->name('contact.create');
+    Route::get('contact', 'ContactController@create')->name('contact');
     Route::post('contact', 'ContactController@store')->name('contact.store');
 
 

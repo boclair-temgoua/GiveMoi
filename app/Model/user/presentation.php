@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class presentation extends Model
 {
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    //public function getRouteKeyName()
+    //{
+    //    return 'slug';
+    //}
+
     use Sluggable;
     /**
      * Return the sluggable configuration array for this model.
@@ -31,8 +32,8 @@ class presentation extends Model
 
 
 
-    public function colors()
-    {
-        return $this->belongsToMany('App\Model\user\partial\color','presentation_colors')->withTimestamps();
-    }
+    //public function colors()
+    //{
+    //    return $this->belongsToMany('App\Model\user\partial\color','presentation_colors')->withTimestamps();
+    //}
 }

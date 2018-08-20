@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Model\admin\admin;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -76,13 +78,30 @@ class LoginController extends Controller
     }
 
 
+
     protected function sendFailedLoginResponse(Request $request)
     {
 
-        alert()->error('Oops...', 'Quelque chose s\'est mal passé !');
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
-        ]);
+        if ( ! admin::where('username', $request->username)->first() ) {
+
+            toastr()->error('<strong>Incorrect username try again</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors([
+                    $this->username() => Lang::get('auth.username'),
+                ]);
+        }
+
+        if ( ! admin::where('username', $request->username)->where('password', bcrypt($request->password))->first() ) {
+
+            toastr()->error('<strong>Incorrect password</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors([
+                    'password' => Lang::get('auth.password'),
+                ]);
+        }
+
     }
     /**
      * Create a new controller instance.

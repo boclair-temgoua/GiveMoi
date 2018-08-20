@@ -116,20 +116,7 @@
                                                 @endif
                                             </select>
                                         </div>
-                                        <div class="col-sm-4 row-block">
-                                            <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Tag" data-size="7" aria-hidden="true" name="tags[]" required autofocus>
-                                                <option disabled>Choose Tag</option>
 
-                                                @foreach($tags as $tag)
-                                                <option value="{{$tag->id}}">{{$tag->name}}</option>
-                                                @endforeach
-                                                @if ($errors->has('tag_id'))
-                                                <span class="invalid-feedback">
-                                                 <strong>{{ $errors->first('tag_id') }}</strong>
-                                                </span>
-                                                @endif
-                                            </select>
-                                        </div>
                                     </div>
 
                                     <div class="row">

@@ -7,9 +7,12 @@
 
 <body class="off-canvas-sidebar login-page">
 
+@include('admin.auth.admin_nav')
+
 <div class="wrapper wrapper-full-page">
     <div class="page-header login-page header-filter" filter-color="black" style="background-image: url(&apos;/assets/dashboard/assets/img/login.jpg&apos;); background-size: cover; background-position: top center;">
         <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+
         <div class="container">
             <div class="col-md-4 col-sm-6 ml-auto mr-auto">
                 <form action="{{ route('admin.login')}}" method="post">
@@ -41,17 +44,17 @@
 
                                 @if ($errors->has('password'))
                                 <span class="help-block">
-                                        <strong class="text-center">{{ $errors->first('password') }}</strong>
+                                        <strong class="text-center text-danger">{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
 
                                 <div class="text-right">
-                                    <a class="text-rose" href="{{ route('admin.password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
+                                    <a class="text-rose" href="{{ route('admin.password.request') }}">{{ __('Forgot your password ?') }}</a>
                                 </div>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Restez connecte') }}
+                                    <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Stay connected') }}
                                     <span class="form-check-sign">
                                     <span class="check"></span>
                                 </span>
@@ -60,9 +63,13 @@
                             <br>
                         </div>
                         <div class="submit text-center">
-                            <input type="submit" class="btn btn-rose btn-raised btn-round" value="Connexion dashboard">
+                            <button class="btn btn-rose btn-raised btn-round" type="submit">
+                                          <span class="btn-label">
+                                            <i class="material-icons">fingerprint</i>
+                                          </span>
+                                <b>Login</b>
+                            </button>
                         </div>
-                        <br>
                     </div>
                 </form>
             </div>

@@ -14,10 +14,10 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                     <div class="card card-login">
-                        <form id="RegisterValidation" class="form" method="POST" action="{{ route('login') }}">
+                        <form id="RegisterValidation" accept-charset="UTF-8"  class="form" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
                             <div class="card-header card-header-warning text-center">
-                                <h4 class="card-title">Connexion</h4>
+                                <h4 class="card-title">Connect whith</h4>
                                 <div class="social-line">
                                     <a href="{{ url('auth/facebook') }}" class="btn btn-just-icon btn-facebook btn-round"
                                        data-toggle="tooltip" title="Facebook login" data-placement="bottom"
@@ -33,7 +33,7 @@
                             </div>
 
                             <p class="description text-center">Or Be Classical</p>
-                            @include('inc.alert')
+
                             <div class="card-body">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -42,16 +42,16 @@
                                         </span>
                                     </div>
                                     <input id="username" type="text" placeholder="name@example.com or username"
-                                           class="form-control" name="username" value="{{ old('username') }}" >
+                                           class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" minLength="3">
                                     @if ($errors->has('username'))
-                                    <span class="help-feedback">
-                                            <strong class="text-center text-danger">{{ $errors->first('username') }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback">
+                                            <strong  style="padding-left: 20px;" class="text-center">{{ $errors->first('username') }}</strong>
+                                    </span>
                                     @endif
                                     @if ($errors->has('email'))
-                                    <span class="help-feedback">
-                                            <strong class="text-center text-danger">{{ $errors->first('email') }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback">
+                                            <strong style="padding-left: 20px;" class="text-center">{{ $errors->first('email') }}</strong>
+                                    </span>
                                     @endif
                                 </div>
                                 <div class="input-group">
@@ -65,18 +65,18 @@
                                            name="password" placeholder="password...">
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback">
-                                            <strong class="text-center">{{ $errors->first('password') }}</strong>
-                                        </span>
+                                            <strong style="padding-left: 20px;" class="text-center">{{ $errors->first('password') }}</strong>
+                                    </span>
                                     @endif
                                 </div>
                                 <div class="text-right">
                                     <a class="text-info"
-                                       href="{{ route('password.request') }}">{{ __('Mot de passe oublié ?') }}</a>
+                                       href="{{ route('password.request') }}">{{ __('Forgot your password ?') }}</a>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" checked="checked"
-                                               name="remember" {{ old('remember') ? 'checked' : '' }} > {{ __('Restez connecte') }}
+                                               name="remember" {{ old('remember') ? 'checked' : '' }} > {{ __('Stay connected') }}
                                         <span class="form-check-sign">
                                                    <span class="check"></span>
                                             </span>
@@ -88,7 +88,7 @@
                                           <span class="btn-label">
                                             <i class="material-icons">fingerprint</i>
                                           </span>
-                                    Get Started
+                                    <b>Get Started</b>
                                 </button>
                             </div>
                             <br>

@@ -19,6 +19,7 @@ class CreateTestimonialsTable extends Migration
             $table->text('body');
             $table->string('role',40);
             $table->unsignedInteger('list_order')->default(999);
+            $table->integer('status')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

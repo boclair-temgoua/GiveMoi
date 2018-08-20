@@ -16,10 +16,11 @@ class CreatePresentationsTable extends Migration
         Schema::create('presentations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('color')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('slug')->nullable()->unique()->index();
             $table->text('body');
             $table->string('icon');
+            $table->integer('status')->nullable();
+            $table->integer('color_id')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

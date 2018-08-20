@@ -55,7 +55,7 @@
                                             @if ($errors->has('role'))
                                             <span class="help-block">
                                                     <strong class="text-danger">{{ $errors->first('role') }}</strong>
-                                                </span>
+                                            </span>
                                             @endif
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                                      data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail img-circle img-raised">
 
-                                                        <img src="{{ asset('assets/img/' .$about->image) }}" alt="...">
+                                                        <img src="{{ asset('assets/img/about/' .$about->image) }}" alt="...">
 
                                                     </div>
                                                     <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>

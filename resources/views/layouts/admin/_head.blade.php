@@ -6,14 +6,14 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>GiveMoi @yield('title')</title>
+<title>{{ config('app.name') }} @yield('title')</title>
 <!-- Fonts -->
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-<link rel="stylesheet" href="/assets/dashboard/assets/css/material-dashboard.css?v=2.0.1">
+<link rel="stylesheet" href="{{asset('assets/dashboard/assets/css/material-dashboard.css?v=2.0.1')}}">
 
-<link rel="stylesheet" href="/assets/css/plugins/toastr.min.css">
-
+<link rel="stylesheet" href="{{asset('assets/css/plugins/toastr.min.css')}}">
+@toastr_css
 
 
 @section('style')

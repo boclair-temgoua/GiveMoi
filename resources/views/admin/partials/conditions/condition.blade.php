@@ -32,6 +32,8 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Body</th>
+                                    <th>Status</th>
+                                    <th>Image</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
@@ -39,21 +41,46 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Body</th>
+                                    <th>Status</th>
+                                    <th>Image</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
                                 @foreach($conditions as $lk)
                                 <tr>
-                                    <td>{!! htmlspecialchars_decode(str_limit($lk->title, 33,'...'))!!}</td>
-                                    <td>{!! htmlspecialchars_decode(str_limit($lk->body, 80,'[...]'))!!}</td>
+                                    <td>{!! htmlspecialchars_decode(str_limit($lk->title, 10,'...'))!!}</td>
+                                    <td>{!! htmlspecialchars_decode(str_limit($lk->body, 40,'[...]'))!!}</td>
+                                    <td>
+                                        @if($lk->status==1)
+                                        <div class="timeline-heading">
+                                            <span class="badge badge-pill badge-info">Condition activated</span>
+                                        </div>
+                                        @else
+                                        <div class="timeline-heading">
+                                            <span class="badge badge-pill badge-danger">Condition Unactivated</span>
+                                        </div>
+                                        @endif
+                                    </td>
+                                    <td><img src="{{ URL::to('assets/img/conditions/' .$lk->cover_image) }}" style="height: 40px; width: 80px" ></td>
                                     <td class="td-actions text-right">
+
+                                        @if($lk->status==1)
+                                        <a href="{{ route('unactive_condition',$lk->id) }}" class="btn btn-link btn-info btn-round btn-just-icon " title="Désactiver la couleur">
+                                            <i class="material-icons">power_settings_new</i>
+                                        </a>
+                                        @else
+                                        <a href="{{ route('active_condition',$lk->id) }}" class="btn btn-link btn-danger btn-round btn-just-icon " title="Activer la couleur">
+                                            <i class="material-icons">power_settings_new</i>
+                                        </a>
+                                        @endif
+
                                         <a href="{{ route('conditions.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " >
                                             <i class="material-icons">edit</i>
                                         </a>
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon "
                                                 data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">close</i>
+                                            <i class="material-icons">delete_forever</i>
                                         </button>
                                     </td>
                                 </tr>

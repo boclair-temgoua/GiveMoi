@@ -41,6 +41,7 @@ class EventsController extends Controller
 
 
         $events = Event::where('status',1)->orderBy('created_at','DESC')->paginate(12);
+        $events->load('users');
         return view('site.event.index')->with('events',$events);
     }
 
@@ -103,7 +104,7 @@ class EventsController extends Controller
             $cover_image = $request->file('cover_image');
             $filename = time().'.'.$cover_image->getClientOriginalName();
             $destinationPath = public_path('assets/img/event/'.$filename);
-            Image::make($cover_image)->resize(1000, 500)->save($destinationPath);
+            Image::make($cover_image)->save($destinationPath);
 
 
             $event->cover_image = $filename;
@@ -159,9 +160,9 @@ class EventsController extends Controller
         if(auth()->user()->id !==$event->user_id){
 
 
+            toastr()->error('<strong>Unauthorized edit this event contact Author</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
             return redirect('events')
-                ->with('message',"Unauthorized edit this event contact Author.")
-                ->with('status', 'danger');
+                ->with('error',"Unauthorized edit this event contact Author.");
         }
 
 
@@ -210,7 +211,7 @@ class EventsController extends Controller
             $cover_image = $request->file('cover_image');
             $filename = time().'.'.$cover_image->getClientOriginalName();
             $destinationPath = public_path('assets/img/event/'.$filename);
-            Image::make($cover_image)->resize(1000, 500)->save($destinationPath);
+            Image::make($cover_image)->save($destinationPath);
             $oldFilename = $event->cover_image;
 
             //Update to data base

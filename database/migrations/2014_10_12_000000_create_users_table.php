@@ -17,12 +17,17 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('username')->nullable()->unique();
-            $table->string('lastname')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('full_name')->nullable();
             $table->string('cellphone', 50)->nullable();
             $table->string('email')->unique();
+            $table->date('birthday')->nullable();
+            $table->string('gender', 10)->nullable()->default('M');
+            $table->string('color_name', 10)->nullable()->default('warning');
             $table->text('body')->nullable();
             $table->string('password')->nullable();
-            $table->boolean('status')->nullable();
+            $table->integer('status')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->string('confirmation_token')->nullable();
@@ -36,7 +41,7 @@ class CreateUsersTable extends Migration
             $table->string('work', 50)->nullable();
             $table->boolean('avatar')->nullable()->default(false);
             $table->boolean('avatarcover')->nullable()->default(false);
-            $table->string('gender', 10)->nullable();
+
 
 
             $table->string('fblink')->nullable();

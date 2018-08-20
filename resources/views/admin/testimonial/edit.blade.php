@@ -4,10 +4,8 @@
 
 
 @section('style')
-@parent
-<link rel="stylesheet" href="/assets/dashboard/assets/css/plugins/emojionearea.min.css">
-
-
+<!-- emojionearea -->
+<link rel="stylesheet" href="/assets/css/plugins/emojionearea.css">
 @endsection
 
 @section('init')
@@ -66,7 +64,7 @@
                                                 <div class="fileinput fileinput-new text-center"
                                                      data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail img-circle img-raised">
-                                                        <img src="{{ asset('assets/img/' .$testimonial->image) }}" alt="...">
+                                                        <img src="{{ asset('assets/img/testimonial/' .$testimonial->image) }}" alt="...">
                                                     </div>
                                                     <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
                                                     <div>
@@ -118,7 +116,8 @@
 
 
 
-<script src="/assets/dashboard/assets/js/plugins/emojionearea.min.js"></script>
+<!-- emojionearea -->
+<script src="/assets/js/plugins/emojionearea.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#example5").emojioneArea({

@@ -56,13 +56,14 @@ class CompileTableSeeder extends Seeder
 
             ]);
         }
-        for ($i = 0; $i < 900; $i++){
+        for ($i = 0; $i < 10; $i++){
             \Illuminate\Support\Facades\DB::table('users')->insert([
                 'username' =>'bokino1'.$i,
                 'name' =>'Temgoua'.$i,
                 'email' => "temgoua201$i@yahoo.fr",
                 "password" => bcrypt('0000000'),
                 'created_at' => Carbon\Carbon::now(),
+                'birthday' => Carbon\Carbon::now(),
 
             ]);
         }

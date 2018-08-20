@@ -49,10 +49,6 @@ class RegisteredUsers extends Notification
             ->line('Avant de pouvoir vous connecter à votre compte Merci de confirmer votre adresse e-mail.')
             ->action('Confirmer votre compte', url("/confirm/{$notifiable->id}/" . urlencode($notifiable->confirmation_token)))
             ->line("Merci d'utiliser le site <strong>" . config('app.name') . '</strong>.');
-        //->line("<strong>Account Holder Details</strong>")
-        //->line("Fullname: {$notifiable->fullname}")
-        //->line("Email: {$notifiable->email}")
-        //->line("&nbsp;")
     }
 
     /**

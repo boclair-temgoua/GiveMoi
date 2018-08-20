@@ -121,7 +121,7 @@ return [
 
     'attributes' => [
         'name' => 'nom',
-        'username' => "nom d'utilisateur",
+        'username' => "username",
         'email' => 'adresse courriel',
         'first_name' => 'prénom',
         'last_name' => 'nom',

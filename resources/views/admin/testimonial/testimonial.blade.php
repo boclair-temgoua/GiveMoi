@@ -3,10 +3,10 @@
 
 
 
-@section('style')
-@parent
-<link rel="stylesheet" href="/assets/dashboard/assets/css/plugins/emojionearea.min.css">
 
+@section('style')
+<!-- emojionearea -->
+<link rel="stylesheet" href="/assets/css/plugins/emojionearea.css">
 @endsection
 
 @section('init')
@@ -146,7 +146,8 @@
     });
 </script>
 
-<script src="/assets/dashboard/assets/js/plugins/emojionearea.min.js"></script>
+<!-- emojionearea -->
+<script src="/assets/js/plugins/emojionearea.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#example5").emojioneArea({

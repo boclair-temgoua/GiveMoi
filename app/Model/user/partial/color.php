@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class color extends Model
 {
-
+    protected $table = 'colors';
+    protected $fillable = ['name', 'is_published'];
     public function events()
     {
         return $this->belongsToMany(Event::class,'event_colors')->withTimestamps();
@@ -41,7 +42,11 @@ class color extends Model
     {
         return [
             'slug' => [
-                'source' => 'name',
+                'source' => 'color_name',
+                'separator' => '+'
+            ],
+        'color_slug' => [
+                'source' => 'color_name',
                 'separator' => '+'
             ]
 

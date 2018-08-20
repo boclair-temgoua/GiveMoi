@@ -12,9 +12,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                @component('inc.admin.components.who')
 
-                @endcomponent
                 <div class="card">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
@@ -78,6 +76,10 @@
                     <!-- end content-->
                 </div>
                 <!--  end card  -->
+
+                @component('inc.admin.components.who')
+
+                @endcomponent
             </div>
             <!-- end col-md-12 -->
         </div>

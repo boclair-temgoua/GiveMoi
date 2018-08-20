@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Model\user\testimonial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Image;
+use File;
 
 
 
@@ -57,7 +59,7 @@ class TestimonialController extends Controller
             'fullname'=>'required|string|unique:testimonials|max:255',
             'body'=>'required',
             'role'=>'required',
-            'image' =>'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' =>'required|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]);
 
@@ -72,10 +74,13 @@ class TestimonialController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/'.$filename);
+            $destinationPath = public_path('assets/img/testimonial/'.$filename);
             Image::make($image)->resize(600, 600)->save($destinationPath);
+            $oldFilename = $testimonial->image;
 
             $testimonial->image = $filename;
+            // Delete old Image
+            File::delete(public_path('assets/img/testimonial/'.$oldFilename));
 
         }
 
@@ -87,6 +92,25 @@ class TestimonialController extends Controller
         return redirect(route('testimonial.index'));
     }
 
+    public function unactive_testimonial($id)
+    {
+        DB::table('testimonials')
+            ->where('id',$id)
+            ->update(['status' => null]);
+        toastr()->success('<b>Testimonial unactivated </b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
+    }
+
+    public function active_testimonial($id)
+    {
+        DB::table('testimonials')
+            ->where('id',$id)
+            ->update(['status' => 1]);
+        toastr()->success('<b>Testimonial activated </b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
+    }
     /**
      * Display the specified resource.
      *
@@ -141,14 +165,14 @@ class TestimonialController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/'.$filename);
-            Image::make($image)->resize(600, 600)->save($destinationPath);
+            $destinationPath = public_path('assets/img/testimonial/'.$filename);
+            Image::make($image)->resize(400, 400)->save($destinationPath);
             $oldFilename = $testimonial->image;
 
-            //Update to data base
+
             $testimonial->image = $filename;
             // Delete old Image
-           Storage::delete($oldFilename);
+            File::delete(public_path('assets/img/testimonial/'.$oldFilename));
 
 
         }
@@ -171,6 +195,11 @@ class TestimonialController extends Controller
     {
         $testimonial = Testimonial::findOrFail($request->testimonial_id);
         $testimonial->delete();
+
+        if ($testimonial->image != 'no_image'){
+
+            File::delete('assets/img/testimonial/'.$testimonial->image);
+        }
 
         Alert::success('Deleted!', 'Your file has been deleted.');
         return redirect()->back();

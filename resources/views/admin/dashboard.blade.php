@@ -41,7 +41,7 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/US.png" </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/US.png"> </div>
                                             </td>
                                             <td>USA</td>
                                             <td class="text-right">
@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/DE.png" </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/DE.png"> </div>
                                             </td>
                                             <td>Germany</td>
                                             <td class="text-right">
@@ -67,7 +67,7 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/AU.png" </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/AU.png"> </div>
                                             </td>
                                             <td>Australia</td>
                                             <td class="text-right">
@@ -80,7 +80,7 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/GB.png" </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/GB.png"> </div>
                                             </td>
                                             <td>United Kingdom</td>
                                             <td class="text-right">
@@ -93,7 +93,7 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/RO.png" </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/RO.png"> </div>
                                             </td>
                                             <td>Romania</td>
                                             <td class="text-right">
@@ -106,7 +106,7 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/BR.png" </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/BR.png"> </div>
                                             </td>
                                             <td>Brasil</td>
                                             <td class="text-right">

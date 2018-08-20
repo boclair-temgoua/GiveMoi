@@ -7,10 +7,11 @@ use App\Model\user\presentation;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 use Image;
-use Storage;
+use File;
 
 class PresentationController extends Controller
 {
@@ -28,9 +29,16 @@ class PresentationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $presentations = presentation::all();
+        $presentations= DB::table('presentations')
+
+            ->join('colors','presentations.color_id','=','colors.id')
+            ->select('presentations.*','colors.color_slug')
+            ->get();
+
+
         return view('admin.presentation.show',compact('presentations'));
     }
 
@@ -58,8 +66,9 @@ class PresentationController extends Controller
 
             'title'=>'required',
             'icon'=>'required',
+            'color_id'=>'required',
             'body'=>'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
 
 
         ]);
@@ -68,6 +77,7 @@ class PresentationController extends Controller
 
         $presentation = new Presentation;
         $presentation->title = $request->title;
+        $presentation->color_id = $request->color_id;
         $presentation->slug = $request->slug;
         $presentation->icon = $request->icon;
         $presentation->body = $request->body;
@@ -78,31 +88,50 @@ class PresentationController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/about/'.$filename);
-            Image::make($image)->resize(1000, 500)->save($destinationPath);
+            $destinationPath = public_path('assets/img/about/presentation/'.$filename);
+            Image::make($image)->save($destinationPath);
 
 
             $presentation->image = $filename;
 
-        }else{
-            $destinationPath = 'noimage.jpg';
         }
 
 
         $presentation->save();
-        $presentation->colors()->sync($request->colors);
 
 
         //Session::flash('success','Your Presentation has been created');
 
-        $notification = array(
-            'message' => 'I am a successful message!',
-            'alert-type' => 'success',
-            'positionClass' => 'toast-top-center'
-        );
-        return redirect(route('presentation.index',$presentation->slug))->with($notification);
+
+        toastr()->success('<b>Your Presentation has been created !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return redirect(route('presentation.index',$presentation->slug));
     }
 
+
+    /**
+     * Active and unactivated presentation
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unactive_presentation($id)
+    {
+        DB::table('presentations')
+            ->where('id',$id)
+            ->update(['status' => null]);
+        toastr()->success('<b>Presentation unactive successfully !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
+    }
+
+    public function active_presentation($id)
+    {
+        DB::table('presentations')
+            ->where('id',$id)
+            ->update(['status' => 1]);
+        toastr()->success('<b>Presentation activated successfully  !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
+
+    }
     /**
      * Display the specified resource.
      *
@@ -140,7 +169,7 @@ class PresentationController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //dd(\request()->all());
         $this->validate($request,[
             'title'=>'required',
             'icon'=>'required',
@@ -153,6 +182,7 @@ class PresentationController extends Controller
         $presentation->slug = $request->slug;
         $presentation->icon = $request->icon;
         $presentation->body = $request->body;
+        $presentation->color_id = $request->color_id;
 
 
 
@@ -162,17 +192,16 @@ class PresentationController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/about/'.$filename);
-            Image::make($image)->resize(1000, 500)->save($destinationPath);
+            $destinationPath = public_path('assets/img/about/presentation/'.$filename);
+            Image::make($image)->save($destinationPath);
             $oldFilename = $presentation->image;
 
             //Update to data base
             $presentation->image = $filename;
             // Delete old Image
-            Storage::delete($oldFilename);
+            File::delete(public_path('assets/img/about/presentation/'.$oldFilename));
         }
 
-        $presentation->colors()->sync($request->colors);
         $presentation->save();
 
 
@@ -193,6 +222,11 @@ class PresentationController extends Controller
     {
         $presentation = Presentation::findOrFail($request->presentation_id);
         $presentation->delete();
+
+        if ($presentation->image != 'no_image'){
+
+            File::delete('assets/img/about/presentation/'.$presentation->image);
+        }
 
         Alert::success('Deleted!', 'Your file has been deleted.');
         return redirect()->back();

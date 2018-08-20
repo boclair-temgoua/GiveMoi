@@ -1,5 +1,5 @@
 @extends('inc.admin._main')
-@section('title', '- Users')
+@section('title', '- Admin all users')
 
 
 
@@ -32,7 +32,10 @@
                                     <th>Name</th>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Created_at</th>
+                                    <th>Profile</th>
+                                    <th>Age</th>
+                                    <th>Sex</th>
+                                    <th>Member since</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
@@ -41,8 +44,10 @@
                                     <th>Name</th>
                                     <th>Username</th>
                                     <th>Email</th>
-
-                                    <th>Created_at</th>
+                                    <th>Profile</th>
+                                    <th>Age</th>
+                                    <th>Sex</th>
+                                    <th>Member since</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
@@ -52,12 +57,15 @@
                                     <td>{{ $lk->name}}</td>
                                     <td>{{ $lk->username}}</td>
                                     <td>{{ $lk->email}}</td>
+                                    <td><img src="{{ URL::to($lk->avatar) }}?{{ time() }}" style="width: 40px; height: 40px;  top: 15px; left: 15px; border-radius: 50%" ></td>
+                                    <td>{{ $lk->age}} ans</td>
+                                    <td>{{ $lk->gender}}</td>
                                     <td>{{ \Carbon\Carbon::parse($lk->created_at)->diffForHumans() }}</td>
                                     <td class="td-actions text-right">
 
                                         <a href="{{ route('user.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">delete</i>
+                                            <i class="material-icons">delete_forever</i>
                                         </button>
                                     </td>
                                 </tr>

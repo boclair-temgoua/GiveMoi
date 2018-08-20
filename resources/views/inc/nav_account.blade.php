@@ -14,21 +14,18 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="material-icons">apps</i> Composant
+                    <a href="{{ route('register') }}" class=" nav-link">
+                        <i class="material-icons">home</i>
                     </a>
-                    <div class="dropdown-menu dropdown-with-icons">
-                        <a href="../index.html" class="dropdown-item">
-                            <i class="material-icons">layers</i> All Components
-                        </a>
-                        <a href="http://demos.creative-tim.com/material-kit-pro/docs/2.0/getting-started/introduction.html" class="dropdown-item">
-                            <i class="material-icons">content_paste</i> Documentation
-                        </a>
-                    </div>
+                </li>
+                <li class="dropdown nav-item">
+                    <a href="{{ route('register') }}" class=" nav-link">
+                        <i class="material-icons">account_balance</i> {{ __('About')}}
+                    </a>
                 </li>
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="material-icons">view_day</i> Sections
+                        <i class="material-icons">view_day</i> {{__('Services')}}
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <a href="../sections.html#headers" class="dropdown-item">
@@ -57,36 +54,12 @@
                         </a>
                     </div>
                 </li>
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="material-icons">view_carousel</i> A propos de GiveMoi
-                    </a>
-                    <div class="dropdown-menu dropdown-with-icons">
-                        <a href="../examples/about-us.html" class="dropdown-item">
-                            <i class="material-icons">account_balance</i> About Us
-                        </a>
-                        <a href="../examples/blog-posts.html" class="dropdown-item">
-                            <i class="material-icons">view_quilt</i> Blog Posts
-                        </a>
-                        <a href="../examples/contact-us.html" class="dropdown-item">
-                            <i class="material-icons">location_on</i> Contact Us
-                        </a>
-                    </div>
-                </li>
 
-                <!-- Authentication Links -->
-                @guest
-                <li class="dropdown nav-item">
-                    <a href="{{ route('login') }}" class=" nav-link">
-                        <i class="material-icons">fingerprint</i> {{__('Connexion')}}
-                    </a>
-                </li>
                 <li class="dropdown nav-item">
                     <a href="{{ route('register') }}" class=" nav-link">
-                        <i class="material-icons">add</i> {{ __('Ouvrire un compte')}}
+                        <i class="material-icons">location_on</i> {{ __('Contact')}}
                     </a>
                 </li>
-                @else
 
 
 
@@ -100,38 +73,49 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
-                        <span class="notification">{{count(Auth::user()->unreadNotifications)}}</span>
+                        <span class="notification">0</span>
 
                     </a>
 
 
-
-
-
-
-
-
-
                     <div class="dropdown-menu notification-body" style="height:200px; width:300px; overflow:scroll;" >
 
-
-                        @foreach (Auth::user()->unreadNotifications as $notification)
-                        <a class="dropdown-item" href="{{ route('events.show', $notification->data['event']['slug']) }}">
-                            <i>{{ $notification->data["user"]["name"] }}</i> has commented in<b> {{ $notification->data["event"]["title"] }} </b>
+                        <a class="dropdown-item" href=" ">
+                            <i> </i> has commented in<b>  </b>
                         </a>
-                        @endforeach
 
                     </div>
                 </li>
 
 
+                <!-- Authentication Links -->
+                @guest
+                <li class="dropdown nav-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="material-icons">face</i> {{__('Login')}}
+                    </a>
+                    <div class="dropdown-menu dropdown-with-icons">
+                        <!--
+                        <a href="{{ route('login') }}" class="dropdown-item"  data-toggle="modal" data-target="#loginModal">
+                            <i class="material-icons">fingerprint</i> {{__('Sing in')}}
+                        </a>
+                        -->
+                        <a href="{{ route('login') }}" class="dropdown-item" >
+                            <i class="material-icons">fingerprint</i> {{__('Sing in')}}
+                        </a>
+                        <a href="{{ route('register') }}" class="dropdown-item" >
+                            <i class="material-icons">person_add</i> {{ __('Sign up')}}
+                        </a>
+                    </div>
+                </li>
+                @else
 
 
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" style="position: relative; padding-left: 50px;">
 
                         @if(Auth::user()->avatar)
-                        <img src="{{ url(Auth::user()->avatar)  }}" alt="{{ Auth::user()->username }}"  class="img-raised rounded-circle img-fluid text-center" style="width: 32px; height: 32px; position: absolute; top: 10px; left: 10px; border-radius: 50%"> {{ Auth::user()->username }}
+                        <img src="{{ url(Auth::user()->avatar)  }}" alt="Circle Image"  class="img-raised rounded-circle img-fluid text-center" style="width: 32px; height: 32px; position: absolute; top: 10px; left: 10px; border-radius: 50%"> {{ Auth::user()->username }}
                         @endif
 
                     </a>
@@ -145,10 +129,10 @@
                         <a href="../sections.html#blogs" class="dropdown-item">
                             <i class="material-icons">list</i> Blogs
                         </a>
-                        <a href="../sections.html#teams" class="dropdown-item">
-                            <i class="material-icons">people</i> Teams
+                        <a href="{{ route('/', Auth::user()->username) }}" class="dropdown-item">
+                            <i class="material-icons">person</i> Profile
                         </a>
-                        <a href="#" class="dropdown-item">
+                        <a href="/account/profile" class="dropdown-item">
                             <i class="material-icons">settings</i> Paramètres
                         </a>
                         <a class="dropdown-item" href="{{ route('user.logout') }}">

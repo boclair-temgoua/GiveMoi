@@ -172,10 +172,10 @@ class UsersregisterController extends Controller
      */
     public function destroy(Request $request)
     {
-        $user = User::findOrFail($request->user_id);
+        $user = User::find($request->user_id);
         $user->delete();
 
-        Alert::success('Deleted!', 'The User has been successfully deleted');
+        alert()->success('Deleted!', 'The User has been successfully deleted');
         return redirect()->back();
     }
 }

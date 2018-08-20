@@ -32,35 +32,61 @@
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>Nom Complet</th>
-                                    <th>Slug</th>
-                                    <th>Icon</th>
+                                    <th>Full name</th>
                                     <th>Body</th>
+                                    <th>Icon & color</th>
+                                    <th>Status</th>
+                                    <th>Image</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Nom Complet</th>
-                                    <th>Slug</th>
-                                    <th>Icon</th>
+                                    <th>Full name</th>
                                     <th>Body</th>
+                                    <th>Icon & color</th>
+                                    <th>Status</th>
+                                    <th>Image</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($presentations as $item)
+                                @foreach($presentations as $lk)
                                 <tr>
-                                    <td>{{ $item->title}}</td>
-                                    <td>{{ $item->slug}}</td>
-                                    <td><i class="material-icons">{{ $item->icon}}</i></td>
-                                    <td>{!! htmlspecialchars_decode(str_limit($item->body, 33,'...'))!!}</td>
-                                    <td class="td-actions text-right">
-                                        <a href="{{ route('presentation.show',$item->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
-                                        <a href="{{ route('presentation.edit',$item->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
+                                    <td>{!! str_limit($lk->title, 10,'...') !!}</td>
+                                    <td>{!! htmlspecialchars_decode(str_limit($lk->body, 10,'...')) !!}</td>
+                                    <td><i class="material-icons text-{{ $lk->color_slug}}">{{ $lk->icon}}</i></td>
+                                    <td>
+                                        @if($lk->status==1)
+                                        <div class="timeline-heading">
+                                            <span class="badge badge-pill badge-info">activé</span>
+                                        </div>
+                                        @else
+                                        <div class="timeline-heading">
+                                            <span class="badge badge-pill badge-danger">desactivé</span>
+                                        </div>
+                                        @endif
+                                    </td>
 
-                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $item->id }}">
-                                            <i class="material-icons">close</i>
+                                    <td><img src="{{ URL::to('assets/img/about/presentation/' .$lk->image) }}" style="height: 40px; width: 80px" ></td>
+                                    <td class="td-actions text-right">
+
+                                        @if($lk->status==1)
+                                        <a href="{{ route('unactive_presentation',$lk->id) }}" class="btn btn-link btn-info btn-round btn-just-icon " title="Désactiver le temoignage">
+                                            <i class="material-icons">power_settings_new</i>
+                                        </a>
+                                        @else
+                                        <a href="{{ route('active_presentation',$lk->id) }}" class="btn btn-link btn-danger btn-round btn-just-icon " title="Activer la temoignage">
+                                            <i class="material-icons">power_settings_new</i>
+                                        </a>
+                                        @endif
+
+
+                                        <a href="{{ route('presentation.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
+                                        <a href="{{ route('presentation.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
+
+                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
+                                            <i class="material-icons">delete_forever</i>
                                         </button>
                                     </td>
                                 </tr>
@@ -84,7 +110,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
+                <h5 class="modal-title" id="deleteLabel"><b>Delete Confirmation</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,12 +119,12 @@
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">
-                    Are you sure you want to delete this Presentation?
+                    <b>Are you sure you want to delete this Presentation?</b>
                     <input type="hidden" name="presentation_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes Delete</b></button>
                 </div>
             </form>
 

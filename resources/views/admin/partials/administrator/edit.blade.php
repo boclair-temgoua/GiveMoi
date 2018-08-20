@@ -38,7 +38,7 @@
                                             <div class="picture-container">
                                                 <div class="picture">
                                                     @if(Auth::user()->avatar)
-                                                    <img src="{!! url(Auth::user()->avatar)  !!}" class="picture-src" id="wizardPicturePreview" title="" />
+                                                    <img src="{{ url(Auth::user()->avatar)  }}" class="picture-src" id="wizardPicturePreview" title="" />
                                                     @endif
                                                     <input type="file" name="avatar" id="wizard-picture">
                                                 </div>

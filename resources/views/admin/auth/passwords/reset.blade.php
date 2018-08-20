@@ -7,6 +7,8 @@
 
 <body class="off-canvas-sidebar login-page">
 
+@include('admin.auth.admin_nav')
+
 <div class="wrapper wrapper-full-page">
     <div class="page-header login-page header-filter" filter-color="black" style="background-image: url(&apos;/assets/dashboard/assets/img/login.jpg&apos;); background-size: cover; background-position: top center;">
         <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
@@ -52,9 +54,13 @@
                             </div>
                         </div>
                         <div class="submit text-center">
-                            <input type="submit" class="btn btn-rose btn-raised btn-round" value="Connexion dashboard">
+                            <button class="btn btn-rose btn-raised btn-round" type="submit">
+                                          <span class="btn-label">
+                                            <i class="material-icons">fingerprint</i>
+                                          </span>
+                                <b>Login dashboard</b>
+                            </button>
                         </div>
-                        <br>
                     </div>
                 </form>
             </div>

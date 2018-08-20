@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\Welcome;
+use App\Notifications\UserConfirmedAccount;
 use App\User;
 use App\Notifications\RegisteredUsers;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use RealRashid\SweetAlert\Facades\Alert;
+
 
 class RegisterController extends Controller
 {
@@ -64,9 +68,15 @@ class RegisterController extends Controller
         $user = User::where('id', $id)->where('confirmation_token', $token)->first();
         if ($user) {
             $user->update(['confirmation_token' => null]);
+
+
             $this->guard()->login($user);
 
-            Toastr::success('', 'Compte confirmer avec succès!', ["positionClass" => "toast-top-center"]);
+
+            //Mail::to($user)->send(new Welcome($user));
+            $user->notify(new UserConfirmedAccount());
+
+            toastr()->success('', 'Compte confirmer avec succès!', ['timeOut'=> 5000]);
             //Alert::success('Success', 'Votre compte a bien été confirmé !');
             return redirect($this->redirectPath());
         } else {
@@ -107,6 +117,8 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'status' => 'required|string',
+            //"birthday" => "date",
+            'birthday' => 'required|before:today',
             'g-recaptcha-response' => 'required|captcha',
         ]);
     }
@@ -119,11 +131,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'username' => $data['username'],
             'status' => $data['status'],
             'email' => $data['email'],
+            "birthday" => $data['birthday'],
             'password' => bcrypt($data['password']),
             'confirmation_token'=> str_replace('/','',bcrypt(str_random(16)))
         ]);

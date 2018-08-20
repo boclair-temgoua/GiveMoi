@@ -1,14 +1,17 @@
-@extends('inc.main_account')
+@extends('inc.app')
 <?php $titleTag = htmlspecialchars($user->name); ?>
 @section('title',"- $titleTag" )
 
 @section('style')
 
-
 @endsection
+@section('navbar')
+
+<nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-{{ $user->color_name }}" color-on-scroll="100" id="sectionsNav">
+    @endsection
 @section('content')
 <div  class="profile-page sidebar-collapse">
-   <div class="page-header header-filter" data-parallax="true" style="background-image: url(&apos;{{ url($user->avatarcover)  }}&apos;);"></div>
+   <div class="page-header header-filter" data-parallax="true" style="background-image: url(&apos;{{ url($user->avatarcover)  }}?{{ time() }}&apos;);"></div>
     <div class="main main-raised">
         <div class="profile-content">
             <div class="container">
@@ -17,7 +20,7 @@
                         <div class="profile">
                             <div class="avatar">
                                 @if($user->avatar)
-                                <img src="{{ url($user->avatar)  }}" alt="{!! $user->username !!}" class="img-raised rounded-circle img-fluid">
+                                <img src="{{ url($user->avatar)  }}?{{ time() }}" alt="{!! $user->username !!}" class="img-raised rounded-circle img-fluid">
                                 @endif
                             </div>
                             <div class="name">
@@ -51,7 +54,8 @@
                                 @endif
                                 <h3 class="title">{{ $user->name }}</h3>
                                 <p >Member Since {{ $user->created_at->format('j F Y') }}</p>
-                                <p >Pays: Cameroun  <img src="/assets/img/flags/cm.png" alt="{!! $user->username !!}" class="img-raised img-fluid" style="width: 32px; height: 32px; position: absolute; top: 15px; left: 30px;border-radius: 50px "></p>
+                                <p >Age {{ $user->age }} years old</p>
+                                <img src="/assets/img/flags/cm.png" alt="{!! $user->username !!}" class="img-raised img-fluid" style="width: 32px; height: 32px; position: absolute; top: 15px; left: 30px;border-radius: 50px ">
                                 <h6>{!! $user->work  !!}</h6>
                                 <a href="https://facebook.com/{{ $user->fblink }}" class="btn btn-just-icon btn-link btn-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
                                 <a href="https://instagram.com/{{ $user->instalink }}" class="btn btn-just-icon btn-link btn-instagram" target="_blank"><i class="fab fa-instagram"></i></a>

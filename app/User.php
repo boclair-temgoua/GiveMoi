@@ -7,7 +7,8 @@ use App\Model\user\comment;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManagerStatic;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -26,9 +27,15 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'users';
+    public $dates = ['created_at', 'updated_at', 'birthday'];
+
     protected $fillable = [
         'name',
-        'lastname',
+        'last_name',
+        'first_name',
+        'full_name',
+        'color_name',
         'username',
         'slug',
         'email',
@@ -39,6 +46,7 @@ class User extends Authenticatable
         'twlink',
         'fblink',
         'instalink',
+        'birthday',
         'gender',
         'work',
         'telephone',
@@ -49,6 +57,16 @@ class User extends Authenticatable
         'provider',
         'provider_id'
     ];
+
+
+   public function setDateOfBirthAttribute($birthday)
+   {
+       return Carbon::parse($this->attributes['birthday'])->age;
+
+       //$this->attributes['birthday'] = Carbon::createFromFormat('d/m/Y',$birthday);
+   }
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -125,7 +143,7 @@ class User extends Authenticatable
     {
         if (is_object($avatarcover) && $avatarcover->isValid())
         {
-            ImageManagerStatic::make($avatarcover)->fit(1600,600)->save(public_path()."/assets/img/cover/{$this->id}.jpg");
+            ImageManagerStatic::make($avatarcover)->save(public_path()."/assets/img/cover/{$this->id}.jpg");
             $this->attributes['avatarcover'] = true;
         }
 
@@ -151,6 +169,14 @@ class User extends Authenticatable
             Image::make($avatar)->fit(300,300)->save(public_path()."/assets/img/avatars/{$this->id}.jpg");
             $this->attributes['avatar'] = true;
         }
+    }
+
+    public function setBirthdayAttribute($birthday){
+        $this->attributes['birthday'] = Carbon::createFromFormat('d/m/Y', $birthday);
+    }
+
+    public function getAgeAttribute(){
+        return $this->birthday->diffInYears();
     }
 
 }

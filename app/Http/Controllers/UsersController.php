@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
+use Image;
+use File;
 
 class UsersController extends Controller
 {
@@ -31,7 +35,7 @@ class UsersController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('site.partials.profile',compact('user'));
+        return view('site.partials.profile',compact('user','colors'));
     }
 
 
@@ -43,26 +47,35 @@ class UsersController extends Controller
         $user = Auth()->user();
         $this->validate($request,[
             'username' => "required|string|min:2|max:25|unique:users,username,{$user->id}",
+            'name' => "required|string|min:2|max:25",
             'email' => "required|email|max:255|unique:users,email,{$user->id}",
             'avatar' =>"image",
             'avatarcover' =>"image",
-            "birthday" =>"date",
+            //"birthday" => "date",
             "body" =>"max:200",
+            "gender" => "required|in:F,M",
+            "color_name" => "required|in:primary,info,rose,success,warning,danger,dark",
 
         ]);
 
-        if (isset($data['avatar'])) {
-            $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
-        }
-        if (isset($data['avatarcover'])) {
-            $user->addMediaFromRequest('avatarcover')->toMediaCollection('cover');
-        }
+
+
+         if (isset($data['avatar'])) {
+             $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+         }
+         if (isset($data['avatarcover'])) {
+             $user->addMediaFromRequest('avatarcover')->toMediaCollection('cover');
+         }
 
         $user->update($request->only(
             'email',
             'username',
-            'lastname',
             'name',
+            'first_name',
+            'last_name',
+            'color_name',
+            'full_name',
+            'cellphone',
             'work',
             'avatar',
             'birthday',
@@ -99,6 +112,7 @@ class UsersController extends Controller
         }
 
     }
+
 
 
 

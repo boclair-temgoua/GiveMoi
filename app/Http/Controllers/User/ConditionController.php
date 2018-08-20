@@ -10,7 +10,7 @@ class ConditionController extends Controller
 {
     public function index()
     {
-        $conditions = Condition::all();
+        $conditions = Condition::where('status',1)->orderBy('created_at','DESC')->get();
         return view('site.page.conditions_terms',compact('conditions'));
     }
 }

@@ -2,7 +2,7 @@
 @section('title', '- About')
 
 @section('style')
-
+<link rel="stylesheet" href="/assets/css/plugins/zoom.css">
 @endsection
 @section('navbar')
 
@@ -42,7 +42,7 @@
                         <div class="card card-profile card-plain">
                             <div class="card-avatar">
                                 <a href="#pablo">
-                                    <img class="img" src="{{ asset('assets/img/' .$about->image) }}">
+                                    <img class="img" src="{{ asset('assets/img/about/' .$about->image) }}">
                                 </a>
                             </div>
                             <div class="card-body">
@@ -54,17 +54,14 @@
                             </div>
 
                             <div class="card-footer justify-content-center">
-                                <a href="{{$about->twlink}}" class="btn btn-just-icon btn-link btn-twitter">
+                                <a href="https://twitter.com/{{$about->twlink}}" class="btn btn-just-icon btn-link btn-twitter">
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                                <a href="{{$about->fblink}}" class="btn btn-just-icon btn-link btn-facebook">
+                                <a href="https://facebook.com/{{$about->fblink}}" class="btn btn-just-icon btn-link btn-facebook">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="{{$about->instlink}}" class="btn btn-just-icon btn-link btn-instagram">
+                                <a href="https://instagram.com/{{$about->instlink}}" class="btn btn-just-icon btn-link btn-instagram">
                                     <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="{{$about->googlelink}}" class="btn btn-just-icon btn-link btn-google">
-                                    <i class="fab fa-google"></i>
                                 </a>
                                 <!--
 
@@ -94,21 +91,20 @@
                 <div class="row">
                     @if(count($presentations) > 0)
                         @foreach($presentations as $presentation)
-                            @foreach($presentation->colors as $color)
                     <div class="col-md-4">
 
                         <div class="info info-horizontal">
-                            <div class="icon icon-{!! $color->slug !!}">
+                            <div class="icon icon-{!! $presentation->color_slug !!}">
                                 <i class="material-icons">{{$presentation->icon}}</i>
                             </div>
                             <div class="description">
                                 <h4 class="info-title">{{$presentation->title}}</h4>
                                 {!! str_limit($presentation->body, 150,'...') !!}<br>
-                                <a href="{{ route('presentation',$presentation->slug) }}" class="text-{!! $color->slug !!}">Find more...</a>
+                                <a href="{{ route('presentation',$presentation->slug) }}" class="text-{!! $presentation->color_slug !!}">Find more...</a>
                             </div>
                         </div>
                     </div>
-                            @endforeach
+
                         @endforeach
                     @endif
                 </div>
@@ -125,19 +121,19 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <img class="img-raised rounded img-fluid" alt="Raised Image" src="../assets/img/kit/pro/examples/office2.jpg">
+                        <img class="img-raised rounded img-fluid" data-action="zoom" alt="Raised Image" src="/assets/img/kit/pro/examples/office2.jpg">
                     </div>
                     <div class="col-md-4">
-                        <img class="img-raised rounded img-fluid" alt="Raised Image" src="../assets/img/kit/pro/examples/office4.jpg">
+                        <img class="img-raised rounded img-fluid" data-action="zoom" alt="Raised Image" src="/assets/img/kit/pro/examples/office4.jpg">
                     </div>
                     <div class="col-md-4">
-                        <img class="img-raised rounded img-fluid" alt="Raised Image" src="../assets/img/kit/pro/examples/office3.jpg">
+                        <img class="img-raised rounded img-fluid" data-action="zoom" alt="Raised Image" src="/assets/img/kit/pro/examples/office3.jpg">
                     </div>
                     <div class="col-md-6">
-                        <img class="img-raised rounded img-fluid" alt="Raised Image" src="../assets/img/kit/pro/examples/office5.jpg">
+                        <img class="img-raised rounded img-fluid" data-action="zoom" alt="Raised Image" src="/assets/img/kit/pro/examples/office5.jpg">
                     </div>
                     <div class="col-md-6">
-                        <img class="img-raised rounded img-fluid" alt="Raised Image" src="../assets/img/kit/pro/examples/office1.jpg">
+                        <img class="img-raised rounded img-fluid" data-action="zoom" alt="Raised Image" src="/assets/img/kit/pro/examples/office1.jpg">
                     </div>
                 </div>
             </div>
@@ -191,8 +187,8 @@
  @include('inc._footer')
  @endsection
 
- @section('script')
-
+ @section('scripts')
+    <script src="/assets/js/plugins/zoom.js"></script>
  @endsection
 
 

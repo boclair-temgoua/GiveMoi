@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('slug')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

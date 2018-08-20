@@ -273,7 +273,8 @@
     }
     @endif
 </script>
-{!! Toastr::message() !!}
+@toastr_js
+@toastr_render
 @include('flash::message')
 @include('sweetalert::alert')
 @if(config('app.env') != 'local')

@@ -84,7 +84,7 @@
                                                 <div class="fileinput fileinput-new text-center"
                                                      data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail img-circle img-raised">
-                                                        <img src="{{ asset('assets/img/' .$about->image) }}" alt="...">
+                                                        <img src="{{ asset('assets/img/about/' .$about->image) }}" alt="...">
                                                     </div>
                                                 </div>
                                             </div>

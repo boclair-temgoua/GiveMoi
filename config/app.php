@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'fr',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'fr',
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -199,6 +199,8 @@ return [
         Overtrue\LaravelFollow\FollowServiceProvider::class,
         Kryptonit3\Counter\CounterServiceProvider::class,
         CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class
 
 
 
@@ -265,6 +267,7 @@ return [
         'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
         'Counter' => Kryptonit3\Counter\Facades\CounterFacade::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
 
 

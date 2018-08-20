@@ -16,7 +16,7 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonials = Testimonial::orderBy('created_at','DESC')->get();
+        $testimonials = Testimonial::where('status',1)->orderBy('created_at','DESC')->get();
 
         return view('site.page.testimonial',compact('testimonials'));
     }

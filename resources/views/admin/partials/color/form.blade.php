@@ -1,20 +1,15 @@
 
 
-        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-            <label for="display_name"  class="bmd-label-floating"></label>
-            <input type="text" class="form-control" name="name"  id="name" minLength="3" placeholder="Color name (exemple: danger,warning,...)" required="true"/>
-            @if ($errors->has('name'))
+        <label class="control-label " for="color_name">Color name :</label>
+        <div class="form-group{{ $errors->has('color_name') ? ' has-error' : '' }}">
+            <input type="name" class="form-control" name="color_name"  id="color_name" minLength="3" placeholder="Color name (exemple: danger,warning,...)"/>
+            @if ($errors->has('color_name'))
             <span class="help-block">
-                <strong class="text-danger text-center">{{ $errors->first('name') }}</strong>
+                <strong class="text-danger text-center">{{ $errors->first('color_name') }}</strong>
             </span>
             @endif
         </div>
-        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-            <label for="description"  class="bmd-label-floating"></label>
-            <input type="text" class="form-control" name="slug"  id="slug" placeholder="slug (Pas tres important)" minLength="3" disabled/>
-            @if ($errors->has('description'))
-            <span class="help-block">
-               <strong class="text-danger text-center">{{ $errors->first('description') }}</strong>
-            </span>
-            @endif
+        <label class="control-label" for="slug">Slug :</label>
+        <div class="form-group">
+            <input type="name" class="form-control" name="slug"  id="slug" placeholder="slug (Pas tres important)" minLength="3" disabled/>
         </div>

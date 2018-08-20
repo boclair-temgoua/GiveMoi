@@ -23,7 +23,7 @@ class Localization
         if ( Session::has('locale')) {
             $locale = Session::get('locale', Config::get('app.locale'));
         } else {
-            $locale = 'fr';
+            $locale = 'en';
         }
 
         App::setLocale($locale);

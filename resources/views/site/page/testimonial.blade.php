@@ -99,7 +99,7 @@
                                                 <div class="card-avatar">
 
                                                     <a href="#pablo">
-                                                        <img class="img" src="{{ asset('assets/img/' .$item->image) }}">
+                                                        <img class="img" src="{{ asset('assets/img/testimonial/' .$item->image) }}">
                                                     </a>
 
 
