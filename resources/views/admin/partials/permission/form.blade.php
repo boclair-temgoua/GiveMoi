@@ -1,23 +1,24 @@
 
 
-            <div class="form-group{{ $errors->has('display_name') ? ' has-error' : '' }}">
-                <label for="display_name"  class="bmd-label-floating"></label>
-                <input type="text" class="form-control" name="display_name"  id="display_name" minLength="3" placeholder="Name of the Permission" required="true"/>
-                @if ($errors->has('display_name'))
+            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <label for="name"  class="bmd-label-floating">Name of the Permission</label>
+                {!! Form::text('name', null, ['id'=>'exampleInput11','class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                @if ($errors->has('name'))
                 <span class="help-block">
-                    <strong class="text-danger text-center">{{ $errors->first('display_name') }}</strong>
+                    <strong class="text-danger text-center">{{ $errors->first('name') }}</strong>
+                </span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('guard_name') ? ' has-error' : '' }}">
+                <label for="guard_name"  class="bmd-label-floating">Guard_name</label>
+                {!! Form::text('guard_name', null, ['id'=>'exampleInput11','class' => 'form-control', 'placeholder' => '', 'required' => '','disabled' => '']) !!}
+                @if ($errors->has('guard_name'))
+                <span class="help-block">
+                    <strong class="text-danger text-center">{{ $errors->first('guard_name') }}</strong>
                 </span>
                 @endif
             </div>
 
-            <!--
-            <div class="col-lg-12 col-md-6  col-sm-12">
-                <select class="selectpicker" name="for" id="for" data-style="select-with-transition" title="Permission for" data-size="7">
-                    <option disabled>Choose Permission</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            -->
+
+
 

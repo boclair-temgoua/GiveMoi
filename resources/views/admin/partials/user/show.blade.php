@@ -9,6 +9,7 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
+        @include('inc.admin.components.status_admin')
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -19,24 +20,37 @@
                         <h4 class="card-title">All Users</h4>
                     </div>
                     <div class="card-body">
+
+
                         <div class="toolbar">
+
+                            @can('delete-user')
                             <div class="submit text-center">
                                 <a href="{{route('user.create')}}" class="btn btn-warning btn-raised btn-round">Create New User</a>
                             </div>
+                            @endcan
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Profile</th>
-                                    <th>Age</th>
-                                    <th>Sex</th>
-                                    <th>Member since</th>
-                                    <th class="disabled-sorting text-right">Actions</th>
+                                    <th><b>Name</b></th>
+                                    <th><b>Username</b></th>
+                                    <th><b>Email </b></th>
+                                    <th><b>Profile</b></th>
+                                    <th><b>Age</b></th>
+                                    <th><b>Sex</b></th>
+                                    <th><b>Member since</b></th>
+                                    <th class="disabled-sorting text-right">
+
+                                        @can('view-user')
+                                        @can('delete-user')
+                                        <b>Actions</b>
+                                        @endcan
+                                        @endcan
+
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -48,7 +62,15 @@
                                     <th>Age</th>
                                     <th>Sex</th>
                                     <th>Member since</th>
-                                    <th class="text-right">Actions</th>
+                                    <th class="text-right">
+
+                                        @can('view-user')
+                                        @can('delete-user')
+                                        <b>Actions</b>
+                                        @endcan
+                                        @endcan
+
+                                    </th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -63,10 +85,15 @@
                                     <td>{{ \Carbon\Carbon::parse($lk->created_at)->diffForHumans() }}</td>
                                     <td class="td-actions text-right">
 
+                                        @can('view-user')
                                         <a href="{{ route('user.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
+                                        @endcan
+
+                                        @can('delete-user')
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
                                             <i class="material-icons">delete_forever</i>
                                         </button>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach

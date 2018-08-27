@@ -20,12 +20,11 @@
 
 <div class="content">
     <div class="container-fluid">
-        <div class="header text-center ml-auto mr-auto">
-            <h3 class="title">Abouts</h3>
-            <p class="category">Creations des presentations de service</p>
-        </div>
         <div class="content">
+            @include('inc.admin.components.status_admin')
             <div class="container-fluid">
+
+                @can('create-presentation')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
                         <form id="RegisterValidation" role="form" method="POST" action="{{ route('presentation.store') }}" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -42,17 +41,21 @@
 
                                 @include('admin.presentation.form',['presentation' => new \App\Model\user\presentation()])
 
+                                <div class="submit text-center">
+                                    <input type="submit" class="btn btn-info btn-raised btn-round" value="Create new presentation">
+                                </div>
+                                <div class="submit text-center">
+                                    <a href="{{route('presentation.index')}}" class="btn btn-facebook btn-raised btn-round">Back for your table presentation</a>
+                                </div>
                             </div>
-                            <div class="submit text-center">
-                                <input type="submit" class="btn btn-info btn-raised btn-round" value="Create new presentation">
-                            </div>
-                            <div class="submit text-center">
-                                <a href="{{route('about.index')}}" class="btn btn-facebook btn-raised btn-round">Back for your table presentation</a>
-                            </div>
-                            <br>
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="submit text-center">
+                    @include('inc.admin.components.alert_permission')
+                </div>
+                @endcan
             </div>
         </div>
     </div>

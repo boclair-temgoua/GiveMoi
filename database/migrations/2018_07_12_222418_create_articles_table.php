@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug')->nullable();
             $table->boolean('status')->nullable();
             $table->string('cover_image')->nullable();
+            $table->integer('admin_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 

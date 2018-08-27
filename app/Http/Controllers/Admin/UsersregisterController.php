@@ -18,16 +18,18 @@ class UsersregisterController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware(['role:super-admin|admin|editor|moderator|advertiser|visitor']);
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = user::all();
-        return view('admin.partials.user.show',compact('users'));
+        $users = User::orderBy('id','DESC')->get();
+        return view('admin.partials.user.show',compact('users'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -172,10 +174,10 @@ class UsersregisterController extends Controller
      */
     public function destroy(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = User::findOrFail($request->user_id);
         $user->delete();
 
-        alert()->success('Deleted!', 'The User has been successfully deleted');
+        Alert::success('Deleted!', 'The User has been successfully deleted');
         return redirect()->back();
     }
 }

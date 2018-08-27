@@ -38,8 +38,8 @@
                                         <div class="col-sm-4">
                                             <div class="picture-container">
                                                 <div class="picture">
-                                                    @if($admin->avatar)
-                                                    <img src="{{ asset('assets/img/admin/profile/' .$admin->image) }}" class="picture-src" id="wizardPicturePreview" title="" alt="...">
+                                                    @if(Auth::user()->avatar)
+                                                    <img src="{{ url(Auth::user()->avatar)  }}" class="picture-src" id="wizardPicturePreview" title="" />
                                                     @endif
                                                     <input type="file" name="avatar" id="wizard-picture">
                                                 </div>

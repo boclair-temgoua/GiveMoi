@@ -28,6 +28,7 @@ class CreateAboutsTable extends Migration
             $table->string('dribbblelink')->nullable();
             $table->string('avatar')->nullable();
             $table->string('image')->nullable();
+            $table->integer('admin_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

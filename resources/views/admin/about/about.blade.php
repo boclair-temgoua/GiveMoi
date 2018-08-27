@@ -20,12 +20,11 @@
 
 <div class="content">
     <div class="container-fluid">
-        <div class="header text-center ml-auto mr-auto">
-            <h3 class="title">Abouts</h3>
-            <p class="category">Created About</p>
-        </div>
         <div class="content">
+            @include('inc.admin.components.status_admin')
             <div class="container-fluid">
+
+                @can('create-about')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
                         <form id="RegisterValidation" role="form" method="POST" action="{{ route('about.store') }}" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -134,6 +133,11 @@
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="submit text-center">
+                    @include('inc.admin.components.alert_permission')
+                </div>
+                @endcan
             </div>
         </div>
     </div>

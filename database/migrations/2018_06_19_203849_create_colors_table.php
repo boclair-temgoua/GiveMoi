@@ -19,6 +19,7 @@ class CreateColorsTable extends Migration
             $table->string('slug')->nullable()->unique()->index();
             $table->string('color_slug')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('admin_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

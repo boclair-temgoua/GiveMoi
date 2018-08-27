@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="{{asset('assets/dashboard/assets/css/material-dashboard.css?v=2.0.1')}}">
 
 <link rel="stylesheet" href="{{asset('assets/css/plugins/toastr.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/css/plugins/select2.css')}}">
 @toastr_css
 
 

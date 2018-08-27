@@ -19,10 +19,18 @@
                         <h4 class="card-title">All Administrators</h4>
                     </div>
                     <div class="card-body">
+                        <div class="submit text-right">
+                            <button class="btn btn-danger btn-raised btn-round delete-all "
+                                    data-url="">
+                                <i class="material-icons">delete_forever</i>
+                                Delete select
+                            </button>
+                        </div>
                         <div class="toolbar">
                             <div class="submit text-center">
                                 <a href="{{route('administrators.create')}}" class="btn btn-warning btn-raised btn-round">Create New Administrator</a>
                             </div>
+
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
                         <div class="material-datatables">
@@ -32,7 +40,8 @@
                                     <th>Name</th>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Created_at</th>
+                                    <th>Roles</th>
+                                    <th>Select</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
@@ -41,26 +50,48 @@
                                     <th>Name</th>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Created_at</th>
+                                    <th>Roles</th>
+                                    <th>Select</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($users as $lk)
-                                <tr>
+                             @if(count($admins) > 0)
+                                @foreach($admins as $lk)
+                                <tr id="tr_{{$lk->id}}">
                                     <td>{{ $lk->name}}</td>
                                     <td class="text-danger">{{ $lk->username}}</td>
                                     <td class="text-warning">{{ $lk->email}}</td>
-                                    <td>{{ $lk->created_at->diffForHumans()}}</td>
+                                    <td>
+                                        @foreach ($lk->roles()->pluck('name') as $role)
+                                        <span class="badge badge-success badge-pill"><b>{{ $role }}</b></span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input checkbox" type="checkbox"  data-id="{{$lk->id}}">
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </td>
+
                                     <td class="td-actions text-right">
                                         <a href="{{ route('administrators.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
+                                        @if(auth()->user()->can('edit'))
                                         <a href="{{ route('administrators.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
+                                        @endif
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
                                             <i class="material-icons">delete_forever</i>
                                         </button>
                                     </td>
                                 </tr>
                                 @endforeach
+                              @else
+
+                            @endif
                                 </tbody>
                             </table>
                         </div>
@@ -137,6 +168,145 @@
             $('.card.card-wizard').addClass('active');
         }, 600);
     });
+</script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+        $('#check_all').on('click', function(e) {
+
+            if($(this).is(':checked',true))
+
+            {
+
+                $(".checkbox").prop('checked', true);
+
+            } else {
+
+                $(".checkbox").prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.checkbox').on('click',function(){
+
+            if($('.checkbox:checked').length == $('.checkbox').length){
+
+                $('#check_all').prop('checked',true);
+
+            }else{
+
+                $('#check_all').prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.delete-all').on('click', function(e) {
+
+
+
+            var idsArr = [];
+
+            $(".checkbox:checked").each(function() {
+
+                idsArr.push($(this).attr('data-id'));
+
+            });
+
+
+
+            if(idsArr.length <=0)
+
+            {
+
+                alert("Please select atleast one record to delete.");
+
+            }  else {
+
+
+
+                if(confirm("Are you sure, you want to delete the selected administrator ?")){
+
+
+
+                    var strIds = idsArr.join(",");
+
+
+
+                    $.ajax({
+
+                        url: "{{ route('administrator.multiple-delete') }}",
+
+                        type: 'DELETE',
+
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                        data: 'ids='+strIds,
+
+                        success: function (data) {
+
+                            if (data['status']==true) {
+
+                                $(".checkbox:checked").each(function() {
+
+                                    $(this).parents("tr").remove();
+
+                                });
+
+                                alert(data['message']);
+
+                            } else {
+
+                                alert('Whoops Something went wrong!!');
+
+                            }
+
+                        },
+
+                        error: function (data) {
+
+                            alert(data.responseText);
+
+                        }
+
+                    });
+
+
+
+                }
+
+            }
+
+        });
+
+
+
+        $('[data-toggle=confirmation]').confirmation({
+
+            rootSelector: '[data-toggle=confirmation]',
+
+            onConfirm: function (event, element) {
+
+                element.closest('form').submit();
+
+            }
+
+        });
+
+
+
+    });
+
 </script>
 
 @endsection

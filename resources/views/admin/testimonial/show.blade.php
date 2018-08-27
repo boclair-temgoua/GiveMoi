@@ -16,6 +16,36 @@
 
             <div class="col-md-12">
 
+                @hasrole('super-admin')
+                <div class="submit text-center">
+                    <button class="btn btn-rose btn-raised btn-warning">
+                        your super admin
+                    </button>
+                </div>
+                @endhasrole
+                @hasrole('editor')
+                <div class="submit text-center">
+                    <button class="btn btn-success btn-raised ">
+                        your editor
+                    </button>
+                </div>
+                @endhasrole
+                @hasrole('moderator')
+                <div class="submit text-center">
+                    <button class="btn btn-info btn-raised ">
+                        your moderator
+                    </button>
+                </div>
+                @endhasrole
+                @hasrole('advertiser')
+                <div class="submit text-center">
+                    <button class="btn btn-primary btn-raised ">
+                        your advertiser
+                    </button>
+                </div>
+                @endhasrole
+
+
                 <div class="card">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
@@ -24,67 +54,153 @@
                         <h4 class="card-title">All Testimonials</h4>
                     </div>
                     <div class="card-body">
+
+                        @can('delete-multiple-testimonial')
+                        <div class="submit text-right">
+                            <button class="btn btn-danger btn-raised btn-round delete-all "
+                                    data-url="">
+                                <i class="material-icons">delete_forever</i>
+                                Delete select
+                            </button>
+                        </div>
+                        @endcan
+
                         <div class="toolbar">
+
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            @can('create-testimonial')
                             <div class="submit text-center">
-                                <a href="{{route('testimonial.create')}}" class="btn btn-warning btn-raised btn-round ">Créer un Temoignage</a>
+                                <a href="{{route('testimonial.create')}}" class="btn btn-warning btn-raised btn-round ">Add your testimonial</a>
                             </div>
+                            @endcan
 
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>Full name</th>
-                                    <th>Role</th>
-                                    <th>Body</th>
-                                    <th>Status</th>
-                                    <th>Updated_at</th>
-                                    <th>Image</th>
+                                    <th>
+                                        <b>Full name</b>
+                                    </th>
+                                    <th><b>Body</b></th>
+
+
+                                    <th>
+
+                                        @can('unpublish-testimonial')
+                                        @can('publish-testimonial')
+                                        <b>Status</b>
+                                        @endcan
+                                        @endcan
+
+                                    </th>
+
+                                    <th><b>Updated_at</b></th>
+                                    <th><b>Image</b></th>
+
+                                    @can('edited_by-testimonial')
+                                    <th><b>Edit by</b></th>
+                                    @endcan
+
+                                    @can('delete-multiple-testimonial')
+                                    <th><b>Select</b></th>
+                                    @endcan
+
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Full name</th>
-                                    <th>Role</th>
                                     <th>Body</th>
-                                    <th>Status </th>
+
+
+                                    <th>
+
+                                        @can('unpublish-testimonial')
+                                        @can('publish-testimonial')
+                                        <b>Status</b>
+                                        @endcan
+                                        @endcan
+
+                                    </th>
+
+
                                     <th>Updated_at</th>
                                     <th>Image</th>
+
+                                    @can('edited_by-testimonial')
+                                    <th><b>Edit by</b></th>
+                                    @endcan
+
+                                    @can('delete-multiple-testimonial')
+                                    <th>Select</th>
+                                    @endcan
+
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
                                 @foreach($testimonials as $lk)
                                 <tr>
-                                    <td>{{ $lk->fullname}}</td>
-                                    <td>{{ $lk->role}}</td>
-                                    <td>{!! str_limit($lk->body, 10,'...') !!}</td>
+                                    <td>{!! str_limit($lk->fullname, 6,'...') !!}</td>
+                                    <td>{!! str_limit($lk->body, 6,'...') !!}</td>
                                     <td>
                                         @if($lk->status==1)
+                                        @can('unpublish-testimonial')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-info">activé</span>
+                                            <span class="badge badge-pill badge-info">publish</span>
                                         </div>
+                                        @endcan
+
                                         @else
+
+                                        @can('publish-testimonial')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-danger">desactivé</span>
+                                            <span class="badge badge-pill badge-danger">unpublish</span>
                                         </div>
+                                        @endcan
                                         @endif
                                     </td>
 
-                                    <td>{{ $lk->created_at->diffForHumans() }}</td>
+                                    <td>{!! str_limit( \Carbon\Carbon::parse($lk->updated_at)->diffForHumans(), 10,'...') !!}</td>
+
                                     <td><img src="{{ URL::to('assets/img/testimonial/' .$lk->image) }}" style="width: 40px; height: 40px;  top: 15px; left: 15px; border-radius: 50%" ></td>
+
+                                    @can('edited_by-testimonial')
+                                    <td>{!! str_limit($lk->name, 16,'...') !!}</td>
+                                    @endcan
+
+                                    @can('delete-multiple-testimonial')
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input checkbox" type="checkbox"  data-id="{{$lk->id}}">
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    @endcan
+
                                     <td class="td-actions text-right">
 
+
                                         @if($lk->status==1)
+                                        @can('unpublish-testimonial')
                                         <a href="{{ route('unactive_testimonial',$lk->id) }}" class="btn btn-link btn-info btn-round btn-just-icon " title="Désactiver le temoignage">
                                             <i class="material-icons">power_settings_new</i>
                                         </a>
+                                        @endcan
+
                                         @else
+
+                                        @can('publish-testimonial')
                                         <a href="{{ route('active_testimonial',$lk->id) }}" class="btn btn-link btn-danger btn-round btn-just-icon " title="Activer la temoignage">
                                             <i class="material-icons">power_settings_new</i>
                                         </a>
+                                        @endcan
                                         @endif
 
                                         <a href="#" class="show-modal btn btn-link  btn-info btn-round btn-just-icon"
@@ -97,11 +213,18 @@
                                         <!--
                                         <a href="{{ route('testimonial.show',$lk->id) }}" class="btn btn-link  btn-info btn-round btn-just-icon " ><i class="material-icons">visibility</i></a>
                                         -->
+                                        @can('edit-testimonial')
                                         <a href="{{ route('testimonial.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
+                                        @endcan
 
+
+                                        @can('delete-testimonial')
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
                                             <i class="material-icons">delete_forever</i>
                                         </button>
+                                        @endcan
+
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -216,5 +339,141 @@
 </script>
 
 
+<script type="text/javascript">
 
+    $(document).ready(function () {
+
+
+
+        $('#check_all').on('click', function(e) {
+
+            if($(this).is(':checked',true))
+
+            {
+
+                $(".checkbox").prop('checked', true);
+
+            } else {
+
+                $(".checkbox").prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.checkbox').on('click',function(){
+
+            if($('.checkbox:checked').length == $('.checkbox').length){
+
+                $('#check_all').prop('checked',true);
+
+            }else{
+
+                $('#check_all').prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.delete-all').on('click', function(e) {
+
+
+
+            var idsArr = [];
+
+            $(".checkbox:checked").each(function() {
+
+                idsArr.push($(this).attr('data-id'));
+
+            });
+
+
+
+            if(idsArr.length <=0)
+
+            {
+
+                alert("Please select atleast one record to delete.");
+
+            }  else {
+
+
+
+                if(confirm("Are you sure, you want to delete the selected role ?")){
+
+
+
+                    var strIds = idsArr.join(",");
+
+
+
+                    $.ajax({
+
+                        url: "{{ route('testimonial.multiple-delete') }}",
+
+                        type: 'DELETE',
+
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                        data: 'ids='+strIds,
+
+                        success: function (data) {
+
+                            if (data['status']==true) {
+
+                                $(".checkbox:checked").each(function() {
+
+                                    $(this).parents("tr").remove();
+
+                                });
+
+                                alert(data['message']);
+
+                            } else {
+
+                                alert('Whoops Something went wrong!!');
+
+                            }
+
+                        },
+
+                        error: function (data) {
+
+                            alert(data.responseText);
+
+                        }
+
+                    });
+
+
+
+                }
+
+            }
+
+        });
+
+
+
+        $('[data-toggle=confirmation]').confirmation({
+
+            rootSelector: '[data-toggle=confirmation]',
+
+            onConfirm: function (event, element) {
+
+                element.closest('form').submit();
+
+            }
+
+        });
+
+
+
+    });
+
+</script>
 @endsection

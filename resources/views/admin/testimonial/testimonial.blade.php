@@ -19,14 +19,15 @@
 
 <div class="content">
     <div class="container-fluid">
-        <div class="header text-center ml-auto mr-auto">
-            <h3 class="title">Testimonials</h3>
-            <p class="category">Created Testimonial</p>
-        </div>
         <div class="content">
+            @include('inc.admin.components.status_admin')
             <div class="container-fluid">
+
+                @can('create-testimonial')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
+                        @include('inc.alert')
+                        <br>
                         <form id="RegisterValidation" role="form" method="POST" action="{{ route('testimonial.store') }}" enctype="multipart/form-data" accept-charset="UTF-8">
                             {{ csrf_field() }}
                             <div class="card ">
@@ -94,17 +95,22 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="submit text-center">
-                                <input type="submit" class="btn btn-info btn-raised btn-round" value="Creer le Temoignage">
-                            </div>
-                            <br>
-                            <div class="submit text-center">
-                                <a href="{{route('testimonial.index')}}" class="btn btn-facebook btn-raised btn-round">Retour a la table des Temoignages</a>
+                                <div class="submit text-center">
+                                    <input type="submit" class="btn btn-info btn-raised btn-round" value="Creer le Temoignage">
+                                </div>
+                                <div class="submit text-center">
+                                    <a href="{{route('testimonial.index')}}" class="btn btn-facebook btn-raised btn-round">Retour a la table des Temoignages</a>
+                                </div>
+                                <br>
                             </div>
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="submit text-center">
+                    @include('inc.admin.components.alert_permission')
+                </div>
+                @endcan
             </div>
         </div>
     </div>

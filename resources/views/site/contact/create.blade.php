@@ -31,7 +31,8 @@
 <div class="main main-raised">
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
+                <br>
                 <div class="card card-contact">
 
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Model\user\testimonial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Image;
@@ -23,6 +25,7 @@ class TestimonialController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+
     }
     /**
      * Display a listing of the resource.
@@ -31,7 +34,14 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonials = testimonial::all();
+
+        $testimonials= DB::table('testimonials')
+
+            ->join('admins','testimonials.admin_id','=','admins.id')
+            ->select('testimonials.*','admins.name')
+            ->orderBy('created_at','DESC')->get();
+
+
         return view('admin.testimonial.show',compact('testimonials'));
     }
 
@@ -59,7 +69,7 @@ class TestimonialController extends Controller
             'fullname'=>'required|string|unique:testimonials|max:255',
             'body'=>'required',
             'role'=>'required',
-            'image' =>'required|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' =>'required|sometimes|image|mimes:jpeg,png,jpg,gif,svg',
 
         ]);
 
@@ -68,6 +78,7 @@ class TestimonialController extends Controller
         $testimonial->role = $request->role;
         $testimonial->fullname = $request->fullname;
         $testimonial->body = $request->body;
+        $testimonial->admin_id = Auth::user()->id;
 
 
 
@@ -132,7 +143,9 @@ class TestimonialController extends Controller
      */
     public function edit($id)
     {
+
         $testimonial = Testimonial::where('id',$id)->first();
+       // $this->authorize('update-testimonial',$testimonial);
 
         return view('admin.testimonial.edit',compact('testimonial'));
     }
@@ -150,7 +163,7 @@ class TestimonialController extends Controller
             'fullname'=>'required|string|max:255',
             'body'=>'required',
             'role'=>'required',
-            'image' =>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' =>'image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
 
@@ -160,6 +173,7 @@ class TestimonialController extends Controller
         //$about->avatar = $imageName;
         $testimonial->fullname = $request->fullname;
         $testimonial->body = $request->body;
+        $testimonial->admin_id = Auth::user()->id;
 
 
         if ($request->hasFile('image')) {
@@ -203,5 +217,16 @@ class TestimonialController extends Controller
 
         Alert::success('Deleted!', 'Your file has been deleted.');
         return redirect()->back();
+    }
+
+
+    public function deleteMultiple(Request $request){
+
+        $ids = $request->ids;
+
+        Testimonial::whereIn('id',explode(",",$ids))->delete();
+
+        return response()->json(['status'=>true,'message'=>"Testimonial deleted successfully."]);
+
     }
 }

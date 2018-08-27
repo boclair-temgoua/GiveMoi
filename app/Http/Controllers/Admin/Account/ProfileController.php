@@ -30,8 +30,6 @@ class ProfileController extends Controller
         $users = admin::all();
         return view('admin.partials.administrator.show',compact('users'));
 
-
-
     }
 
     /**
@@ -53,7 +51,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-      //  dd(\request()->all()); // pour tester les donner qui entre dans la base de donner
+        dd(\request()->all()); // pour tester les donner qui entre dans la base de donner
 
         $this->validate($request,[
 
@@ -135,7 +133,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd(\request()->all());
+        dd(request()->all());
         $this->validate($request,[
 
             'name' => 'required|string|max:255',

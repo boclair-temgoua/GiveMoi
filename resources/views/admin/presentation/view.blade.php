@@ -20,12 +20,11 @@
 
 <div class="content">
     <div class="container-fluid">
-        <div class="header text-center ml-auto mr-auto">
-            <h3 class="title">Presentations</h3>
-            <p class="category">Presentations View</p>
-        </div>
         <div class="content">
+            @include('inc.admin.components.status_admin')
             <div class="container-fluid">
+
+                @can('view-presentation')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
                         <form>
@@ -57,13 +56,7 @@
                                             @endif
                                         </div>
                                         <div class="col-sm-4">
-                                            <select class="selectpicker" name="color" id="color" data-style="select-with-transition" title="{{$presentation->color}}" data-size="7" disabled>
-                                                <option disabled>Choose Color icon</option>
-                                                <option value="rose">rose</option>
-                                                <option value="info">info</option>
-                                                <option value="danger">danger</option>
-                                                <option value="warning">warning</option>
-                                            </select>
+                                            <select class="selectpicker" name="color" id="color" data-style="select-with-transition" title="{{$presentation->color}}" data-size="7" disabled></select>
                                         </div>
 
                                     </div>
@@ -74,13 +67,18 @@
                                         <textarea class="ckeditor" id="editor1" name="body" type="text" rows="12" cols="80"   >{{ $presentation->body }}</textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="submit text-center">
-                                <a href="{{route('presentation.index')}}" class="btn btn-facebook btn-raised btn-round">Back for your table presentation</a>
+                                <div class="submit text-center">
+                                    <a href="{{route('presentation.index')}}" class="btn btn-facebook btn-raised btn-round">Back for your table presentation</a>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="submit text-center">
+                    @include('inc.admin.components.alert_permission')
+                </div>
+                @endcan
             </div>
         </div>
     </div>

@@ -17,6 +17,7 @@ class LinkController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+       
     }
     /**
      * Display a listing of the resource.
@@ -25,8 +26,9 @@ class LinkController extends Controller
      */
     public function index()
     {
-        $links = link::all();
-        return view('admin.partials.link.show',compact('links'));
+        $links = link::orderBy('created_at','DESC')->get();
+        return view('admin.partials.link.show',compact('links'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -54,11 +56,8 @@ class LinkController extends Controller
 
         ]);
 
-        $link = new Link;
-        $link->name = $request->name;
-        $link->link = $request->link;
-        $link->save();
 
+        Link::create($request->all());
 
 
         alert()->success('Success', "Le line a été cree avec succès");
@@ -96,17 +95,15 @@ class LinkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Link $link)
     {
         $this->validate($request,[
             'name'=>'required',
             'link'=>'required',
         ]);
 
-        $link = link::find($id);
-        $link->name = $request->name;
-        $link->link = $request->link;
-        $link->save();
+
+        $link->update($request->all());;
 
         alert()->success('Success', "Mise a jour du lien reussi");
         return redirect()->route('link.index');

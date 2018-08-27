@@ -8,12 +8,19 @@
 @endsection
 @section('content')
 <div class="content">
+    @include('inc.admin.components.status_admin')
     <div class="container-fluid">
+
+        <!-- le can('est la protection de la permission ') -->
+        @can('edit-role')
+
+        <!-- form init -->
         <div class="row">
             <div class="col-md-10 col-sm-6 ml-auto mr-auto">
-                <form id="RegisterValidation" role="form" method="POST" action="{{route('roles.update',$role->id)}}" accept-charset="UTF-8">
-                    {{ csrf_field() }}
-                    {{ method_field('PATCH') }}
+
+                @include('inc.alert')
+
+                {!! Form::model($role, ['files'=> 'true','method' => 'PATCH','route' => ['roles.update', $role->id], 'id' => 'RegisterValidation']) !!}
                     <div class="card ">
                         <div class="card-header card-header-danger card-header-icon">
                             <div class="card-icon">
@@ -21,49 +28,28 @@
                             </div>
                             <h4 class="card-title">Role Update</h4>
                         </div>
-                        <div class="card-body ">
-                            <div class="form-group{{ $errors->has('display_name') ? ' has-error' : '' }}">
-                                <label for="display_name"  class="bmd-label-floating"></label>
-                                <input type="text" class="form-control" name="display_name"  id="display_name" minLength="3" value="{{ $role->display_name}}" required="true"/>
-                                @if ($errors->has('display_name'))
-                                <span class="help-block">
-                                     <strong class="text-danger text-center">{{ $errors->first('display_name') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                <label for="description"  class="bmd-label-floating"></label>
-                                <input type="text" class="form-control" name="description"  id="description" value="{{ $role->description}}" minLength="3" required="true"/>
-                                @if ($errors->has('description'))
-                                <span class="help-block">
-                                   <strong class="text-danger text-center">{{ $errors->first('description') }}</strong>
-                                 </span>
-                                @endif
-                            </div>
-                            <div class="card-header text-center">
-                                <h4 class="card-title text-dark">
-                                    <b class="text-success">Admin Permissions</b>
-                                </h4>
-                            </div>
 
 
-                            @include('admin.partials.role.form')
-                            <div class="submit text-center">
-                                <input type="submit" class="btn btn-rose btn-raised btn-round"  value="Update Role">
-                            </div>
-                            <br>
-                            <div class="submit text-center">
-                                <a href="{{route('roles.index')}}" class="btn btn-facebook btn-raised btn-round">Back to the table Role</a>
-                            </div>
+                        @include('admin.partials.role.form')
+
+                        <div class="submit text-center">
+                            <input type="submit" class="btn btn-rose btn-raised btn-round"  value="Update Role">
                         </div>
-
+                        <div class="submit text-center">
+                            <a href="{{route('roles.index')}}" class="btn btn-facebook btn-raised btn-round">Back to the table Role</a>
+                        </div>
+                        <br>
                     </div>
+                {!! Form::close() !!}
             </div>
-            <br>
-            </form>
         </div>
+        <!-- end form -->
+        @else
+        <div class="submit text-center">
+            @include('inc.admin.components.alert_permission')
+        </div>
+        @endcan
     </div>
-</div>
 </div>
 @include('inc.admin._footer')
 </div>
@@ -95,5 +81,11 @@
         setFormValidation('#RangeValidation');
     });
 </script>
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
 
+    })
+</script>
 @endsection

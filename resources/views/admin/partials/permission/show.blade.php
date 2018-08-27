@@ -9,64 +9,110 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
+        @include('inc.admin.components.status_admin')
+        <br/>
+        @can('all-permission')
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-info card-header-icon">
+                    <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">assignment</i>
                         </div>
                         <h4 class="card-title">All Permissions</h4>
                     </div>
                     <div class="card-body">
+
+                        @include('inc.alert')
+
+                        @can('delete-multiple-permission')
+                        <div class="submit text-right">
+                            <button class="btn btn-rose btn-raised btn-round delete-all "
+                                    data-url="">
+                                <i class="material-icons">delete_forever</i>
+                                Delete select
+                            </button>
+                        </div>
+                        @endcan
                         <div class="toolbar">
 
+                            @can('create-permission')
                             <div class="submit text-center">
-                                <a href="{{route('permissions.create')}}" class="btn btn-warning btn-raised btn-round">Create New Permission</a>
+                                <button class="btn btn-primary btn-raised btn-round " data-toggle="modal"
+                                        data-target="#createModal">
+                                    Create un new permission
+                                </button>
                             </div>
+                            @endcan
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>Display Name</th>
+                                    @can('delete-multiple-permission')
+                                    <th>Select</th>
+                                    @endcan
                                     <th>Name</th>
-                                    <th>Create_at</th>
+                                    <th>Guard_ame</th>
+                                    <th>Updated_at</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Display Name</th>
+                                    @can('delete-multiple-permission')
+                                    <th>Select</th>
+                                    @endcan
                                     <th>Name</th>
-                                    <th>Create_at</th>
+                                    <th>Guard_ame</th>
+                                    <th>Updated_at</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
+                             @if(count($permissions) > 0)
                                 @foreach($permissions as $lk)
-                                <tr>
-                                    <td>{{ $lk->display_name}}</td>
-                                    <td>{{ $lk->name}}</td>
-                                    <td>{{ $lk->created_at->diffForHumans()}}</td>
+                                <tr id="tr_{{$lk->id}}">
+                                    @can('delete-multiple-permission')
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input checkbox" type="checkbox"  data-id="{{$lk->id}}">
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    @endcan
+                                    <td><b>{{ $lk->name}}</b></td>
+                                    <td>{{ $lk->guard_name}}</td>
+                                    <td>{!! str_limit( \Carbon\Carbon::parse($lk->updated_at)->diffForHumans(), 20,'...') !!}</td>
+
                                     <td class="td-actions text-right">
-                                        <button type="button" class="btn btn-link  btn-info btn-round btn-just-icon "
-                                                data-toggle="modal" data-target="#viewModal" data-mydisplay_name="{{ $lk->display_name }}">
+                                        <a href="#" class="show-modal btn btn-link  btn-info btn-round btn-just-icon"
+                                           data-id="{{$lk->id}}" data-name="{{ $lk->name}}" data-guard_name="{{ $lk->guard_name}}" title="Show permission">
                                             <i class="material-icons">visibility</i>
-                                        </button>
-                                        <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "
-                                                data-toggle="modal" data-target="#editedModal" data-mydisplay_name="{{ $lk->display_name }}"
-                                                data-lkid="{{ $lk->id }}">
+                                        </a>
+                                        @can('edit-permission')
+                                        <a href="{{ route('permissions.edit',[$lk->id]) }}" class="btn btn-link  btn-success btn-round btn-just-icon " title="Show permission">
                                             <i class="material-icons">edit</i>
-                                        </button>
+                                        </a>
+                                        @endcan
+                                        @can('delete-permission')
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon "
                                                 data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">close</i>
+                                            <i class="material-icons">delete_forever</i>
                                         </button>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach
+
+                                @else
+
+                             @endif
                                 </tbody>
                             </table>
                         </div>
@@ -77,64 +123,33 @@
             </div>
             <!-- end col-md-12 -->
         </div>
+        @else
+        <div class="submit text-center">
+            @include('inc.admin.components.alert_permission')
+        </div>
+        @endcan
         <!-- end row -->
     </div>
 </div>
 
-<!-- Update Permission -->
-<div class="modal fade" id="editedModal" tabindex="-1" role="">
-    <div class="modal-dialog modal-login" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateLabel">Update Permission</h5>
-            </div>
-            <br>
-            <div class="card card-signup card-plain">
-                <div class="modal-body">
-                    <form id="RegisterValidation" role="form" method="POST" action="{{route('permissions.update',$lk->id)}}" accept-charset="UTF-8">
-                        {{ csrf_field() }}
-                        {{ method_field('PATCH') }}
-                        <div class="card-body">
-
-                            <input type="hidden" name="permission_id" id="lk_id" value="">
-                            @include('admin.partials.permission.form')
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-rose btn-raised ">Update Permission</button>
-                        </div>
-                        <br>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End Update Permission -->
 <!-- Create Permission -->
 <div class="modal fade" id="createModal" tabindex="-1" role="">
-    <div class="modal-dialog modal-login" role="document">
+    <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Create New Permission</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title" id="deleteLabel"><b>Create new permission</b></h5>
             </div>
-            <br>
-            <div class="card card-signup card-plain">
-                <div class="modal-body">
-                    <form id="RegisterValidation" role="form" method="POST" action="{{ route('permissions.store') }}">
-                        {{ csrf_field() }}
-                        <div class="card-body">
+            <div class="modal-body">
+                    {!! Form::open(['method' => 'POST','id' => 'RegisterValidation', 'route' => ['permissions.store']]) !!}
 
-                            @include('admin.partials.permission.form')
-                        </div>
+                    @include('admin.partials.permission.form',['permission' => new \Spatie\Permission\Models\Permission()])
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
                             <button type="submit" class="btn btn-rose btn-raised ">Create  Permission</button>
                         </div>
-                        <br>
-                    </form>
-                </div>
+                    {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -142,33 +157,23 @@
 <!-- End create Permission -->
 
 <!-- View Permission -->
-<div class="modal fade" id="viewModal" tabindex="-1" role="">
-    <div class="modal-dialog modal-login" role="document">
+{{-- Modal Form Show Color --}}
+<div id="show" class="modal fade" role="dialog">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Permission</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
             </div>
-            <br>
-            <div class="card card-signup card-plain">
-                <div class="modal-body">
-                    <form>
-                        <div class="card-body">
+            <div class="modal-body">
 
-                            <div class="form-group{{ $errors->has('display_name') ? ' has-error' : '' }}">
-                                <label for="display_name"  class="bmd-label-floating"></label>
-                                <input type="text" class="form-control" name="display_name"  id="display_name" minLength="3" placeholder="Name of the Permission" disabled required="true"/>
-                                @if ($errors->has('display_name'))
-                                <span class="help-block">
-                                    <strong class="text-danger text-center">{{ $errors->first('display_name') }}</strong>
-                                </span>
-                                @endif
-                              </div>
-                             </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        <br>
-                    </form>
+                <div class="form-group">
+                    <label for="">Name permission :</label>
+                    <b id="ti"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Guard_name :</label>
+                    <b id="by"/>
                 </div>
             </div>
         </div>
@@ -185,7 +190,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('permissions.destroy',$lk->id) }}" method="post">
+            <form action="{{ route('permissions.destroy','name') }}" method="post">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">
@@ -234,30 +239,164 @@
     $('#editedModal').on('show.bs.modal', function (event) {
 
         var button = $(event.relatedTarget)
-        var display_name = button.data('mydisplay_name')
+        var name = button.data('myname')
+        var guard_name = button.data('myguard_name')
         var lk_id = button.data('lkid')
         var modal = $(this)
 
-        modal.find('.modal-body #display_name').val(display_name);
+        modal.find('.modal-body #name').val(name);
+        modal.find('.modal-body #guard_name').val(guard_name);
         modal.find('.modal-body #lk_id').val(lk_id);
 
     })
+
+    // Show function
+    $(document).on('click', '.show-modal', function() {
+        $('#show').modal('show');
+        $('#i').text($(this).data('id'));
+        $('#ti').text($(this).data('name'));
+        $('#by').text($(this).data('guard_name'));
+        $('.modal-title').text('Show Permission');
+    });
 </script>
+
+
+
 <script type="text/javascript">
 
-    $('#viewModal').on('show.bs.modal', function (event) {
+    $(document).ready(function () {
 
-        var button = $(event.relatedTarget)
-        var display_name = button.data('mydisplay_name')
-        var lk_id = button.data('lkid')
-        var modal = $(this)
 
-        modal.find('.modal-body #display_name').val(display_name);
-        modal.find('.modal-body #lk_id').val(lk_id);
 
-    })
+        $('#check_all').on('click', function(e) {
+
+            if($(this).is(':checked',true))
+
+            {
+
+                $(".checkbox").prop('checked', true);
+
+            } else {
+
+                $(".checkbox").prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.checkbox').on('click',function(){
+
+            if($('.checkbox:checked').length == $('.checkbox').length){
+
+                $('#check_all').prop('checked',true);
+
+            }else{
+
+                $('#check_all').prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.delete-all').on('click', function(e) {
+
+
+
+            var idsArr = [];
+
+            $(".checkbox:checked").each(function() {
+
+                idsArr.push($(this).attr('data-id'));
+
+            });
+
+
+
+            if(idsArr.length <=0)
+
+            {
+
+                alert("Please select atleast one record to delete.");
+
+            }  else {
+
+
+
+                if(confirm("Are you sure, you want to delete the selected administrator ?")){
+
+
+
+                    var strIds = idsArr.join(",");
+
+
+
+                    $.ajax({
+
+                        url: "{{ route('permission.multiple-delete') }}",
+
+                        type: 'DELETE',
+
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                        data: 'ids='+strIds,
+
+                        success: function (data) {
+
+                            if (data['status']==true) {
+
+                                $(".checkbox:checked").each(function() {
+
+                                    $(this).parents("tr").remove();
+
+                                });
+
+                                alert(data['message']);
+
+                            } else {
+
+                                alert('Whoops Something went wrong!!');
+
+                            }
+
+                        },
+
+                        error: function (data) {
+
+                            alert(data.responseText);
+
+                        }
+
+                    });
+
+
+
+                }
+
+            }
+
+        });
+
+
+
+        $('[data-toggle=confirmation]').confirmation({
+
+            rootSelector: '[data-toggle=confirmation]',
+
+            onConfirm: function (event, element) {
+
+                element.closest('form').submit();
+
+            }
+
+        });
+
+
+
+    });
+
 </script>
-
-
-
 @endsection

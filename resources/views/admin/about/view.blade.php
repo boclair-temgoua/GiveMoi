@@ -20,10 +20,6 @@
 
 <div class="content">
     <div class="container-fluid">
-        <div class="header text-center ml-auto mr-auto">
-            <h3 class="title">Abouts</h3>
-            <p class="category">View About</p>
-        </div>
         <div class="content">
             <div class="container-fluid">
                 <div class="row">

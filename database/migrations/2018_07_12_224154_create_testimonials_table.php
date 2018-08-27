@@ -22,6 +22,9 @@ class CreateTestimonialsTable extends Migration
             $table->integer('status')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
+
+
+            $table->integer('admin_id')->unsigned()->nullable();
         });
     }
 

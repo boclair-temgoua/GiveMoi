@@ -34,6 +34,8 @@
 <script src="/assets/dashboard/assets/js/plugins/arrive.min.js"></script>
 <!-- Chartist JS -->
 <script src="/assets/dashboard/assets/js/plugins/chartist.min.js"></script>
+<!-- Select2 -->
+<script src="/assets/js/plugins/select2.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="/assets/dashboard/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->

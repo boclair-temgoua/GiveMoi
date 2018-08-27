@@ -40,6 +40,7 @@ class User extends Authenticatable
         'slug',
         'email',
         'password',
+        'facebook_id',
         'confirmation_token',
         'avatar',
         'avatarcover',
@@ -54,9 +55,11 @@ class User extends Authenticatable
         'body',
         'image',
         'avatar',
+        'google_id',
         'provider',
         'provider_id'
     ];
+
 
 
    public function setDateOfBirthAttribute($birthday)
@@ -177,6 +180,23 @@ class User extends Authenticatable
 
     public function getAgeAttribute(){
         return $this->birthday->diffInYears();
+    }
+
+
+    public function addNew($input)
+    {
+        $check = static::where('facebook_id',$input['facebook_id'])->first();
+
+        $check = static::where('google_id',$input['google_id'])->first();
+
+
+        if(is_null($check)){
+            return static::create($input);
+        }
+
+
+
+        return $check;
     }
 
 }

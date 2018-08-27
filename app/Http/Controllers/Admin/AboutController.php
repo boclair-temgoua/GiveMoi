@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Image;
 use File;
+use Auth;
 
 class AboutController extends Controller
 {
@@ -21,6 +22,7 @@ class AboutController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+
     }
     /**
      * Display a listing of the resource.
@@ -29,7 +31,12 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $abouts = about::all();
+        $abouts= DB::table('abouts')
+
+            ->join('admins','abouts.admin_id','=','admins.id')
+            ->select('abouts.*','admins.name')
+            ->orderBy('created_at','DESC')->get();
+
         return view('admin.about.show',compact('abouts'));
     }
 
@@ -73,6 +80,7 @@ class AboutController extends Controller
         $about->twlink = $request->twlink;
         $about->linklink = $request->linklink;
         $about->dribbblelink = $request->dribbblelink;
+        $about->admin_id = Auth::user()->id;
 
 
 
@@ -172,6 +180,7 @@ class AboutController extends Controller
         $about->twlink = $request->twlink;
         $about->linklink = $request->linklink;
         $about->dribbblelink = $request->dribbblelink;
+        $about->admin_id = Auth::user()->id;
 
 
 
@@ -214,5 +223,18 @@ class AboutController extends Controller
 
         Alert::success('Deleted!', 'Your file has been deleted.');
         return redirect()->back();
+    }
+
+
+    public function deleteMultiple(Request $request){
+
+        $ids = $request->ids;
+
+        //About::whereIn('id',explode(",",$ids))->delete();
+
+        DB::table("abouts")->whereIn('id',explode(",",$ids))->delete();
+
+        return response()->json(['status'=>true,'message'=>"Message About member deleted successfully."]);
+
     }
 }

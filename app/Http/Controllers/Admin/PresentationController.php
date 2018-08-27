@@ -7,6 +7,7 @@ use App\Model\user\presentation;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -34,9 +35,10 @@ class PresentationController extends Controller
     {
         $presentations= DB::table('presentations')
 
+            ->join('admins','presentations.admin_id','=','admins.id')
             ->join('colors','presentations.color_id','=','colors.id')
-            ->select('presentations.*','colors.color_slug')
-            ->get();
+            ->select('presentations.*','colors.color_slug','admins.name')
+            ->orderBy('created_at','DESC')->get();
 
 
         return view('admin.presentation.show',compact('presentations'));
@@ -81,6 +83,7 @@ class PresentationController extends Controller
         $presentation->slug = $request->slug;
         $presentation->icon = $request->icon;
         $presentation->body = $request->body;
+        $presentation->admin_id = Auth::user()->id;
 
 
 
@@ -183,6 +186,7 @@ class PresentationController extends Controller
         $presentation->icon = $request->icon;
         $presentation->body = $request->body;
         $presentation->color_id = $request->color_id;
+        $presentation->admin_id = Auth::user()->id;
 
 
 

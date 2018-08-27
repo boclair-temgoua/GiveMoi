@@ -168,7 +168,7 @@
                 </div>
             </li>
 
-            <li class="nav-item {{ Active::check(['admin/user','admin/administrators','categories']) }} ">
+            <li class="nav-item {{ Active::check(['admin/user','categories']) }} ">
                 <a class="nav-link" data-toggle="collapse" href="#settingsExamples">
                     <i class="material-icons">settings</i>
                     <p> Settings
@@ -181,12 +181,6 @@
                             <a class="nav-link" href="{{route('user.index')}}">
                                 <span class="sidebar-mini"> US </span>
                                 <span class="sidebar-normal"> Users </span>
-                            </a>
-                        </li>
-                        <li class="nav-item {{ active_check('admin/administrators') }} ">
-                            <a class="nav-link" href="{{route('administrators.index')}}">
-                                <span class="sidebar-mini"> AD </span>
-                                <span class="sidebar-normal"> Administrators </span>
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -242,40 +236,46 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item  {{ Active::check(['admin/administrators','admin/permissions','admin/roles']) }}">
                 <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
-                    <i class="material-icons">place</i>
-                    <p> Maps
+                    <i class="material-icons">face</i>
+                    <p> Admin Management
                         <b class="caret"></b>
                     </p>
                 </a>
                 <div class="collapse" id="mapsExamples">
                     <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/maps/google.html">
-                                <span class="sidebar-mini"> GM </span>
-                                <span class="sidebar-normal"> Google Maps </span>
+                        <li class="nav-item {{ active_check('admin/administrators') }}">
+                            <a class="nav-link" href="{{route('administrators.index')}}">
+                                <span class="sidebar-mini"> AD </span>
+                                <span class="sidebar-normal"> Administrators </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/maps/fullscreen.html">
-                                <span class="sidebar-mini"> FSM </span>
-                                <span class="sidebar-normal"> Full Screen Map </span>
+                        <li class="nav-item {{ active_check('admin/permissions') }}">
+                            <a class="nav-link" href="{{route('permissions.index')}}">
+                                <span class="sidebar-mini"> PE </span>
+                                <span class="sidebar-normal"> Permissions </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="../examples/maps/vector.html">
-                                <span class="sidebar-mini"> VM </span>
-                                <span class="sidebar-normal"> Vector Map </span>
+                        <li class="nav-item {{ active_check('admin/roles') }}">
+                            <a class="nav-link" href="{{route('roles.index')}}">
+                                <span class="sidebar-mini"> RO </span>
+                                <span class="sidebar-normal"> Roles </span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item {{ active_check('admin/conditions') }}">
                 <a class="nav-link" href="/admin/conditions">
                     <i class="material-icons">widgets</i>
                     <p> Conditions and terms </p>
+                </a>
+            </li>
+            <li class="nav-item {{ active_check('admin/all-contact') }}">
+                <a class="nav-link" href="/admin/all-contact">
+                    <i class="material-icons">drafts</i>
+                    <p> Message contact </p>
                 </a>
             </li>
             <li class="nav-item ">

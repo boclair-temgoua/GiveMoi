@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Partials;
 use App\Model\user\partial\color;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -29,7 +30,14 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $colors = Color::all();
+
+        $colors= DB::table('colors')
+
+            ->join('admins','colors.admin_id','=','admins.id')
+            ->select('colors.*','admins.name')
+            ->orderBy('created_at','DESC')->get();
+
+
         return view('admin.partials.color.show',compact('colors'));
     }
 
@@ -49,19 +57,7 @@ class ColorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //public function store(Request $request)
-    //{
-    //    $validator = Validator::make(Input::all(), $this->rules);
-    //    if ($validator->fails()) {
-    //        return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
-    //    } else {
-    //        $color = new Color();
-    //        $color->slug = $request->slug;
-    //        $color->name = $request->name;
-    //        $color->save();
-    //        return response()->json($color);
-    //    }
-    //}
+
    public function store(Request $request)
    {
        $this->validate($request,[
@@ -74,6 +70,7 @@ class ColorController extends Controller
        $color->slug = $request->slug;
        $color->color_name = $request->color_name;
        $color->color_slug = $request->color_slug;
+       $color->admin_id = Auth::user()->id;
        $color->save();
 
 
@@ -142,6 +139,7 @@ class ColorController extends Controller
         $color->slug = $request->slug;
         $color->color_name = $request->color_name;
         $color->color_slug = $request->color_slug;
+        $color->admin_id = Auth::user()->id;
         $color->save();
 
 

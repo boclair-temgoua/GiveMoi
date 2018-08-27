@@ -6,12 +6,19 @@ use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Intervention\Image\Facades\Image;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
+
 
 
 class admin extends Authenticatable
 {
-    use Notifiable;
 
+    use Notifiable, HasRoles;
+    //Permission
+    protected $guard_name = 'admin';
+
+    protected $table = 'admins';
     protected $guarded = 'admin';
 
 
@@ -19,7 +26,7 @@ class admin extends Authenticatable
     public function __construct() {
 
         $this->admin = config('admin.name');
-        $this->email = config('admin.email');
+        //$this->email = config('admin.email');
     }
 
     protected $admin;
@@ -56,6 +63,12 @@ class admin extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function isAdmin()
+    {
+        return false;
+    }
+
+
     /**
      * Send the password reset notification.
      *
@@ -88,5 +101,11 @@ class admin extends Authenticatable
             Image::make($avatar)->fit(300,300)->save(public_path()."/assets/img/admin/profile/{$this->id}.jpg");
             $this->attributes['avatar'] = true;
         }
+    }
+
+
+    public function role()
+    {
+        return $this->belongsToMany(Role::class, 'role_user');
     }
 }

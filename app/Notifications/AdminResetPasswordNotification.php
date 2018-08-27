@@ -47,9 +47,10 @@ class AdminResetPasswordNotification extends Notification
                     ->subject('Reset password')
                     ->greeting("Dear {$notifiable->name}")
                     ->line('You are receiving this email because we received a password reset request for your Account.')
-                    ->action('Notification Action', route('admin.password.reset', $this->token))
+                    ->action('Reset password here', route('admin.password.reset', $this->token))
                     ->line("<strong>Account Holder Details</strong>")
-                    ->line("username: <strong>{$notifiable->username}</strong>")
+                    ->line("<strong>Username:</strong> {$notifiable->username}")
+                    ->line("<strong>Email:</strong> {$notifiable->email}")
                     ->line('If you did not request a password reset, no further action is required!');
     }
 

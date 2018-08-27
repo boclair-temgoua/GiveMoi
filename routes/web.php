@@ -20,7 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/confirm/{id}/{token}', 'Auth\RegisterController@confirmAccount');
+Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'Auth\FacebookController@handleFacebookCallback');
 
+Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
 
 
@@ -47,17 +51,30 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
 
+    //Administrators Route
+    Route::resource('/administrators','AdministratorsController');
+    Route::delete('delete-multiple-administrator', ['as'=>'administrator.multiple-delete','uses'=>'AdministratorsController@deleteMultiple']);
+
+    //Roles Route
+    Route::resource('roles','RolesController');
+    Route::delete('delete-multiple-role', ['as'=>'role.multiple-delete','uses'=>'RolesController@deleteMultiple']);
+
+    //Permissions Route
+    Route::resource('/permissions','PermissionsController');
+    Route::delete('delete-multiple-permission', ['as'=>'permission.multiple-delete','uses'=>'PermissionsController@deleteMultiple']);
+
+
+
+    //Users Route
+    Route::resource('/user','UsersregisterController');
 
     Route::get('/', 'DashboardController@index')->name('admin');
     //Links Route
     Route::resource('/link','LinkController');
-    //Users Route
-    Route::resource('/user','UsersregisterController');
+
+
 
     Route::group(['namespace' => 'Events'], function (){
-        //Permissions Route
-        Route::resource('/permissions','PermissionController');
-        Route::resource('/roles','RoleController');
 
         //Event Routes
         Route::resource('/event','EventsController');
@@ -79,28 +96,34 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
         Route::resource('color','ColorController');
         Route::get('/unactive_color/{id}','ColorController@unactive_color')->name('unactive_color');
         Route::get('/active_color/{id}','ColorController@active_color')->name('active_color');
+        //Contact Route
+        Route::get('/all-contact','ContactController@AllContact')->name('contact');
+        Route::post('/delete-contact-message/{id}','ContactController@delete_contact')->name('delete.contact');
+        Route::delete('delete-multiple-message-contact', ['as'=>'contact.multiple-delete','uses'=>'ContactController@deleteMultiple']);
     });
 
     //Abouts Route
     Route::resource('/about','AboutController');
     Route::get('/unactive_about/{id}','AboutController@unactive_about')->name('unactive_about');
     Route::get('/active_about/{id}','AboutController@active_about')->name('active_about');
+    Route::delete('delete-multiple-about', ['as'=>'about.multiple-delete','uses'=>'AboutController@deleteMultiple']);
     //Presentation Routes
     Route::resource('/presentation','PresentationController');
     //Route::get('/presentation','PresentationController@all_presentation')->name('presentation.index');
     Route::get('/unactive_presentation/{id}','PresentationController@unactive_presentation')->name('unactive_presentation');
     Route::get('/active_presentation/{id}','PresentationController@active_presentation')->name('active_presentation');
+
     //Testimonials Route
     Route::resource('/testimonial','TestimonialController');
     Route::get('/unactive_testimonial/{id}','TestimonialController@unactive_testimonial')->name('unactive_testimonial');
     Route::get('/active_testimonial/{id}','TestimonialController@active_testimonial')->name('active_testimonial');
+    Route::delete('delete-multiple-testimonial', ['as'=>'testimonial.multiple-delete','uses'=>'TestimonialController@deleteMultiple']);
 
     //Tags Route
     Route::resource('/tag','TagController');
     //Categories Routes
     Route::resource('/category','CategoryController');
     //Profiles Routes
-    Route::resource('/administrators','Account\ProfileController');
     Route::get('/account', 'Account\AccountController@index')->name('admin.account');
 
 
@@ -183,8 +206,8 @@ Route::group(['namespace' =>'Api'],function (){
 
     // Route Contact Us
 
-    Route::get('contact', 'ContactController@create')->name('contact');
-    Route::post('contact', 'ContactController@store')->name('contact.store');
+    Route::get('/contact', 'ContactController@create')->name('contact');
+    Route::post('/contact', 'ContactController@store')->name('contact.store');
 
 
 

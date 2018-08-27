@@ -26,7 +26,7 @@
                             <i class="material-icons">perm_identity</i>
                         </div>
                         <h4 class="card-title">Profile View -
-                            <small class="category">Information of your Profile</small>
+                            <small class="category">Administrator</small>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -34,8 +34,8 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Company (disabled)</label>
-                                        <input type="text" class="form-control" disabled>
+                                        <label class="bmd-label-floating">Company ({{ config('app.name') }})</label>
+                                        <input type="text" class="form-control" name="name" id="name" value="{{ config('app.name') }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">

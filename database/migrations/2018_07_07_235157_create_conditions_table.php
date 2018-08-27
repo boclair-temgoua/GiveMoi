@@ -20,6 +20,7 @@ class CreateConditionsTable extends Migration
             $table->string('cover_image')->nullable();
             $table->integer('status')->nullable();
             $table->longText('body');
+            $table->integer('admin_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

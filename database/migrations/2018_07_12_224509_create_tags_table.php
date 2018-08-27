@@ -18,6 +18,9 @@ class CreateTagsTable extends Migration
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('admin_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->timestamps();
 
         });
 

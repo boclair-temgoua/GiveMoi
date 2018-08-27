@@ -22,6 +22,7 @@ class CreatePresentationsTable extends Migration
             $table->integer('status')->nullable();
             $table->integer('color_id')->nullable();
             $table->string('image')->nullable();
+            $table->integer('admin_id')->unsigned()->nullable();
             $table->timestamps();
         });
 

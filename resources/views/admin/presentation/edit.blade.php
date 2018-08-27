@@ -20,12 +20,11 @@
 
 <div class="content">
     <div class="container-fluid">
-        <div class="header text-center ml-auto mr-auto">
-            <h3 class="title">Presentations</h3>
-            <p class="category">Edition des presentations de service</p>
-        </div>
         <div class="content">
+            @include('inc.admin.components.status_admin')
             <div class="container-fluid">
+
+                @can('edit-presentation')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
                         <form id="RegisterValidation" role="form" method="POST" action="{{route('presentation.update',$presentation->id)}}" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -50,6 +49,11 @@
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="submit text-center">
+                    @include('inc.admin.components.alert_permission')
+                </div>
+                @endcan
             </div>
         </div>
     </div>

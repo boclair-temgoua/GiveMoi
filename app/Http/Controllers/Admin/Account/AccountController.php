@@ -82,7 +82,7 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-          //dd(\request()->all()); // pour tester les donner qui entre dans la base de donner
+          dd(\request()->all()); // pour tester les donner qui entre dans la base de donner
         $admin = Auth::user();
         $this->validate($request,[
             'username' => "required|string|min:2|max:25|unique:admins,username,{$admin->id}",

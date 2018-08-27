@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->text('body')->nullable();
             $table->string('password')->nullable();
             $table->integer('status')->nullable();
+            $table->string('timezone', 60)->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->string('confirmation_token')->nullable();
@@ -35,6 +36,9 @@ class CreateUsersTable extends Migration
 
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
+
+            $table->string('facebook_id')->nullable();
+            $table->string('google_id')->nullable();
 
 
             $table->string('telephone', 50)->nullable();

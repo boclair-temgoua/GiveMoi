@@ -1,0 +1,79 @@
+{
+    "name": "cyrildewit/eloquent-viewable",
+    "description": "Simple package that allows you to associate views with Eloquent models",
+    "type": "library",
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/cyrildewit/eloquent-viewable",
+    "keywords": [
+        "cyrildewit",
+        "laravel",
+        "eloquent",
+        "views",
+        "viewable",
+        "visits",
+        "visitable",
+        "hits",
+        "counter"
+    ],
+    "support": {
+        "email": "github@cyrildewit.nl",
+        "issues": "https://github.com/cyrildewit/eloquent-viewable/issues",
+        "wiki": "https://github.com/cyrildewit/eloquent-viewable/wiki",
+        "source": "https://github.com/cyrildewit/eloquent-viewable",
+        "docs": "https://github.com/cyrildewit/eloquent-viewable/wiki"
+    },
+    "authors": [
+        {
+            "name": "Cyril de Wit",
+            "email": "info@cyrildewit.nl",
+            "homepage": "http://cyrildewit.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "illuminate/bus": "5.5.*|5.6.*",
+        "illuminate/cache": "5.5.*|5.6.*",
+        "illuminate/contracts": "5.5.*|5.6.*",
+        "illuminate/cookie": "5.5.*|5.6.*",
+        "illuminate/database": "5.5.*|5.6.*",
+        "illuminate/http": "5.5.*|5.6.*",
+        "illuminate/queue": "5.5.*|5.6.*",
+        "illuminate/routing": "5.5.*|5.6.*",
+        "illuminate/support": "5.5.*|5.6.*",
+        "jaybizzle/crawler-detect": "^1.0",
+        "nesbot/carbon": "^1.22"
+    },
+    "require-dev": {
+        "illuminate/config": "5.5.*|5.6.*",
+        "mockery/mockery": "^1.0",
+        "orchestra/database": "^3.5",
+        "orchestra/testbench": "^3.4",
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CyrildeWit\\EloquentViewable\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CyrildeWit\\EloquentViewable\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CyrildeWit\\EloquentViewable\\EloquentViewableServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

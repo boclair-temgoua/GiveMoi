@@ -24,11 +24,12 @@
                             @include('inc.alert')
                             <div class="submit text-center">
 
-
+                                @can('create-color')
                                 <button class="btn btn-rose btn-raised btn-round " data-toggle="modal"
                                         data-target="#createModal">
                                     Créer un Color
                                 </button>
+                                @endcan
 
 
                             </div>
@@ -39,19 +40,39 @@
                                    cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th width="150px">No</th>
-                                    <th>Color name</th>
-                                    <th>Color</th>
-                                    <th>Status color</th>
-                                    <th class="disabled-sorting text-right">Actions</th>
+                                    <th><b>Color name</b></th>
+                                    <th><b>Color</b></th>
+                                    <th>
+                                        @can('unpublish-color')
+                                        @can('publish-color')
+                                        <b>Status color</b>
+                                        @endcan
+                                        @endcan
+
+                                    </th>
+
+                                    <th><b>Updated_at</b></th>
+                                    <th><b>Edited by</b></th>
+
+                                    <th class="disabled-sorting text-right"><b>Actions</b></th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th width="150px">No</th>
                                     <th>Color name</th>
                                     <th>Color</th>
-                                    <th>Status color</th>
+                                    <th>
+
+                                        @can('unpublish-color')
+                                        @can('publish-color')
+                                        <b>Status color</b>
+                                        @endcan
+                                        @endcan
+
+                                    </th>
+
+                                    <th><b>Updated_at</b></th>
+                                    <th><b>Edited by</b></th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </tfoot>
@@ -60,30 +81,44 @@
 
                                 @foreach($colors as $lk)
                                 <tr>
-                                    <td>{{ $loop->index +1 }}</td>
                                     <td>{{ $lk->color_name}}</td>
                                     <td>{{ $lk->slug}}</td>
                                     <td>
                                         @if($lk->status==1)
+                                        @can('unpublish-color')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-info">couleur activé</span>
+                                            <span class="badge badge-pill badge-info">color activated</span>
                                         </div>
+                                        @endcan
                                         @else
+
+                                        @can('publish-color')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-danger">couleur desactivé</span>
+                                            <span class="badge badge-pill badge-danger">color unactivated</span>
                                         </div>
+                                        @endcan
                                         @endif
                                     </td>
+                                    <td>{!! str_limit( \Carbon\Carbon::parse($lk->updated_at)->diffForHumans(), 20,'...') !!}</td>
+
+                                    <td><b>{!! str_limit($lk->name, 16,'...') !!}</b></td>
+
+
                                     <td class="td-actions text-right">
 
                                         @if($lk->status==1)
+                                        @can('unpublish-color')
                                         <a href="{{ route('unactive_color',$lk->id) }}" class="btn btn-link btn-info btn-round btn-just-icon " title="Désactiver la couleur">
                                             <i class="material-icons">power_settings_new</i>
                                         </a>
+                                        @endcan
+
                                         @else
+                                        @can('publish-color')
                                         <a href="{{ route('active_color',$lk->id) }}" class="btn btn-link btn-danger btn-round btn-just-icon " title="Activer la couleur">
                                             <i class="material-icons">power_settings_new</i>
                                         </a>
+                                        @endcan
                                         @endif
 
                                         <a href="#" class="show-modal btn btn-link  btn-info btn-round btn-just-icon"
@@ -92,6 +127,7 @@
                                            data-slug="{{ $lk->slug}}" title="Show color">
                                             <i class="material-icons">visibility</i>
                                         </a>
+                                        @can('edit-color')
                                         <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "
                                                 data-toggle="modal" data-target="#editedModal"
                                                 data-mycolor_name="{{ $lk->color_name }}"
@@ -99,12 +135,15 @@
                                                 data-lkid="{{ $lk->id }}" title="Editer la couleur">
                                             <i class="material-icons">edit</i>
                                         </button>
+                                        @endcan
+                                        @can('delete-color')
                                         <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon "
                                                 data-toggle="modal"
                                                 data-target="#delete"
                                                 data-catid="{{ $lk->id }}" title="Delete color">
                                             <i class="material-icons">delete_forever</i>
                                         </button>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach
@@ -174,7 +213,7 @@
         </div>
     </div>
 </div>
-<!-- End Update Tag-->
+<!-- End Update color-->
 {{-- Modal Form Show Color --}}
 <div id="show" class="modal fade" role="dialog">
     <div class="modal-dialog">

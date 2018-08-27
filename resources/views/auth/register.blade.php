@@ -57,6 +57,8 @@
                                     <form  id="RegisterValidation"  method="POST" action="{{ route('register') }}" accept-charset="UTF-8">
                                         {{ csrf_field() }}
 
+                                        <input type="hidden" name="tz" id="tz">
+
                                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -233,5 +235,12 @@
         })
 
     });
+</script>
+
+<script>
+    $(function () {
+        // guess user timezone
+        $('#tz').val(moment.tz.guess())
+    })
 </script>
 @endsection
