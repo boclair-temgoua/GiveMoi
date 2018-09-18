@@ -33,6 +33,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'last_name',
+        'country',
         'first_name',
         'full_name',
         'color_name',
@@ -48,7 +49,7 @@ class User extends Authenticatable
         'fblink',
         'instalink',
         'birthday',
-        'gender',
+        'sex',
         'work',
         'telephone',
         'cellphone',
@@ -79,7 +80,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-   
+
 
 
     public function events()
@@ -101,6 +102,7 @@ class User extends Authenticatable
     public function getArticlesCountAttribute(){
         return $this->articles()->count();
     }
+
 
 
 
@@ -163,6 +165,7 @@ class User extends Authenticatable
         {
             return "/assets/img/avatars/{$this->id}.jpg";
         }
+        //return "http://via.placeholder.com/150x150";
         return "assets/img/avatars/face.jpg";
     }
     public function setAvatarAttribute($avatar)

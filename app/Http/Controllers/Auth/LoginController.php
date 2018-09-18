@@ -45,7 +45,7 @@ class LoginController extends Controller
 
         if ( ! User::where('username', $request->username)->first() ) {
 
-            toastr()->error('<strong>Incorrect username try again</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
+            toastr()->error('<strong>Incorrect information try again</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
             return redirect()->back()
                 ->withInput($request->only($this->username(), 'remember'))
                 ->withErrors([
@@ -112,7 +112,7 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
 
-        toastr()->success('<strong>Welcome to you </strong>'.' '.Auth::user()->username,'<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut'=>5000]);
+        toastr()->success('<strong>Welcome</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut'=>5000]);
         return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->intended($this->redirectPath());
     }

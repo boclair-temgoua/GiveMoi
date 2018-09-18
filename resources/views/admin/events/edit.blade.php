@@ -1,8 +1,7 @@
 @extends('inc.main_account')
-
 @section('style')
-
 @endsection
+
 @section('content')
 <div  class="login-page  ">
     <div class="page-header header-filter" style=" background-size: cover; background-position: top center;">
@@ -16,7 +15,6 @@
                                     <div class="col-md-12 ml-auto mr-auto text-center">
                                         <h3 class="card-title text-info">Editer l'evenement en un clic </h3>
                                         <p class="card-title">La creation de vos Evenements doivent respecter les <a href="">conditions d'utilisation</a> vu de quoi ils seront tous simplement suprimer .</p>
-                                        @include('inc.alert')
                                     </div>
                                 </div>
                                 <br>
@@ -172,8 +170,8 @@
                                                             <span class="fileinput-exists">Change</span>
                                                             <input id="cover_image" type="file" class="form-control" name="cover_image">
                                                         </span>
-                                                            <br/>
-                                                            <a href="#pablo"
+                                                        <br/>
+                                                        <a href="#pablo"
                                                                class="btn btn-danger btn-round fileinput-exists"
                                                                data-dismiss="fileinput"><i class="fa fa-times"></i>
                                                                 Remove</a>

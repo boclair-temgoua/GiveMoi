@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 
 
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
@@ -19,10 +21,13 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    private $auth;
+
+    public function __construct(Guard $auth){
         $this->middleware('auth');
+        $this->auth = $auth;
     }
+
 
 
 
@@ -34,17 +39,17 @@ class UsersController extends Controller
 
     public function edit()
     {
-        $user = Auth::user();
-        return view('site.partials.profile',compact('user','colors'));
+        $user = $this->auth->user();
+        return view('site.partials.profile',compact('user'));
     }
 
 
 
 
-    public function update(Request $request)
+    public function update(Guard $auth, Request $request)
     {
         //dd($request->all()); // pour tester les donner qui entre dans la base de donner
-        $user = Auth()->user();
+        $user = $this->auth->user();
         $this->validate($request,[
             'username' => "required|string|min:2|max:25|unique:users,username,{$user->id}",
             'name' => "required|string|min:2|max:25",
@@ -53,24 +58,17 @@ class UsersController extends Controller
             'avatarcover' =>"image",
             //"birthday" => "date",
             "body" =>"max:200",
-            "gender" => "required|in:F,M",
+            "sex" => "required|in:Female,Male",
             "color_name" => "required|in:primary,info,rose,success,warning,danger,dark",
 
         ]);
 
 
-
-         if (isset($data['avatar'])) {
-             $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
-         }
-         if (isset($data['avatarcover'])) {
-             $user->addMediaFromRequest('avatarcover')->toMediaCollection('cover');
-         }
-
         $user->update($request->only(
             'email',
             'username',
             'name',
+            'country',
             'first_name',
             'last_name',
             'color_name',
@@ -80,30 +78,17 @@ class UsersController extends Controller
             'avatar',
             'birthday',
             'avatarcover',
-            'gender',
+            'sex',
             'body',
             'twlink',
             'instalink',
             'fblink'
         ));
 
-        if ($request->password_options == 'auto'){
-
-            $length = 10;
-            $keyspace = '2y$10$d4gjolCjg/VLPbpbRkNuNOKneeSEoP3dQao6iEHEiY65S31QTAAvW';
-            $str= '';
-            $max = mb_strlen($keyspace,'8bit') -1;
-            for ($i = 0; $i < $length; ++$i){
-                $str .= $keyspace[random_int(0,$max)];
-            }
-            $user->password = Hash::make($str);
-        }elseif ($request->password_options == 'manual'){
-            $user->password = Hash::make($request->password);
-
-        }
 
         if ($user->save()){
-            Alert::success('Success ', 'Votre profil a été mise à jour avec succès');
+            //Alert::success('Success ', 'Votre profil a été mise à jour avec succès');
+            toastr()->success('<b>The profile has been update  !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
             return redirect(route('myaccount.profile'));
         }else{
 

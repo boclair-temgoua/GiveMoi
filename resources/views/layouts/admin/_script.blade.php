@@ -1,5 +1,8 @@
 
 
+
+
+
 <script src="/assets/dashboard/assets/js/core/jquery.min.js" type="text/javascript"></script>
 <script src="/assets/dashboard/assets/js/core/popper.min.js" type="text/javascript"></script>
 <script src="/assets/dashboard/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
@@ -230,11 +233,6 @@
 </script>
 <!-- toastr.min -->
 <script src="/assets/js/plugins/toastr.min.js"></script>
-
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace( 'article-ckeditor' );
-</script>
 
 <script>
     $(document).ready(function() {

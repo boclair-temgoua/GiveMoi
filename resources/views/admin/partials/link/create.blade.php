@@ -1,11 +1,9 @@
 @extends('inc.admin._main')
-@section('title', '- Creation du Lien')
-
-
-
+@section('title', '- Create Link')
+@section('sectionTitle', 'Links')
 @section('style')
-
 @endsection
+
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -16,14 +14,14 @@
                     <div class="card ">
                         <div class="card-header card-header-danger card-header-icon">
                             <div class="card-icon">
-                                <i class="material-icons">more_horiz</i>
+                                <i class="material-icons">http</i>
                             </div>
-                            <h4 class="card-title">Creation du Lien</h4>
+                            <h4 class="card-title"><b>Create Link</b></h4>
                         </div>
                         <div class="card-body ">
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name"  class="bmd-label-floating">Non de la page</label>
-                                <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" minLength="3" required="true"/>
+                                <label for="name"  class="bmd-label-floating">Name Page</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" minLength="3" required="true"/>
                                 @if ($errors->has('name'))
                                 <span class="help-block">
                                         <strong class="text-danger text-center">{{ $errors->first('name') }}</strong>
@@ -31,8 +29,8 @@
                                 @endif
                             </div>
                             <div class="form-group{{ $errors->has('link') ? ' has-error' : '' }}">
-                                <label for="link"  class="bmd-label-floating">Lien</label>
-                                <input type="text" class="form-control" name="link"  value="{{ old('link') }}" id="slug" />
+                                <label for="link"  class="bmd-label-floating">Link</label>
+                                <input type="text" class="form-control" name="link" id="link" value="{{ old('link') }}" required="true" />
                                 @if ($errors->has('link'))
                                 <span class="help-block">
                                         <strong class="text-danger text-center">{{ $errors->first('link') }}</strong>
@@ -40,27 +38,33 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="submit">
+                            <div class="text-center">
+                                <a href="{{route('link.index')}}" class="btn btn-info btn-raised btn-round">
+                                <span class="btn-label">
+                                    <i class="material-icons">undo</i>
+                                </span>
+                                    <b>Back to Table Link</b>
+                                </a>
+                                <button type="submit" class="btn btn-success btn-raised btn-round">
+                                <span class="btn-label">
+                                    <i class="material-icons">save_alt</i>
+                                </span>
+                                    <b>Create Link</b>
+                                </button>
+                            </div>
+                            <br>
+                        </div>
                     </div>
-                    <div class="submit text-center">
-                        <input type="submit" class="btn btn-info btn-raised btn-round" value="Creer le Lien">
-                    </div>
-                    <br>
-                    <div class="submit text-center">
-                        <a href="{{route('link.index')}}" class="btn btn-facebook btn-raised btn-round">Retour a la table des Liens</a>
-                    </div>
-                    <br>
                 </form>
             </div>
         </div>
     </div>
 </div>
 @include('inc.admin._footer')
-</div>
-</div>
-
 @endsection
-@section('script')
 
+@section('script')
 <script type="text/javascript">
 
     function setFormValidation(id){
@@ -84,5 +88,4 @@
         setFormValidation('#RangeValidation');
     });
 </script>
-
 @endsection

@@ -1,14 +1,13 @@
 @extends('inc.admin._main')
 @section('title', '- Admin Presentation About ')
-
-
-
+@section('sectionTitle', 'About Presentations')
 @section('style')
 
 @endsection
 @section('content')
 <div class="content">
     <div class="container-fluid">
+        @include('inc.admin.components.status_admin')
         <div class="row">
             <div class="col-md-12">
 
@@ -18,61 +17,90 @@
                         <div class="card-icon">
                             <i class="material-icons">assignment</i>
                         </div>
-                        <h4 class="card-title">All Presentation</h4>
+                        <h4 class="card-title">
+                            <b>All Presentation</b>
+                        </h4>
                     </div>
-                    <div class="card-body">
-                        <div class="toolbar">
 
+                    <div class="card-body">
+
+                        <div class="toolbar">
                             @can('create-presentation')
                             <div class="submit text-center">
-                                <a href="{{route('presentation.create')}}" class="btn btn-warning btn-raised btn-round">Add new presentation </a>
+                                <a href="{{route('presentation.create')}}" class="btn btn-rose btn-raised btn-round">
+                                    <i class="material-icons">present_to_all</i>
+                                    <b>Add New Presentation</b>
+                                </a>
                             </div>
                             @endcan
-                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <br>
+                            @can('delete-multiple-presentation')
+                            <button class="btn btn-danger btn-raised btn-round delete-all "
+                                    data-url="">
+                                <i class="material-icons">delete_forever</i>
+                                <b>Delete select</b>
+                            </button>
+                            @endcan
+                            <!-- Here you can write extra buttons/actions for the toolbar -->
                         </div>
+                        <br>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
-                                <tr>
-                                    <th><b>Title</b></th>
-                                    <th><b>Body</b></th>
-                                    <th><b>Icon</b></th>
-                                    <th>
-
-                                        @can('unpublish-presentation')
-                                        @can('publish-presentation')
-                                        <b>Status</b>
+                                    <tr>
+                                        @can('delete-multiple-presentation')
+                                        <th></th>
                                         @endcan
-                                        @endcan
-
-                                    </th>
-                                    <th><b>Image</b></th>
-                                    <th><b>Edit by</b></th>
-                                    <th class="disabled-sorting text-right">Actions</th>
-                                </tr>
+                                        <th><b>Title</b></th>
+                                        <th><b>Body</b></th>
+                                        <th><b>Icon</b></th>
+                                        <th>
+                                            @can('unpublish-presentation')
+                                            @can('publish-presentation')
+                                            <b>Status</b>
+                                            @endcan
+                                            @endcan
+                                        </th>
+                                        <th><b>Image</b></th>
+                                        <th><b>Edit by</b></th>
+                                        <th class="disabled-sorting text-right">Actions</th>
+                                    </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    <th><b>Title</b></th>
-                                    <th><b>Body</b></th>
-                                    <th><b>Icon</b></th>
-                                    <th>
-
-                                        @can('unpublish-presentation')
-                                        @can('publish-presentation')
-                                        <b>Status</b>
+                                    <tr>
+                                        @can('delete-multiple-presentation')
+                                        <th></th>
                                         @endcan
-                                        @endcan
-
-                                    </th>
-                                    <th><b>Image</b></th>
-                                    <th><b>Edit by</b></th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
+                                        <th><b>Title</b></th>
+                                        <th><b>Body</b></th>
+                                        <th><b>Icon</b></th>
+                                        <th>
+                                            @can('unpublish-presentation')
+                                            @can('publish-presentation')
+                                            <b>Status</b>
+                                            @endcan
+                                            @endcan
+                                        </th>
+                                        <th><b>Image</b></th>
+                                        <th><b>Edit by</b></th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
                                 </tfoot>
                                 <tbody>
                                 @foreach($presentations as $lk)
                                 <tr>
+                                    @can('delete-multiple-presentation')
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input checkbox" type="checkbox"  data-id="{{$lk->id}}">
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    @endcan
                                     <td>{!! str_limit($lk->title, 10,'...') !!}</td>
                                     <td>{!! htmlspecialchars_decode(str_limit($lk->body, 10,'...')) !!}</td>
                                     <td><i class="material-icons text-{{ $lk->color_slug}}">{{ $lk->icon}}</i></td>
@@ -80,7 +108,7 @@
                                         @if($lk->status==1)
                                         @can('unpublish-presentation')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-info">publish</span>
+                                            <span class="badge badge-pill badge-info"><b>Active</b></span>
                                         </div>
                                         @endcan
 
@@ -88,7 +116,7 @@
 
                                         @can('publish-presentation')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-danger">unpublish</span>
+                                            <span class="badge badge-pill badge-danger"><b>Deactive</b></span>
                                         </div>
                                         @endcan
                                         @endif
@@ -200,7 +228,143 @@
 
     })
 </script>
+<script type="text/javascript">
 
+    $(document).ready(function () {
+
+
+
+        $('#check_all').on('click', function(e) {
+
+            if($(this).is(':checked',true))
+
+            {
+
+                $(".checkbox").prop('checked', true);
+
+            } else {
+
+                $(".checkbox").prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.checkbox').on('click',function(){
+
+            if($('.checkbox:checked').length == $('.checkbox').length){
+
+                $('#check_all').prop('checked',true);
+
+            }else{
+
+                $('#check_all').prop('checked',false);
+
+            }
+
+        });
+
+
+
+        $('.delete-all').on('click', function(e) {
+
+
+
+            var idsArr = [];
+
+            $(".checkbox:checked").each(function() {
+
+                idsArr.push($(this).attr('data-id'));
+
+            });
+
+
+
+            if(idsArr.length <=0)
+
+            {
+
+                alert("Please select atleast one record to delete.");
+
+            }  else {
+
+
+
+                if(confirm("Are you sure, you want to delete the selected presentation ?")){
+
+
+
+                    var strIds = idsArr.join(",");
+
+
+
+                    $.ajax({
+
+                        url: "{{ route('presentation.multiple-delete') }}",
+
+                        type: 'DELETE',
+
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                        data: 'ids='+strIds,
+
+                        success: function (data) {
+
+                            if (data['status']==true) {
+
+                                $(".checkbox:checked").each(function() {
+
+                                    $(this).parents("tr").remove();
+
+                                });
+
+                                alert(data['message']);
+
+                            } else {
+
+                                alert('Whoops Something went wrong!!');
+
+                            }
+
+                        },
+
+                        error: function (data) {
+
+                            alert(data.responseText);
+
+                        }
+
+                    });
+
+
+
+                }
+
+            }
+
+        });
+
+
+
+        $('[data-toggle=confirmation]').confirmation({
+
+            rootSelector: '[data-toggle=confirmation]',
+
+            onConfirm: function (event, element) {
+
+                element.closest('form').submit();
+
+            }
+
+        });
+
+
+
+    });
+
+</script>
 
 
 

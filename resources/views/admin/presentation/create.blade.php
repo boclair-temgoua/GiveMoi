@@ -1,29 +1,20 @@
 @extends('inc.admin._main')
 @section('title', '- About presentation created')
-
-
-
+@section('sectionTitle', 'About Presentations')
 @section('style')
 @parent
-
-
-
 @endsection
 
 @section('init')
-
 <!-- Site wrapper -->
-
 @endsection
 
 @section('content')
-
 <div class="content">
     <div class="container-fluid">
         <div class="content">
             @include('inc.admin.components.status_admin')
             <div class="container-fluid">
-
                 @can('create-presentation')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
@@ -34,18 +25,31 @@
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
                                     </div>
-                                    <h4 class="card-title">Created une prestation de service </h4>
+                                    <h4 class="card-title">
+                                        <b>Create New Presentation</b>
+                                    </h4>
                                     <br/>
                                     @include('inc.alert')
                                 </div>
 
                                 @include('admin.presentation.form',['presentation' => new \App\Model\user\presentation()])
 
-                                <div class="submit text-center">
-                                    <input type="submit" class="btn btn-info btn-raised btn-round" value="Create new presentation">
-                                </div>
-                                <div class="submit text-center">
-                                    <a href="{{route('presentation.index')}}" class="btn btn-facebook btn-raised btn-round">Back for your table presentation</a>
+                                <div class="submit">
+                                    <div class="text-center">
+                                        <a href="{{route('presentation.index')}}" class="btn btn-info btn-raised btn-round">
+                                        <span class="btn-label">
+                                            <i class="material-icons">undo</i>
+                                        </span>
+                                            <b>Back to Presentation Table</b>
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-raised btn-round">
+                                        <span class="btn-label">
+                                            <i class="material-icons">save_alt</i>
+                                        </span>
+                                            <b>Create New Presentation</b>
+                                        </button>
+                                    </div>
+                                    <br>
                                 </div>
                             </div>
                         </form>
@@ -62,8 +66,6 @@
 </div>
 
 @include('inc.admin._footer')
-</div>
-</div>
 
 @endsection
 

@@ -1,5 +1,6 @@
 @extends('inc.admin._main')
-@section('title', '- Admin user View')
+@section('title', '- Admin Users')
+@section('sectionTitle', 'Users')
 
 
 
@@ -67,6 +68,26 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating"><b>Facebook profile</b></label>
+                                        <a href="https://facebook.com/{!! $user->fblink !!}" target="_blank"><span>{{ $user->fblink }}</span></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating"><b>Instagram profile</b></label>
+                                        <a href="https://instagram.com/{!! $user->instalink !!}" target="_blank"><span>{{ $user->instalink }}</span></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating"><b>Twitter profile</b></label>
+                                        <a href="https://twitter.com/{{ $user->twlink }}" target="_blank"><span>{!! $user->twlink !!}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Adress</label>
@@ -84,7 +105,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Country</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" value="{!! $user->country !!}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -99,13 +120,18 @@
                                     <div class="form-group">
                                         <label>About Me</label>
                                         <div class="form-group">
-                                            <textarea class="form-control" rows="5">{{ $user->body }}</textarea>
+                                            <textarea class="form-control" rows="5" disabled>{!! $user->body !!}</textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="submit text-center">
-                                <a href="{{route('user.index')}}" class="btn btn-rose btn-raised btn-round pull-center">Back users Table</a>
+                                <a href="{{route('user.index')}}" class="btn btn-info btn-raised btn-round">
+                                    <span class="btn-label">
+                                        <i class="material-icons">undo</i>
+                                    </span>
+                                    <b>Back to Users Table</b>
+                                </a>
                             </div>
                             <div class="clearfix"></div>
                         </form>
@@ -116,28 +142,29 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="#pablo">
-                            <img class="img" src="{{ url($user->avatar)  }}?{{ time() }}" />
+                            <img class="img" src="{!! url($user->avatar)  !!}?{{ time() }}" />
                         </a>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-category text-gray">{{ $user->work }}</h6>
-                        <h4 class="card-title"><b>Sex:</b> {{ $user->gender }}</h4>
-                        <h4 class="card-title"><b>Age:</b> {{ $user->age }} ans</h4>
-                        <h4 class="card-title"><strong>{{ $user->name }} {{ $user->first_name }}</strong></h4>
-                        <b class="card-title ">Member Since {{ Auth::user()->created_at->format('j F Y') }}</b>
+                        <h6 class="card-category text-gray">{!! $user->work !!}</h6>
+                        <h4 class="card-title"><b>Sex:</b> {!! $user->sex !!}</h4>
+                        <h4 class="card-title"><b>Age:</b> {!! $user->age !!} ans</h4>
+                        <h4 class="card-title"><strong>{!! $user->name !!} {!! $user->first_name !!}</strong></h4>
+                        <b class="card-title ">Member Since {!! Auth::user()->created_at->format('j F Y') !!}</b>
 
                     </div>
                 </div>
             </div>
-            @component('inc.admin.components.who')
+            <!-- @component('inc.admin.components.who')
 
-            @endcomponent
+            @endcomponent -->
         </div>
     </div>
 </div>
 @include('inc.admin._footer')
 </div>
 </div>
+
 
 @endsection
 

@@ -17,6 +17,8 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
+        @include('inc.admin.components.status_admin')
+        <br/>
         <div class="col-md-8 mr-auto ml-auto">
             <!--      Wizard container        -->
             <div class="wizard-container">

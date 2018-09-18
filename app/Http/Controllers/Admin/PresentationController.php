@@ -106,7 +106,7 @@ class PresentationController extends Controller
         //Session::flash('success','Your Presentation has been created');
 
 
-        toastr()->success('<b>Your Presentation has been created !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        toastr()->success('<b>Procducts/Services has been created !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
         return redirect(route('presentation.index',$presentation->slug));
     }
 
@@ -121,7 +121,7 @@ class PresentationController extends Controller
         DB::table('presentations')
             ->where('id',$id)
             ->update(['status' => null]);
-        toastr()->success('<b>Presentation unactive successfully !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        toastr()->success('<b>Procducts/Services unactive successfully !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
         return back();
 
     }
@@ -131,7 +131,7 @@ class PresentationController extends Controller
         DB::table('presentations')
             ->where('id',$id)
             ->update(['status' => 1]);
-        toastr()->success('<b>Presentation activated successfully  !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        toastr()->success('<b>Procducts/Services activated successfully  !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
         return back();
 
     }
@@ -145,8 +145,9 @@ class PresentationController extends Controller
     {
 
 
-        $presentation = Presentation::where('id',$id)->first();;
-        return view('admin.presentation.view',compact('presentation'));
+        $colors = color::all();
+        $presentation = Presentation::where('id',$id)->first();
+        return view('admin.presentation.view',compact('presentation','colors'));
     }
 
     /**
@@ -159,7 +160,7 @@ class PresentationController extends Controller
     {
 
         $colors = color::all();
-        $presentation = Presentation::where('id',$id)->first();;
+        $presentation = Presentation::where('id',$id)->first();
         return view('admin.presentation.edit',compact('presentation','colors'));
     }
 
@@ -176,6 +177,7 @@ class PresentationController extends Controller
         $this->validate($request,[
             'title'=>'required',
             'icon'=>'required',
+            'color_id'=>'required',
             'body'=>'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg'
         ]);
@@ -209,10 +211,7 @@ class PresentationController extends Controller
         $presentation->save();
 
 
-
-
-
-        Toastr::success('Update presentation successfully', '', ["positionClass" => "toast-top-center"]);
+        Toastr::success('Procducts/Services update successfully', '', ["positionClass" => "toast-top-center"]);
         return redirect()->route('presentation.index',$presentation->slug);
     }
 
@@ -234,5 +233,16 @@ class PresentationController extends Controller
 
         Alert::success('Deleted!', 'Your file has been deleted.');
         return redirect()->back();
+    }
+
+    public function deleteMultiple(Request $request){
+
+        $ids = $request->ids;
+
+
+        DB::table("presentations")->whereIn('id',explode(",",$ids))->delete();
+
+        return response()->json(['status'=>true,'message'=>"Message Tag deleted successfully."]);
+
     }
 }

@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Model\admin\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
-use DB;
 use Hash;
 
 class AdministratorsController extends Controller
@@ -26,11 +27,20 @@ class AdministratorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $admins = Admin::orderBy('id','DESC')->get();
-        return view('admin.partials.administrator.show',compact('admins'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+
+        //Delete all data
+       //$admins = Admin:: get ();
+       //$admins = Admin:: find ( 1 )->delete ();
+
+
+        // Show all administrators
+
+        //$admins = Admin::orderBy('created_at','DESC')->get();
+        $admins = Admin::get();
+
+        return view('admin.partials.administrator.show',compact('admins'));
     }
 
     /**
@@ -58,8 +68,12 @@ class AdministratorsController extends Controller
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:admins',
             'email' => 'required|string|email|max:255|unique:admins',
+            "gender" => "required|in:Female,Male",
+            'birthday' => 'required|before:today',
+            'avatar' =>"image|mimes:jpeg,png,jpg,gif,svg",
+            'roles' => 'required',
             ///'password' => 'required|same:confirm-password',
-            ///'roles' => 'required'
+
         ]);
 
 
@@ -81,16 +95,22 @@ class AdministratorsController extends Controller
         $admin = new Admin;
         $admin->name = $request->name;
         $admin->username = $request->username;
+        $admin->birthday = $request->birthday;
         $admin->email = $request->email;
+        $admin->gender = $request->gender;
+        $admin->avatar = $request->avatar;
         $admin->password = Hash::make($password);
+        $admin->admin_id = Auth::user()->name;
         $admin->save();
 
 
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $admin->assignRole($roles);
 
-        alert()->success('God Job', 'The Administrator has been successfully Created');
-        return redirect()->route('administrators.index', $admin->id);
+
+        toastr()->success('<b>Administrator Created !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return redirect(route('administrators.index'));
+        //return redirect()->route('administrators.index', $admin->id);
 
     }
 
@@ -136,36 +156,31 @@ class AdministratorsController extends Controller
             'name' => 'required',
             'username' => "required|string|min:2|max:25|unique:admins,username,{$id}",
             'email' => 'required|email|unique:admins,email,'.$id,
-            'roles' => 'required'
+            'avatar' =>"image|mimes:jpeg,png,jpg,gif,svg",
+            'birthday' => 'required|before:today',
+            'roles' => 'required',
+
 
         ]);
 
 
-        $input = $request->all();
-        //Password
-        if ($request->has('password') && !empty($request->password)) {
-            $password = trim($request->password);
-        }else{
-
-            $length = 10;
-            $keyspace = '2y$10$d4gjolCjg/VLPbpbRkNuNOKneeSEoP3dQao6iEHEiY65S31QTAAvW';
-            $str= '';
-            $max = mb_strlen($keyspace,'8bit') -1;
-            for ($i = 0; $i< $length; ++$i){
-                $str .= $keyspace[random_int(0,$max)];
-            }
-            $password =  $str;
-        }
-
-
         $admin = Admin::find($id);
-        $admin->update($request->all());
+        $admin->name = $request->name;
+        $admin->username = $request->username;
+        $admin->birthday = $request->birthday;
+        $admin->email = $request->email;
+        $admin->avatar = $request->avatar;
+        $admin->gender = $request->gender;
+        $admin->admin_id = Auth::user()->name;
+
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $admin->syncRoles($roles);
 
+        $admin->save();
 
         Alert::success('Success', 'The profile has been updated');
-        return redirect()->route('administrators.index', $admin->id);
+        return redirect()->back();
+        //return redirect()->route('administrators.index', $admin->id);
     }
 
     /**

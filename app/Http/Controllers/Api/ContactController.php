@@ -8,10 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Model\user\partial\contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
+
 
 Class ContactController extends Controller
 {
+
     public function create()
     {
         return view('site.contact.create');
@@ -24,16 +27,10 @@ Class ContactController extends Controller
      * @param  \App\Http\Requests\ContactFormRequest  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(Request $request)
+     public function store(ContactFormRequest $request)
     {
         //dd(\request()->all());
-        $this->validate($request, array(
-            'name'    => 'required',
-            'lastname'    => 'required',
-            'email'   => 'required|email',
-            'subject' => 'required|min:2',
-            'msg'     => 'required|min:2'
-        ));
+
 
 
 

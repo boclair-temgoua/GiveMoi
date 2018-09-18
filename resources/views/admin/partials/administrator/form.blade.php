@@ -7,8 +7,8 @@
                 <div class="col-sm-4">
                     <div class="picture-container">
                         <div class="picture">
-                            @if(Auth::user()->avatar)
-                            <img src="{{ url(Auth::user()->avatar)  }}" class="picture-src" id="wizardPicturePreview" title="" />
+                            @if($admin->avatar)
+                            <img src="{{ url($admin->avatar)  }}?{{ time() }}" class="picture-src" id="wizardPicturePreview" title="" />
                             @endif
                             <input type="file" name="avatar" id="wizard-picture">
                         </div>
@@ -16,6 +16,21 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
+                    <div class="input-group form-control-lg">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="material-icons">perm_identity</i>
+                        </span>
+                        </div>
+                        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+                            {!! Form::select('gender', ['Female' => 'Female', 'Male' => 'Male'], null, ['class' => 'selectpicker' ,'data-style' => 'select-with-transition','title' => 'Choose Sex','required' => '']) !!}
+                            @if ($errors->has('gender'))
+                            <span class="help-block">
+                                <strong class="text-danger">{{ $errors->first('gender') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
                     <div class="input-group form-control-lg">
                         <div class="input-group-prepend">
                         <span class="input-group-text">
@@ -49,6 +64,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-10 mt-3">
                     <div class="input-group form-control-lg">
                         <div class="input-group-prepend">
@@ -71,12 +87,33 @@
                     <div class="input-group form-control-lg">
                         <div class="input-group-prepend">
                         <span class="input-group-text">
+                          <i class="material-icons">calendar_today</i>
+                        </span>
+                        </div>
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="exampleInput1" class="bmd-label-floating">Birthday date</label>
+                            <!--
+                            {!! Form::text('birthday', Auth::user()->birthday ? Auth::user()->birthday->format('d/m/y') : null , ['class' => 'form-control datepicker','required' => '']) !!}
+                            -->
+                            {!! Form::text('birthday', $admin->birthday ? $admin->birthday->format('d/m/y') : null , ['class' => 'form-control datepicker','required' => 'required']) !!}
+                            @if ($errors->has('birthday'))
+                            <span class="help-block">
+                                <strong class="text-danger">{{ $errors->first('birthday') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 mt-3">
+                    <div class="input-group form-control-lg">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text">
                           <i class="material-icons">how_to_reg</i>
                         </span>
                         </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="exampleInput1" class="bmd-label-floating">Chose role</label>
-                            {!! Form::select('roles[]', $roles, old('roles') ? old('roles') : $admin->roles()->pluck('name', 'name'), ['class' => 'form-control select2', 'multiple' => 'multiple', 'required' => '']) !!}
+                            {!! Form::select('roles[]', $roles, old('roles') ? old('roles') : $admin->roles()->pluck('name', 'name'), ['class' => 'form-control select2', 'required' => '']) !!}
 
                             @if ($errors->has('roles'))
                             <span class="help-block">
@@ -86,24 +123,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-header text-center">
+              <!--  <div class="card-header text-center">
                     <h4 class="card-title text-dark">
                         <b style="color: #002fff">Password Create</b>
                     </h4>
                     <h4>Enter your <b>Password</b> <b style="color: red">Or</b> Select <b>Auto Generate Password</b> to <b style="color: red">automatically generate the password.</b><br>
                     </h4>
-                </div>
-                <div class="col-lg-10 mt-3">
+                </div> -->
+                <!--<div class="col-lg-10 mt-3">
                     <div class="input-group form-control-lg">
                         <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="material-icons">lock_outline</i>
-                        </span>
+                            <span class="input-group-text">
+                              <i class="material-icons">lock_outline</i>
+                            </span>
                         </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                            <label for="exampleInput1" class="bmd-label-floating">Password</label>
-
+                            <label for="exampleInput1" class="bmd-label-floating"><b>Choice your Password Update</b></label>
                             <br>
                             <div class="col-sm-10 checkbox-radios">
                                 <div class="form-check">
@@ -137,11 +172,11 @@
                                     <strong class="text-danger">{{ $errors->first('password') }}</strong>
                                 </span>
                                 @endif
-                                -->
+
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

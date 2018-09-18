@@ -1,5 +1,6 @@
 @extends('inc.admin._main')
-@section('title', '- Admin about')
+@section('title','- Admin about')
+@section('sectionTitle', 'About Members')
 
 
 
@@ -20,78 +21,83 @@
                         <div class="card-icon">
                             <i class="material-icons">assignment</i>
                         </div>
-                        <h4 class="card-title">All Member Tim</h4>
+                        <h4 class="card-title"><b>All Team Member</b></h4>
                     </div>
                     <div class="card-body">
-                        @can('delete-multiple-about')
-                        <div class="submit text-right">
-                            <button class="btn btn-rose btn-raised btn-round delete-all "
-                                    data-url="">
-                                <i class="material-icons">delete_forever</i>
-                                Delete select
-                            </button>
-                        </div>
-                        @endcan
-                        <div class="toolbar">
 
+                        <div class="toolbar">
                             @can('create-about')
                             <div class="submit text-center">
-                                <a href="{{route('about.create')}}" class="btn btn-warning btn-raised btn-round">Add new member</a>
+                                <a href="{{route('about.create')}}" class="btn btn-rose btn-raised btn-round">
+                                    <i class="material-icons">person_outline</i>
+                                    <b>Add New Member</b></a>
                             </div>
                             @endcan
-
-                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <br>
+                            @can('delete-multiple-about')
+                            <button class="btn btn-danger btn-raised btn-round delete-all"
+                                    data-url="">
+                                <i class="material-icons">delete_forever</i>
+                                <b>Delete select</b>
+                            </button>
+                            @endcan
+                            <!-- Here you can write extra buttons/actions for the toolbar -->
                         </div>
+                        <br>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
-                                <tr>
-                                    @can('delete-multiple-about')
-                                    <th><b>Select</b></th>
-                                    @endcan
-                                    <th><b>Name</b></th>
-                                    <th><b>Body</b></th>
-                                    <th>
-
-                                        @can('unpublish-about')
-                                        @can('publish-about')
-                                        <b>Status</b>
+                                    <tr>
+                                        @can('delete-multiple-about')
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input checkbox" type="checkbox"  id="check_all">
+                                                    <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                                </label>
+                                            </div>
+                                        </td>
                                         @endcan
+                                        <th><b>Name</b></th>
+                                        <th><b>Body</b></th>
+                                        <th>
+                                            @can('unpublish-about')
+                                            @can('publish-about')
+                                            <b>Status</b>
+                                            @endcan
+                                            @endcan
+                                        </th>
+                                        <th><b>Update Date</b></th>
+                                        <th><b>Image</b></th>
+                                        @can('edited_by-about')
+                                        <th><b>Edit by</b></th>
                                         @endcan
-
-                                    </th>
-                                    <th><b>Updated_at</b></th>
-                                    <th><b>Image</b></th>
-                                    @can('edited_by-about')
-                                    <th><b>Edit by</b></th>
-                                    @endcan
-                                    <th class="disabled-sorting text-right">Actions</th>
-                                </tr>
+                                        <th class="disabled-sorting text-right">Actions</th>
+                                    </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    @can('delete-multiple-about')
-                                    <th><b>Select</b></th>
-                                    @endcan
-                                    <th><b>Name</b></th>
-                                    <th><b>Body</b></th>
-                                    <th>
-
-                                        @can('unpublish-about')
-                                        @can('publish-about')
-                                        <b>Status</b>
+                                    <tr>
+                                        @can('delete-multiple-about')
+                                        <th><b></b></th>
                                         @endcan
+                                        <th><b>Name</b></th>
+                                        <th><b>Body</b></th>
+                                        <th>
+                                            @can('unpublish-about')
+                                            @can('publish-about')
+                                            <b>Status</b>
+                                            @endcan
+                                            @endcan
+                                        </th>
+                                        <th><b>Update Date</b></th>
+                                        <th><b>Image</b></th>
+                                        @can('edited_by-about')
+                                        <th><b>Edit by</b></th>
                                         @endcan
-
-                                    </th>
-
-                                    <th><b>Updated_at</b></th>
-                                    <th><b>Image</b></th>
-                                    @can('edited_by-about')
-                                    <th><b>Edit by</b></th>
-                                    @endcan
-                                    <th class="text-right">Actions</th>
-                                </tr>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
                                 </tfoot>
                                 <tbody>
                                 @foreach($abouts as $lk)
@@ -114,7 +120,7 @@
                                         @if($lk->status==1)
                                         @can('unpublish-about')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-info">publish</span>
+                                            <span class="badge badge-pill badge-info"><b>Active</b></span>
                                         </div>
                                         @endcan
 
@@ -122,7 +128,7 @@
 
                                         @can('publish-about')
                                         <div class="timeline-heading">
-                                            <span class="badge badge-pill badge-danger">unpublish</span>
+                                            <span class="badge badge-pill badge-danger"><b>Deactive</b></span>
                                         </div>
                                         @endcan
                                         @endif
@@ -176,9 +182,9 @@
                     <!-- end content-->
                 </div>
                 <!--  end card  -->
-                @component('inc.admin.components.who')
+                <!-- @component('inc.admin.components.who')
 
-                @endcomponent
+                @endcomponent -->
             </div>
             <!-- end col-md-12 -->
         </div>
@@ -191,7 +197,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
+                <h5 class="modal-title" id="deleteLabel"><b>Delete Confirmation</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -204,8 +210,8 @@
                     <input type="hidden" name="about_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes Delete</b></button>
                 </div>
             </form>
 
@@ -379,7 +385,5 @@
     });
 
 </script>
-
-
 
 @endsection

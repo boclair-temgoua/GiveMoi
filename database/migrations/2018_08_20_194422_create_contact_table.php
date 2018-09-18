@@ -17,7 +17,7 @@ class CreateContactTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->text('subject')->nullable();
-            $table->text('msg')->nullable();
+            $table->longText('msg')->nullable();
             $table->string('lastname')->nullable();
             $table->string('slug')->nullable();
             $table->string('phone')->nullable();

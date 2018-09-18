@@ -28,8 +28,13 @@ class ConditionController extends Controller
      */
     public function index()
     {
-        $conditions = condition::all();
-        return view('admin.partials.conditions.condition',compact('conditions'));
+        $conditions= DB::table('conditions')
+
+            ->join('admins','conditions.admin_id','=','admins.id')
+            ->select('conditions.*','admins.name')
+            ->orderBy('created_at','DESC')->get();
+
+        return view('admin.partials.conditions.show',compact('conditions'));
     }
 
     /**
@@ -54,7 +59,7 @@ class ConditionController extends Controller
 
             'title'=>'required|string',
             'body'=>'required|string',
-            'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
 
 
         ]);
@@ -63,6 +68,7 @@ class ConditionController extends Controller
         $condition->title = $request->title;
         $condition->slug = $request->slug;
         $condition->body = $request->body;
+        $condition->admin_id = auth()->user()->id;
 
 
         // Check if file is present
@@ -115,8 +121,8 @@ class ConditionController extends Controller
      */
     public function show($slug)
     {
-        //$condition = Condition::where('slug',$slug)->first();
-        //return view('site.event.show',compact('condition'));
+        $condition = Condition::where('slug',$slug)->first();
+        return view('admin.partials.conditions.view',compact('condition'));
     }
 
     /**
@@ -154,6 +160,8 @@ class ConditionController extends Controller
 
         $condition->title = $request->title;
         $condition->body = $request->body;
+        $condition->admin_id = auth()->user()->id;
+
 
         if ($request->hasFile('cover_image')) {
             $cover_image = $request->file('cover_image');

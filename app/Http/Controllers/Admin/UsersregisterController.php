@@ -18,18 +18,17 @@ class UsersregisterController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware(['role:super-admin|admin|editor|moderator|advertiser|visitor']);
+        //$this->middleware(['role:super-admin|admin|editor|moderator|advertiser|visitor']);
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $users = User::orderBy('id','DESC')->get();
-        return view('admin.partials.user.show',compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $users = User::orderBy('created_at','desc')->get();
+        return view('admin.partials.user.show',compact('users'));
     }
 
     /**

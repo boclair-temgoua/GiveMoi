@@ -1,8 +1,5 @@
 
 
-
-
-
 <div class="card-body ">
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
         <label for="name"  class="bmd-label-floating">Name role</label>
@@ -23,5 +20,4 @@
         </span>
         @endif
     </div>
-
 </div>

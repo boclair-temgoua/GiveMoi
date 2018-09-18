@@ -1,11 +1,8 @@
-
 @section('navbar')
-
 @show
-
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'GiveMoi') }} </a>
+            <a class="navbar-brand" href="{{ url('/') }}"><b>{{ config('app.name', 'GiveMoi') }}</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon"></span>
@@ -16,18 +13,18 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="dropdown nav-item">
-                    <a href="{{ route('register') }}" class=" nav-link">
-                        <i class="material-icons">home</i>
+                    <a href="/" class=" nav-link">
+                        <i class="material-icons">home</i> <b>{{ __('Home')}}</b>
                     </a>
                 </li>
                 <li class="dropdown nav-item">
-                    <a href="{{ route('register') }}" class=" nav-link">
-                        <i class="material-icons">account_balance</i> {{ __('About')}}
+                    <a href="{{ route('about') }}" class=" nav-link">
+                        <i class="material-icons">account_balance</i> <b>{{ __('About Us')}}</b>
                     </a>
                 </li>
-                <li class="dropdown nav-item">
+                <!--<li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="material-icons">view_day</i> {{__('Services')}}
+                        <i class="material-icons">view_day</i> <b>{{__('Services')}}</b>
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <a href="../sections.html#headers" class="dropdown-item">
@@ -55,25 +52,18 @@
                             <i class="material-icons">call</i> Contacts
                         </a>
                     </div>
-                </li>
-
+                </li>-->
                 <li class="dropdown nav-item">
-                    <a href="{{ route('contact') }}" class=" nav-link">
-                        <i class="material-icons">location_on</i> {{ __('Contact')}}
+                    <a href="{{ route('contact_us') }}" class=" nav-link">
+                        <i class="material-icons">call</i> <b>{{ __('Contact Us')}}</b>
                     </a>
                 </li>
-
-
-
-
-
-
 
                 <!-- Authentication Links -->
                 @guest
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="material-icons">face</i> {{__('Login')}}
+                        <i class="material-icons">face</i> <b>{{__('Login')}}</b>
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <!--
@@ -82,16 +72,14 @@
                         </a>
                         -->
                         <a href="{{ route('login') }}" class="dropdown-item" >
-                            <i class="material-icons">fingerprint</i> {{__('Sing in')}}
+                            <i class="material-icons">fingerprint</i> <b>{{__('Sign in')}}</b>
                         </a>
                         <a href="{{ route('register') }}" class="dropdown-item" >
-                            <i class="material-icons">person_add</i> {{ __('Register')}}
+                            <i class="material-icons">person_add</i> <b>{{ __('Register')}}</b>
                         </a>
                     </div>
                 </li>
                 @else
-
-
                 <li class="dropdown nav-item">
                     <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">email</i>
@@ -102,28 +90,18 @@
                     <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
                         <span class="notification">0</span>
-
                     </a>
-
-
                     <div class="dropdown-menu notification-body" style="height:200px; width:300px; overflow:scroll;" >
-
                         <a class="dropdown-item" href=" ">
                             <i> </i> has commented in<b>  </b>
                         </a>
-
                     </div>
                 </li>
-
-
-
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" style="position: relative; padding-left: 50px;">
-
                         @if(Auth::user()->avatar)
-                        <img src="{{ url(Auth::user()->avatar)  }}?{{ time() }}" alt="Circle Image"  class="img-raised rounded-circle img-fluid text-center" style="width: 32px; height: 32px; position: absolute; top: 10px; left: 10px; border-radius: 50%"> {{ Auth::user()->username }}
+                        <img src="{{ url(Auth::user()->avatar)  }}?{{ time() }}" alt="{{ Auth::user()->name }}"  class="img-raised rounded-circle img-fluid text-center" style="width: 32px; height: 32px; position: absolute; top: 10px; left: 10px; border-radius: 50%"> <b>{!! str_limit(Auth::user()->name, 12,'...') !!}</b>
                         @endif
-
                     </a>
                     <div class="dropdown-menu dropdown-with-icons">
                         <a href="../sections.html#headers" class="dropdown-item">
@@ -142,7 +120,7 @@
                             <i class="material-icons">settings</i> Paramètres
                         </a>
                         <a class="dropdown-item" href="{{ route('user.logout') }}">
-                            <i class="material-icons">clear</i>{{ __('Deconnexion')}}
+                            <i class="material-icons">power_settings_new</i>{{ __('Deconnexion')}}
                         </a>
                     </div>
                 </li>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Model\user\tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TagController extends Controller
@@ -124,5 +125,17 @@ class TagController extends Controller
         //session()->put('success','Item created successfully.');
        Alert::success('Deleted!', 'Your file has been deleted.');
        return redirect()->back();
+    }
+
+    public function deleteMultiple(Request $request){
+
+        $ids = $request->ids;
+
+        //About::whereIn('id',explode(",",$ids))->delete();
+
+        DB::table("tags")->whereIn('id',explode(",",$ids))->delete();
+
+        return response()->json(['status'=>true,'message'=>"Message Tag deleted successfully."]);
+
     }
 }

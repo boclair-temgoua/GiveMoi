@@ -1,8 +1,6 @@
 @extends('inc.admin._main')
 @section('title', '- Update permission')
-
-
-
+@section('sectionTitle', 'Permissions')
 @section('style')
 
 @endsection
@@ -10,7 +8,6 @@
 <div class="content">
     <div class="container-fluid">
         @can('edit-permission')
-
         <div class="row">
                 <div class="col-md-10 col-sm-6 ml-auto mr-auto">
            {!! Form::model($permission, ['files'=> 'true','method' => 'PATCH','route' => ['permissions.update', $permission->id], 'id' => 'RegisterValidation']) !!}
@@ -19,22 +16,35 @@
                             <div class="card-icon">
                                 <i class="material-icons">more_horiz</i>
                             </div>
-                            <h4 class="card-title">Update permission</h4>
+                            <h4 class="card-title">
+                                <b>Update Permission</b>
+                            </h4>
                         </div>
                         <div class="card-body ">
 
                             @include('admin.partials.permission.form')
 
                         </div>
-                        <div class="submit text-center">
-                            <input type="submit" class="btn btn-rose btn-raised btn-round"  value="Update name permission">
-                        </div>
-                        <div class="submit text-center">
-                            <a href="{{route('permissions.index')}}" class="btn btn-facebook btn-raised btn-round">Back to the table Permissions</a>
-                        </div>
                         <br>
+                        <div class="submit">
+                            <div class="text-center">
+                                <a href="{{route('permissions.index')}}" class="btn btn-info btn-raised btn-round">
+                                    <span class="btn-label">
+                                        <i class="material-icons">undo</i>
+                                    </span>        
+                                    <b>Back to Permission Table</b>
+                                </a>
+                                <button type="submit" class="btn btn-success btn-raised btn-round">
+                                    <span class="btn-label">
+                                        <i class="material-icons">save_alt</i>
+                                    </span>        
+                                    <b>Update Permissions</b>
+                                </button>
+                            </div>
+                            <br>
+                        </div>
                     </div>
-            {!! Form::close() !!}
+                {!! Form::close() !!}
                </div>
         </div>
         @else
@@ -45,8 +55,6 @@
     </div>
 </div>
 @include('inc.admin._footer')
-</div>
-</div>
 
 @endsection
 @section('script')
@@ -74,5 +82,4 @@
         setFormValidation('#RangeValidation');
     });
 </script>
-
 @endsection

@@ -41,12 +41,13 @@ class NewsletterController extends Controller
         if ( ! Newsletter::isSubscribed($request->user_email) ) {
             Newsletter::subscribe($request->user_email);
 
-            Toastr::success('Tanks for subscription &#x1F609;', 'Good Job!', ["positionClass" => "toast-top-center"]);
+            //Toastr::success('Tanks for subscription &#x1F609;', 'Good Job!', ["positionClass" => "toast-top-center"]);
+            toastr()->success('<b>Tanks for subscription &#x1F609</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
             return redirect()->back();
         }
 
 
-        Toastr::error('You are already subscribed', 'Inconceivable!',["positionClass" => "toast-top-center"]);
+        Toastr::error('You are already subscribed','',["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 

@@ -23,14 +23,16 @@ class CreateUsersTable extends Migration
             $table->string('cellphone', 50)->nullable();
             $table->string('email')->unique();
             $table->date('birthday')->nullable();
-            $table->string('gender', 10)->nullable()->default('M');
+            $table->string('sex', 10)->nullable();
             $table->string('color_name', 10)->nullable()->default('warning');
+            $table->string('country', 60)->nullable();
             $table->text('body')->nullable();
             $table->string('password')->nullable();
             $table->integer('status')->nullable();
             $table->string('timezone', 60)->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->string('token')->index()->nullable();
             $table->string('confirmation_token')->nullable();
 
 

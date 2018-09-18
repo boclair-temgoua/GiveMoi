@@ -159,9 +159,7 @@ class ColorController extends Controller
         $color = Color::findOrFail($request->color_id);
         $color->delete();
 
-        //session()->put('success','Item created successfully.');
-        //Alert::success('Deleted!', 'Your file has been deleted.');
-        toastr()->success('<b>The Color has been successfully Created !</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        toastr()->success('<b>Delete successfully !</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
         return back();
     }
 

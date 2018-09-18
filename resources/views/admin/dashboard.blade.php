@@ -1,28 +1,18 @@
 @extends('inc.admin._main')
-@section('title', '| Admin')
-
-
-
+@section('title', '- Dashboard Administration')
+@section('sectionTitle', 'Dashboard')
 @section('style')
-
-
-
 @endsection
 
 @section('init')
-
 <!-- Site wrapper -->
-
 @endsection
 
 @section('content')
-
-
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             @component('inc.admin.components.who')
-
             @endcomponent
             <div class="col-md-12">
                 <div class="card ">
@@ -30,7 +20,7 @@
                         <div class="card-icon">
                             <i class="material-icons"></i>
                         </div>
-                        <h4 class="card-title">Global Sales by Top Locations</h4>
+                        <h4 class="card-title"><b>Global Sales by Top Locations</b></h4>
                     </div>
                     <div class="card-body ">
                         <div class="row">
@@ -41,7 +31,8 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/US.png"> </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/US.png" />
+                                                </div>
                                             </td>
                                             <td>USA</td>
                                             <td class="text-right">
@@ -54,7 +45,8 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/DE.png"> </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/DE.png"/>
+                                                </div>
                                             </td>
                                             <td>Germany</td>
                                             <td class="text-right">
@@ -67,7 +59,7 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/AU.png"> </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/AU.png" </div>
                                             </td>
                                             <td>Australia</td>
                                             <td class="text-right">
@@ -80,7 +72,8 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/GB.png"> </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/GB.png" />
+                                                </div>
                                             </td>
                                             <td>United Kingdom</td>
                                             <td class="text-right">
@@ -93,7 +86,8 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/RO.png"> </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/RO.png"/>
+                                                </div>
                                             </td>
                                             <td>Romania</td>
                                             <td class="text-right">
@@ -106,7 +100,8 @@
                                         <tr>
                                             <td>
                                                 <div class="flag">
-                                                    <img src="/assets/dashboard/assets/img/flags/BR.png"> </div>
+                                                    <img src="/assets/dashboard/assets/img/flags/BR.png"/>
+                                                </div>
                                             </td>
                                             <td>Brasil</td>
                                             <td class="text-right">
@@ -405,29 +400,21 @@
         </div>
     </div>
 </div>
-@include('inc._footer')
-</div>
-</div>
-
+@include('inc.admin._footer')
 @endsection
+
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
-
         //init wizard
-
         demo.initMaterialWizard();
-
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
-
         demo.initCharts();
-
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-
         demo.initVectorMap();
     });
 </script>

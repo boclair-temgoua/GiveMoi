@@ -1,6 +1,3 @@
-
-
-
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white" id="navigation-example">
     <div class="container">
@@ -18,12 +15,12 @@
 
                 <li class="nav-item ">
                     <a href="{{ route('admin.login') }}" class="nav-link" >
-                        <i class="material-icons">fingerprint</i> Login
+                        <i class="material-icons">fingerprint</i> <b>Login</b>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a href="{{ route('admin.password.request') }}" class="nav-link">
-                        <i class="material-icons">dialpad</i> Password reset
+                        <i class="material-icons">lock_open</i> Reset Password
                     </a>
                 </li>
             </ul>

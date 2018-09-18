@@ -1,72 +1,75 @@
 @extends('inc.admin._main')
-@section('title', '- Tags')
-
-
+@section('title', '- All Tags')
+@section('sectionTitle', 'Tags')
 @section('style')
-
 @endsection
+
 @section('content')
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                
                 @include('inc.admin.alert_admin')
 
                 <div class="card">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">assignment</i>
+                            <i class="material-icons">local_offer</i>
                         </div>
-                        <h4 class="card-title">All Tags</h4>
+                        <h4 class="card-title"><b>All Tags</b></h4>
                     </div>
                     <div class="card-body">
                         <div class="toolbar">
                             <div class="submit text-center">
                                 <button class="btn btn-warning btn-raised btn-round " data-toggle="modal"
                                         data-target="#createModal">
-                                    Créer un Tag
+                                     <span class="btn-label">
+                                        <i class="material-icons">class</i>
+                                    </span>
+                                    <b>Create New Tag</b>
                                 </button>
                             </div>
-                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <!-- Here you can write extra buttons/actions for the toolbar -->
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover"
                                    cellspacing="0" width="100%" style="width:100%">
                                 <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th class="disabled-sorting text-right">Actions</th>
-                                </tr>
+                                    <tr>
+                                        <th><b>Name</b></th>
+                                        <th><b>Slug</b></th>
+                                        <th class="disabled-sorting text-right"><b>Actions</b></th>
+                                    </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
+                                    <tr>
+                                        <th><b>Name</b></th>
+                                        <th><b>Slug</b></th>
+                                        <th class="text-right"><b>Actions</b></th>
+                                    </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($tags as $lk)
-                                <tr>
-                                    <td>{{ $lk->name}}</td>
-                                    <td>{{ $lk->slug}}</td>
-                                    <td class="td-actions text-right">
+                                    @foreach($tags as $lk)
+                                    <tr>
+                                        <td>{{ $lk->name}}</td>
+                                        <td>{{ $lk->slug}}</td>
+                                        <td class="td-actions text-right">
 
-                                        <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "
-                                                data-toggle="modal" data-target="#editedModal"
-                                                data-myname="{{ $lk->name }}"
-                                                data-myslug="{{ $lk->slug }}" data-lkid="{{ $lk->id }}">
-                                            <i class="material-icons">edit</i>
-                                        </button>
+                                            <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "
+                                                    data-toggle="modal" data-target="#editedModal"
+                                                    data-myname="{{ $lk->name }}"
+                                                    data-myslug="{{ $lk->slug }}" data-lkid="{{ $lk->id }}">
+                                                <i class="material-icons">edit</i>
+                                            </button>
 
-                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon "
-                                                data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">delete</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                            <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon "
+                                                    data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
+                                                <i class="material-icons">delete_forever</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -85,7 +88,7 @@
     <div class="modal-dialog modal-login" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Create New Tag</h5>
+                <h5 class="modal-title" id="deleteLabel"><b>Create New Tag</b></h5>
             </div>
             <br>
             <div class="card card-signup card-plain">
@@ -95,10 +98,11 @@
                         <div class="card-body">
 
                             @include('admin.tag.form')
+                            
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-rose btn-raised ">Create Tag</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                            <button type="submit" class="btn btn-rose btn-raised "><b>Create Tag</b></button>
                         </div>
                         <br>
                     </form>
@@ -108,12 +112,13 @@
     </div>
 </div>
 <!-- End create Tag -->
+
 <!-- Update Tag -->
 <div class="modal fade" id="editedModal" tabindex="-1" role="">
     <div class="modal-dialog modal-login" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editedLabel">Update Tag</h5>
+                <h5 class="modal-title" id="editedLabel"><b>Update Tag</b></h5>
             </div>
             <br>
             <div class="card card-signup card-plain">
@@ -126,10 +131,11 @@
 
                             <input type="hidden" name="tag_id" id="lk_id" value="">
                             @include('admin.tag.form')
+                            
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-rose btn-raised ">Update Tag</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                            <button type="submit" class="btn btn-rose btn-raised "><b>Update Tag</b></button>
                         </div>
                         <br>
                     </form>
@@ -139,11 +145,13 @@
     </div>
 </div>
 <!-- End Update Tag -->
+
+<!-- Delete Tag -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
+                <h5 class="modal-title" id="deleteLabel"><b>Delete Confirmation</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -156,23 +164,20 @@
                     <input type="hidden" name="tag_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes Delete</b></button>
                 </div>
             </form>
 
         </div>
     </div>
 </div>
+<!-- End Delete Tag -->
 @include('inc.admin._footer')
-</div>
-</div>
-
 @endsection
+
 @section('script')
-
 <script type="text/javascript">
-
     function setFormValidation(id){
         $(id).validate({
             highlight: function(element) {
@@ -196,7 +201,6 @@
 </script>
 
 <script type="text/javascript">
-
     $('#delete').on('show.bs.modal', function (event) {
 
         var button = $(event.relatedTarget)
@@ -217,7 +221,6 @@
     })
 </script>
 <script type="text/javascript">
-
     $('#editedModal').on('show.bs.modal', function (event) {
 
         var button = $(event.relatedTarget)
@@ -232,6 +235,4 @@
 
     })
 </script>
-
-
 @endsection

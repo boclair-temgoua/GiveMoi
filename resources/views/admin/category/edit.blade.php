@@ -1,11 +1,9 @@
 @extends('inc.admin._main')
-@section('title', '| Edditer la Categorie')
-
-
-
+@section('title', '| Edit Category')
+@section('sectionTitle', 'Categories')
 @section('style')
-
 @endsection
+
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -19,7 +17,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">filter_none</i>
                                 </div>
-                                <h4 class="card-title">Eddition de la categorie</h4>
+                                <h4 class="card-title"><b>Edit Category</b></h4>
                             </div>
                             <div class="card-body ">
                                 <div class="form-group">
@@ -28,7 +26,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="slug"  class="bmd-label-floating">Sous titre</label>
-                                    <input type="text" class="form-control" name="slug"  id="slug" value="{{ $category->slug }}"  />
+                                    <input type="text" class="form-control" name="slug" id="slug" value="{{ $category->slug }}"  />
                                 </div>
                             </div>
                         </div>
@@ -45,12 +43,9 @@
         </div>
     </div>
     @include('inc._footer')
-</div>
-</div>
-
 @endsection
-@section('script')
 
+@section('script')
 <script type="text/javascript">
 
     function setFormValidation(id){
@@ -74,5 +69,4 @@
         setFormValidation('#RangeValidation');
     });
 </script>
-
 @endsection

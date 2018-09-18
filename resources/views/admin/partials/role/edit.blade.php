@@ -1,11 +1,9 @@
 @extends('inc.admin._main')
 @section('title', '- Creation du Role')
-
-
-
+@section('sectionTitle', 'Roles')
 @section('style')
-
 @endsection
+
 @section('content')
 <div class="content">
     @include('inc.admin.components.status_admin')
@@ -26,17 +24,29 @@
                             <div class="card-icon">
                                 <i class="material-icons">more_horiz</i>
                             </div>
-                            <h4 class="card-title">Role Update</h4>
+                            <h4 class="card-title">
+                                <b>Update Role</b>
+                            </h4>
                         </div>
-
 
                         @include('admin.partials.role.form')
 
-                        <div class="submit text-center">
-                            <input type="submit" class="btn btn-rose btn-raised btn-round"  value="Update Role">
-                        </div>
-                        <div class="submit text-center">
-                            <a href="{{route('roles.index')}}" class="btn btn-facebook btn-raised btn-round">Back to the table Role</a>
+                        <div class="submit">
+                            <div class="text-center">
+                                <a href="{{route('roles.index')}}" class="btn btn-info btn-raised btn-round">
+                                    <span class="btn-label">
+                                        <i class="material-icons">undo</i>
+                                    </span>
+                                    <b>Back to Roles Table</b>
+                                </a>
+                                <button type="submit" class="btn btn-success btn-raised btn-round">
+                                    <span class="btn-label">
+                                        <i class="material-icons">save_alt</i>
+                                    </span>
+                                    <b>Update Role</b>
+                                </button>
+                            </div>
+                            <br>
                         </div>
                         <br>
                     </div>
@@ -52,8 +62,6 @@
     </div>
 </div>
 @include('inc.admin._footer')
-</div>
-</div>
 
 @endsection
 @section('script')

@@ -1,27 +1,21 @@
 @extends('inc.admin._main')
 @section('title', '- Testimonial Edit')
-
-
-
+@section('sectionTitle', 'Testimonials')
 @section('style')
 <!-- emojionearea -->
 <link rel="stylesheet" href="/assets/css/plugins/emojionearea.css">
 @endsection
 
 @section('init')
-
 <!-- Site wrapper -->
-
 @endsection
 
 @section('content')
-
 <div class="content">
     <div class="container-fluid">
         <div class="content">
             @include('inc.admin.components.status_admin')
             <div class="container-fluid">
-
                 @can('edit-testimonial')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
@@ -33,9 +27,11 @@
                             <div class="card ">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
-                                        <i class="material-icons">filter_none</i>
+                                        <i class="material-icons">question_answer</i>
                                     </div>
-                                    <h4 class="card-title">Edited Testimonials</h4>
+                                    <h4 class="card-title">
+                                        <b>Edit Testimonial</b>
+                                    </h4>
                                 </div>
                                 <div class="card-body ">
                                     <div class="row">
@@ -70,15 +66,23 @@
                                                     <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
                                                     <div>
                                                         <span class="btn btn-raised btn-round btn-warning btn-file">
-                                                            <span class="fileinput-new">Add Profile</span>
-                                                            <span class="fileinput-exists">Change</span>
+                                                            <span class="fileinput-new">
+                                                                <i class="material-icons">insert_photo</i>
+                                                                <b>Add Image</b>
+                                                            </span>
+                                                            <span class="fileinput-exists">
+                                                                <i class="material-icons">photo_library</i>
+                                                                <b>Change</b>
+                                                            </span>
                                                             <input id="image" type="file" class="form-control" name="image">
                                                         </span>
                                                         <br/>
                                                         <a href="#pablo"
                                                            class="btn btn-danger btn-round fileinput-exists"
-                                                           data-dismiss="fileinput"><i class="fa fa-times"></i>
-                                                            Remove</a>
+                                                           data-dismiss="fileinput">
+                                                            <i class="fa fa-times"></i>
+                                                            <b>Remove</b>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,13 +94,23 @@
                                         <textarea class="form-control" name="body" type="text" rows="12" cols="80"  id="example5">{{ $testimonial->body }}</textarea>
                                     </div>
                                 </div>
-                                <div class="submit text-center">
-                                    <input type="submit" class="btn btn-info btn-raised btn-round" value="Mettre a jour le menbre de la Tim">
+                                <div class="submit">
+                                    <div class="text-center">
+                                        <a href="{{route('testimonial.index')}}" class="btn btn-info btn-raised btn-round">
+                                            <span class="btn-label">
+                                                <i class="material-icons">undo</i>
+                                            </span>
+                                            <b>Back to Testimonial Table</b>
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-raised btn-round">
+                                            <span class="btn-label">
+                                                <i class="material-icons">save_alt</i>
+                                            </span>
+                                            <b>Update Testimonial</b>
+                                        </button>
+                                    </div>
+                                    <br>
                                 </div>
-                                <div class="submit text-center">
-                                    <a href="{{route('testimonial.index')}}" class="btn btn-facebook btn-raised btn-round">Retour a la table du Goupe</a>
-                                </div>
-                                <br>
                             </div>
                         </form>
                     </div>
@@ -112,16 +126,10 @@
 </div>
 
 @include('inc.admin._footer')
-</div>
-</div>
-
 @endsection
 
 @section('script')
 @parent
-
-
-
 <!-- emojionearea -->
 <script src="/assets/js/plugins/emojionearea.js"></script>
 <script type="text/javascript">

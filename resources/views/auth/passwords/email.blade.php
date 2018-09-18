@@ -4,7 +4,7 @@
 @section('title', '| Mot de passe oublié')
 
 @section('content')
-<div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;/assets/img/kit/password.jpg&apos;);">
+<div class="page-header header-filter header-small" filter-color="warning" data-parallax="true" style="background-image: url(&apos;/assets/img/kit/password.jpg&apos;);">
     <div class="container">
         <div class="row">
             <div class="col-md-8 ml-auto mr-auto text-center">
@@ -37,7 +37,7 @@
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="exampleInputEmails" class="bmd-label-floating">{{ __('E-mail address')}}</label>
-                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required>
                             @if ($errors->has('email'))
                             <span class="invalid-feedback">
                                  <strong>{{ $errors->first('email') }}</strong>

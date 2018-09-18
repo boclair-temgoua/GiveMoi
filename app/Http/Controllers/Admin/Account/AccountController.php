@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Account;
 
+use App\Model\admin\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AccountController extends Controller
@@ -27,28 +29,7 @@ class AccountController extends Controller
     public function index()
     {
         $admin = Auth::user();
-        return view('admin.partials.administrator.account',compact('admin'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('admin.account.profile',compact('admin'));
     }
 
     /**
@@ -59,7 +40,8 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        //
+        $admin = Admin::findOrFail($id);
+        return view("admin.account.profile")->withUser($admin);
     }
 
     /**
@@ -68,9 +50,10 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $admin = Auth::user();
+        return view('admin.account.account',compact('admin'));
     }
 
     /**
@@ -80,41 +63,22 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-          dd(\request()->all()); // pour tester les donner qui entre dans la base de donner
+        //dd(\request()->all()); // pour tester les donner qui entre dans la base de donner
         $admin = Auth::user();
         $this->validate($request,[
             'username' => "required|string|min:2|max:25|unique:admins,username,{$admin->id}",
+            'email' => "required|email|max:255|unique:admins,email,{$admin->id}",
+            "body" =>"max:200",
+            "color_name" => "required|in:primary,info,rose,success,warning,danger,dark",
             'avatar' =>"image",
-            'avatar_cover' =>"image",
-            "birthday" =>"date",
-            "body" =>"string|min:2|max:160",
         ]);
 
-        if (isset($data['avatar'])) {
-            $admin->addMediaFromRequest('avatar')->toMediaCollection('avatars');
-        }
-        $admin->update($request->only(
-            'email',
-            'username',
-            'name',
-            'avatar'
+        $admin->update($request->all());
 
-        ));
-
-        Alert::success('Success ', 'Votre profil a été mise à jour avec succès');
-        return redirect(route('admin.account'));
+        toastr()->success('<b>The profile has been update  !!</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

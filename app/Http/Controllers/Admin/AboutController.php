@@ -64,7 +64,7 @@ class AboutController extends Controller
             'fullname'=>'required|string|unique:abouts|max:255',
             'body'=>'required',
             'role'=>'required',
-            'avatar' =>'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' =>'sometimes|image|mimes:jpeg,png,jpg,gif,svg',
 
         ]);
 

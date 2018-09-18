@@ -1,107 +1,87 @@
 @extends('inc.admin._main')
 @section('title', '- Conditions and term ')
-
-
+@section('sectionTitle', 'Terms And Conditions')
 
 @section('style')
 @parent
 
-
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('init')
-
 <!-- Site wrapper -->
-
 @endsection
 
 @section('content')
-
 <div class="content">
     <div class="container-fluid">
-        <div class="header text-center ml-auto mr-auto">
-            <h3 class="title">Conditions Utilisation</h3>
-            <p class="category">Create Condition utilisation</p>
-        </div>
+        @include('inc.admin.components.status_admin')
+        <br/>
         <div class="content">
             <div class="container-fluid">
+                @if(auth()->user()->can('create-condition_utilisation'))
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
                         <form id="RegisterValidation" role="form" method="POST" action="{{ route('conditions.store') }}" enctype="multipart/form-data" accept-charset="UTF-8">
                             {{ csrf_field() }}
-                            <div class="card ">
+                            <div class="card">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
                                     </div>
-                                    <h4 class="card-title">Condition create </h4>
+                                    <h4 class="card-title">
+                                        <b>Create Condition</b>
+                                    </h4>
+                                    <br>
+                                    @include('inc.alert')
                                 </div>
-                                <div class="card-body ">
-                                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                        <label class="bmd-label-floating">{{ __('Title')}}</label>
-                                        <input id="title" type="text"
-                                               class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
-                                               name="title" value="{{ old('title') }}" >
-                                        @if ($errors->has('title'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('title') }}</strong>
-                                        </span>
-                                        @endif
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6 ml-auto mr-auto">
-                                            <div class="profile text-center">
-                                                <br>
-                                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                                    <div class="fileinput-new thumbnail img-raised">
-                                                        <img src=" " alt="...">
-                                                    </div>
-                                                    <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
-                                                    <div>
-                                                        <span class="btn btn-raised btn-round btn-info btn-file">
-                                                            <span class="fileinput-new">Select image</span>
-                                                            <span class="fileinput-exists">Change</span>
-                                                            <input id="cover_image" type="file" class="form-control" name="cover_image">
-                                                        </span>
-                                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="card-body">
+
+                                    @include('admin.partials.conditions.form',['condition' => new \App\Model\user\condition()])
+                                    <br>
+                                    <div class="submit">
+                                        <div class="text-center">
+                                            <a href="{{route('conditions.index')}}" class="btn btn-info btn-raised btn-round">
+                                                 <span class="btn-label">
+                                                     <i class="material-icons">undo</i>
+                                                 </span>
+                                                <b>Back to Conditions Table</b>
+                                            </a>
+                                            <button type="submit" class="btn btn-success btn-raised btn-round">
+                                                <span class="btn-label">
+                                                    <i class="material-icons">save_alt</i>
+                                                </span>
+                                                <b>Create Condition</b>
+                                            </button>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="col-md-12 ml-auto mr-auto">
-                                        <textarea class="form-control" id="article-ckeditor" name="body" type="text" cols="80"   >{{ old('body') }}</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="submit text-center">
-                                    <input type="submit" class="btn btn-info btn-raised btn-round" value="Create Condition utilisation">
-                                </div>
-                                <div class="submit text-center">
-                                    <a href="{{route('conditions.index')}}" class="btn btn-facebook btn-raised btn-round">Back for condition table</a>
                                 </div>
                             </div>
-                            <br>
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="submit text-center">
+                    @include('inc.admin.components.alert_permission')
+                </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
-
 @include('inc.admin._footer')
-</div>
-</div>
-
 @endsection
-
 @section('script')
 @parent
 
 
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+<script>
+    $('textarea').ckeditor();
+    // $('.textarea').ckeditor(); // if class is prefered.
+</script>
 
 @endsection

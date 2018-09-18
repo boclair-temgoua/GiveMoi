@@ -16,7 +16,9 @@
 @section('content')
 <div class="content">
     <div class="container-fluid">
-        <div class="col-md-8 mr-auto ml-auto">
+        @include('inc.admin.components.status_admin')
+        <br/>
+        <div class="col-md-10 mr-auto ml-auto">
             <!--      Wizard container        -->
 
             <div class="wizard-container">
@@ -36,14 +38,23 @@
 
                         @include('admin.partials.administrator.form',['admin' => new \App\Model\admin\admin()])
 
-
-                        <div class="submit text-center">
-                            <input type="submit" class="btn btn-rose btn-raised btn-round"  value="Create Admin">
+                        <div class="submit">
+                            <div class="text-center">
+                                <a href="{{route('administrators.index')}}" class="btn btn-info btn-raised btn-round">
+                                        <span class="btn-label">
+                                            <i class="material-icons">undo</i>
+                                        </span>
+                                    <b>Back to Administrators</b>
+                                </a>
+                                <button type="submit" class="btn btn-success btn-raised btn-round">
+                                        <span class="btn-label">
+                                            <i class="material-icons">save_alt</i>
+                                        </span>
+                                    <b>Create Admin</b>
+                                </button>
+                            </div>
                         </div>
-                        <div class="submit text-center">
-                            <a href="{{route('administrators.index')}}" class="btn btn-facebook btn-raised btn-round">Back to the table Administrators</a>
-                        </div>
-                        <br>
+                    <br>
                      {!! Form::close() !!}
                 </div>
             </div>
@@ -89,5 +100,25 @@
         $('.select2').select2()
 
     })
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".datepicker").datetimepicker({
+            format: "DD/MM/YYYY",
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: "fa fa-chevron-left",
+                next: "fa fa-chevron-right",
+                today: "fa fa-screenshot",
+                clear: "fa fa-trash",
+                close: "fa fa-remove"
+            }
+        })
+
+    });
 </script>
 @endsection

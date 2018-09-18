@@ -26,7 +26,7 @@ class ContactController extends Controller
 
     public function AllContact()
     {
-        $contacts = Contact::orderBy('created_at','DESC')->get();
+        $contacts = Contact::orderBy('updated_at','desc')->get();
         return view('admin.partials.contact.show',compact('contacts'));
     }
 

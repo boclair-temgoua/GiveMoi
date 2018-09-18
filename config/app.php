@@ -70,6 +70,7 @@ return [
 
     'timezone' => 'Europe/Rome',
 
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -81,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +95,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -193,14 +194,14 @@ return [
         DevMarketer\LaraFlash\LaraFlashServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Overtrue\LaravelFollow\FollowServiceProvider::class,
-        Mews\Purifier\PurifierServiceProvider::class,
+        //Mews\Purifier\PurifierServiceProvider::class,
         Pyaesone17\ActiveState\ActiveStateServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Overtrue\LaravelFollow\FollowServiceProvider::class,
         Kryptonit3\Counter\CounterServiceProvider::class,
         CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class
+        Barryvdh\Debugbar\ServiceProvider::class,
 
 
 
@@ -263,7 +264,7 @@ return [
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'LaraFlash' => DevMarketer\LaraFlash\LaraFlashFacade::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
-        'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        //'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
         'Counter' => Kryptonit3\Counter\Facades\CounterFacade::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,

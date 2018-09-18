@@ -32,8 +32,8 @@ class presentation extends Model
 
 
 
-    //public function colors()
-    //{
-    //    return $this->belongsToMany('App\Model\user\partial\color','presentation_colors')->withTimestamps();
-    //}
+    public function colors()
+    {
+        return $this->belongsTo('App\Model\user\partial\color');
+    }
 }

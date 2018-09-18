@@ -1,6 +1,3 @@
-
-
-
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label for="display_name"  class="bmd-label-floating"></label>
             <input type="text" class="form-control" name="name"  id="name" minLength="3" placeholder="Category Name" required="true"/>

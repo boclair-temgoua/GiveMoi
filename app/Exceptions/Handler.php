@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 
 class Handler extends ExceptionHandler
 {
@@ -30,8 +31,6 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
      * @param  \Exception  $exception
      * @return void
      */
@@ -39,7 +38,6 @@ class Handler extends ExceptionHandler
     {
         parent::report($exception);
     }
-
 
     /**
      * Render an exception into an HTTP response.
@@ -54,6 +52,7 @@ class Handler extends ExceptionHandler
 
             return response()->json(['User have not permission for this page access.']);
         }
+
 
         return parent::render($request, $exception);
     }
@@ -80,7 +79,4 @@ class Handler extends ExceptionHandler
 
 
     }
-
-
-
 }

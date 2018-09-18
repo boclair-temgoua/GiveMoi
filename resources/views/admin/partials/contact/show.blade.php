@@ -1,10 +1,9 @@
 @extends('inc.admin._main')
 @section('title', '- Admin Contact message')
-
-
+@section('sectionTitle', 'Message Contact')
 @section('style')
-
 @endsection
+
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -13,64 +12,67 @@
         @can('all-contact_message')
         <div class="row">
             <div class="col-md-12">
-
-
                 <div class="card">
                     <div class="card-header card-header-warning card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">assignment</i>
+                            <i class="material-icons">email</i>
                         </div>
-                        <h4 class="card-title">All Contact message</h4>
+                        <h4 class="card-title">
+                            <b>All Message Contact</b>
+                        </h4>
                     </div>
                     <div class="card-body">
-
+                        <br>
                         @can('delete-multiple-contact_message')
-                        <div class="submit text-center">
+                        <div class="submit text-left">
                             <button class="btn btn-rose btn-raised btn-round delete-all "
                                      data-url="">
                                 <i class="material-icons">delete_forever</i>
-                                Delete select
+                                <b>Delete select</b>
                             </button>
                         </div>
                         @endcan
+                        <br>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover"
                                    cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                 <tr>
-
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Subject</th>
-                                    <th>Date reception</th>
                                     @can('delete-multiple-contact_message')
-                                    <th>Select</th>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input checkbox" type="checkbox"  id="check_all">
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </td>
                                     @endcan
-                                    <th class="disabled-sorting text-right">Actions</th>
+                                    <th><b>Name</b></th>
+                                    <th><b>Email</b></th>
+                                    <th><b>Subject</b></th>
+                                    <th><b>Date Reception</b></th>
+                                    <th class="disabled-sorting text-right"><b>Actions</b></th>
                                 </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    @can('delete-multiple-contact_message')
-                                    <th>Subject</th>
+                                    <tr>
+                                        @can('delete-multiple-contact_message')
+                                    <th></th>
                                     @endcan
-                                    <th>Date reception</th>
-                                    <th>Select</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
+                                    <th><b>Name</b></th>
+                                    <th><b>Email</b></th>
+                                    <th><b>Subject</b></th>
+                                    <th><b>Date Reception</b></th>
+                                        <th class="text-right"><b>Actions</b></th>
+                                    </tr>
                                 </tfoot>
                                 <tbody>
-
-
                                 @foreach($contacts as $lk)
                                 <tr id="tr_{{$lk->id}}">
-                                    <td>{!! str_limit( $lk->name, 14,'...') !!}</td>
-                                    <td>{!! str_limit($lk->email, 26,'...') !!}</td>
-                                    <td>{!! str_limit($lk->subject, 10,'...') !!}</td>
-                                    <td>{!! $lk->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y a \<\s\t\r\o\n\g\>H\</\s\t\r\o\n\g\>:m:s') !!}</td>
-                                @can('delete-multiple-contact_message')
+                                    @can('delete-multiple-contact_message')
                                     <td>
                                         <div class="form-check">
                                             <label class="form-check-label">
@@ -81,20 +83,21 @@
                                             </label>
                                         </div>
                                     </td>
-                                @endcan
-
+                                    @endcan
+                                    <td>{!! str_limit( $lk->name, 14,'...') !!}</td>
+                                    <td>{!! str_limit($lk->email, 26,'...') !!}</td>
+                                    <td>{!! str_limit($lk->subject, 10,'...') !!}</td>
+                                    <td>{!! \Carbon\Carbon::parse($lk->created_at)->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y , \<\s\t\r\o\n\g\>H\</\s\t\r\o\n\g\>:i:s') !!}</td>
                                     <td class="td-actions text-right">
-
-
                                         @can('view-contact_message')
                                         <a href="#" class="show-modal btn btn-link  btn-info btn-round btn-just-icon"
-                                           data-id="{{$lk->id}}"
-                                           data-name="{{ $lk->name}}"
-                                           data-email="{{ $lk->email}}"
-                                           data-subject="{{ $lk->subject}}"
-                                           data-msg="{{ $lk->msg}}"
-                                           data-phone="{{ $lk->phone}}"
-                                           data-lastname="{{ $lk->lastname}}" title="Show color">
+                                           data-id="{!! htmlspecialchars_decode($lk->id) !!}"
+                                           data-name="{!! htmlspecialchars_decode($lk->name) !!}"
+                                           data-email="{!! htmlspecialchars_decode( $lk->email) !!}"
+                                           data-subject="{!! htmlspecialchars_decode($lk->subject) !!}"
+                                           data-msg="{{ $lk->msg }}"
+                                           data-phone="{!! htmlspecialchars_decode( $lk->phone) !!}"
+                                           data-lastname="{!! $lk->lastname !!}" title="Show color">
                                             <i class="material-icons">visibility</i>
                                         </a>
                                         @endcan
@@ -184,24 +187,17 @@
                     <input type="hidden" name="contact_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes Delete</b></button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
-
 @include('inc.admin._footer')
-</div>
-</div>
-
 @endsection
+
 @section('script')
-
-
-
 <script type="text/javascript">
 
         //Delete function
@@ -223,17 +219,14 @@
         var modal = $(this)
 
         modal.find('.modal-body #cat_id').val(cat_id);
-
     })
 
         // Edit function
     $('#editedModal').on('show.bs.modal', function (event) {
 
-
-
     });
 
-      // Show function
+    // Show function
     $(document).on('click', '.show-modal', function() {
         $('#show').modal('show');
         $('#i').text($(this).data('id'));
@@ -247,146 +240,67 @@
     });
 </script>
 
-
-
-
 <script type="text/javascript">
-
     $(document).ready(function () {
 
-
-
         $('#check_all').on('click', function(e) {
-
             if($(this).is(':checked',true))
-
             {
-
                 $(".checkbox").prop('checked', true);
-
             } else {
-
                 $(".checkbox").prop('checked',false);
-
             }
-
         });
-
-
 
         $('.checkbox').on('click',function(){
-
             if($('.checkbox:checked').length == $('.checkbox').length){
-
                 $('#check_all').prop('checked',true);
-
             }else{
-
                 $('#check_all').prop('checked',false);
-
             }
-
         });
-
-
 
         $('.delete-all').on('click', function(e) {
-
-
-
             var idsArr = [];
-
             $(".checkbox:checked").each(function() {
-
                 idsArr.push($(this).attr('data-id'));
-
             });
 
-
-
             if(idsArr.length <=0)
-
             {
-
                 alert("Please select atleast one record to delete.");
-
             }  else {
-
-
-
                 if(confirm("Are you sure, you want to delete the selected message contact-us?")){
-
-
-
                     var strIds = idsArr.join(",");
-
-
-
                     $.ajax({
-
                         url: "{{ route('contact.multiple-delete') }}",
-
                         type: 'DELETE',
-
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-
                         data: 'ids='+strIds,
-
                         success: function (data) {
-
                             if (data['status']==true) {
-
                                 $(".checkbox:checked").each(function() {
-
                                     $(this).parents("tr").remove();
-
                                 });
-
                                 alert(data['message']);
-
                             } else {
-
                                 alert('Whoops Something went wrong!!');
-
                             }
-
                         },
-
                         error: function (data) {
-
                             alert(data.responseText);
-
                         }
-
                     });
-
-
-
                 }
-
             }
-
         });
-
-
 
         $('[data-toggle=confirmation]').confirmation({
-
             rootSelector: '[data-toggle=confirmation]',
-
             onConfirm: function (event, element) {
-
                 element.closest('form').submit();
-
             }
-
         });
-
-
-
     });
-
 </script>
-
-
 @endsection

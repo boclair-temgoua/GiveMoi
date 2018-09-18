@@ -18,6 +18,7 @@ class CreateConditionsTable extends Migration
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('cover_image')->nullable();
+            $table->integer('color_id')->nullable()->unsigned()->index();
             $table->integer('status')->nullable();
             $table->longText('body');
             $table->integer('admin_id')->unsigned()->nullable();

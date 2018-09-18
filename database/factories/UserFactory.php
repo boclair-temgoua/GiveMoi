@@ -23,3 +23,18 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(App\Model\user\partial\message::class, function (Faker $faker) {
+
+    do{
+        $from = rand(1,13);
+        $to = rand(1,13);
+    }while ($from === $to);
+
+    return [
+        'from' => $from,
+        'to' => $to,
+        'content' => $faker->sentence,
+    ];
+});

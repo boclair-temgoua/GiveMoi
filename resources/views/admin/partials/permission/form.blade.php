@@ -1,5 +1,3 @@
-
-
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <label for="name"  class="bmd-label-floating">Name of the Permission</label>
                 {!! Form::text('name', null, ['id'=>'exampleInput11','class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}

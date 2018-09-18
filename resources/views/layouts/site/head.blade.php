@@ -5,8 +5,9 @@
 <meta name="keywords" content="{{ config('app.keywords') }}">
 <meta name="description" content="{{ isset($description) ? $description : config('app.description') }}"/>
 <meta name="csrf-token" content="{!! csrf_token() !!}">
+<meta name="user-id" content="{{Auth::check() ? Auth::user()->id : '' }}">
 
-<meta property="og:type" name="og:type" content="website"/>
+<meta property="og:type" name="og:type" content="site"/>
 <meta property="og:site_name" content="{{ config('app.name') }}"/>
 <meta property="og:url" name="og:url" content="{{ request()->url() }}"/>
 <meta property="og:caption" name="og:caption" content="{{ config('app.url') }}"/>
@@ -14,7 +15,7 @@
 <meta property="og:title" name="og:title" content="{{ isset($title) ? $title : config('app.title') }}">
 <meta property="og:description" name="og:description" content="{{ isset($description) ? $description : config('app.description') }}">
 <meta property="og:image" name="og:image" content="{{ config('app.url') }}{{ isset($image) ? $image : '/images/logo.png' }}">
-
+<script>window.Laravel = { csrfToken: '{{ csrf_token() }}' }; </script>
 <title>{{ config('app.name') }} @yield('title')</title>
 
 <link rel="stylesheet" type="text/css"

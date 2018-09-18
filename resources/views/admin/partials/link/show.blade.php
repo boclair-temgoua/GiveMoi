@@ -1,11 +1,9 @@
 @extends('inc.admin._main')
-@section('title', '- Links')
-
-
-
+@section('title', '- All Links')
+@section('sectionTitle', 'Links')
 @section('style')
-
 @endsection
+
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -14,24 +12,29 @@
                 <div class="card">
                     <div class="card-header card-header-danger card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">more_horiz</i>
+                            <i class="material-icons">http</i>
                         </div>
-                        <h4 class="card-title">All Links</h4>
+                        <h4 class="card-title"><b>All Links</b></h4>
                     </div>
                     <div class="card-body">
                         <div class="toolbar">
                             <div class="submit text-center">
-                                <a href="{{route('link.create')}}" class="btn btn-warning btn-raised btn-round">Create New Link</a>
+                                <a href="{{route('link.create')}}" class="btn btn-warning btn-raised btn-round">
+                                    <span class="btn-label">
+                                        <i class="material-icons">insert_link</i>
+                                    </span>
+                                    <b>Create New Link</b>
+                                </a>
                             </div>
-                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <!-- Here you can write extra buttons/actions for the toolbar -->
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Liens</th>
-                                    <th class="disabled-sorting text-right">Actions</th>
+                                    <th><b>Name</b></th>
+                                    <th><b>Liens</b></th>
+                                    <th class="disabled-sorting text-right"><b>Actions</b></th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -47,9 +50,9 @@
                                     <td>{{ $lk->name}}</td>
                                     <td>{{ $lk->link}}</td>
                                     <td class="td-actions text-right">
-                                        <a href="{{ route('link.edit',$lk->id) }}" class="btn btn-link  btn-success btn-round btn-just-icon " ><i class="material-icons">edit</i></a>
+                                        <a href="{{ route('link.edit',$lk->id) }}" class="btn btn-link btn-success btn-round btn-just-icon" ><i class="material-icons">edit</i></a>
 
-                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
+                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon" data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
                                             <i class="material-icons">close</i>
                                         </button>
                                     </td>
@@ -74,7 +77,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
+                <h5 class="modal-title" id="deleteLabel"><b>Delete Confirmation</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -87,8 +90,8 @@
                     <input type="hidden" name="link_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes, Delete</b></button>
                 </div>
             </form>
 
@@ -96,12 +99,9 @@
     </div>
 </div>
 @include('inc.admin._footer')
-</div>
-</div>
-
 @endsection
-@section('script')
 
+@section('script')
 <script type="text/javascript">
 
     $('#delete').on('show.bs.modal', function (event) {
@@ -123,7 +123,4 @@
 
     })
 </script>
-
-
-
 @endsection

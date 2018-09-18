@@ -118,8 +118,7 @@ class RegisterController extends Controller
             'username' => 'required|alpha_dash|string|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'status' => 'required|string',
-            //"birthday" => "date",
+            "status" => "required|in:Yes",
             'birthday' => 'required|before:today',
             'g-recaptcha-response' => 'required|captcha',
         ]);

@@ -1,28 +1,21 @@
 @extends('inc.admin._main')
 @section('title', '- Admin Testimonial created')
-
-
-
-
+@section('sectionTitle', 'Testimonials')
 @section('style')
 <!-- emojionearea -->
 <link rel="stylesheet" href="/assets/css/plugins/emojionearea.css">
 @endsection
 
 @section('init')
-
 <!-- Site wrapper -->
-
 @endsection
 
 @section('content')
-
 <div class="content">
     <div class="container-fluid">
         <div class="content">
             @include('inc.admin.components.status_admin')
             <div class="container-fluid">
-
                 @can('create-testimonial')
                 <div class="row">
                     <div class="col-md-12 col-sm-6 ml-auto mr-auto">
@@ -35,7 +28,9 @@
                                     <div class="card-icon">
                                         <i class="material-icons">filter_none</i>
                                     </div>
-                                    <h4 class="card-title">Created Testimonial</h4>
+                                    <h4 class="card-title">
+                                        <b>Create New Testimonial</b>
+                                    </h4>
                                 </div>
                                 <div class="card-body ">
                                     <div class="row">
@@ -72,15 +67,23 @@
                                                     <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
                                                     <div>
                                                         <span class="btn btn-raised btn-round btn-warning btn-file">
-                                                            <span class="fileinput-new">Add Profile</span>
-                                                            <span class="fileinput-exists">Change</span>
+                                                            <span class="fileinput-new">
+                                                                <i class="material-icons">insert_photo</i>
+                                                                <b>Add Image</b>
+                                                            </span>
+                                                            <span class="fileinput-exists">
+                                                                <i class="material-icons">photo_library</i>
+                                                                <b>Change</b>
+                                                            </span>
                                                             <input id="image" type="file" class="form-control" name="image">
                                                         </span>
                                                         <br/>
                                                         <a href="#pablo"
                                                            class="btn btn-danger btn-round fileinput-exists"
-                                                           data-dismiss="fileinput"><i class="fa fa-times"></i>
-                                                            Remove</a>
+                                                           data-dismiss="fileinput">
+                                                            <i class="fa fa-times"></i>
+                                                            <b>Remove</b>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,13 +98,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="submit text-center">
-                                    <input type="submit" class="btn btn-info btn-raised btn-round" value="Creer le Temoignage">
+                                <div class="submit">
+                                    <div class="text-center">
+                                        <a href="{{route('testimonial.index')}}" class="btn btn-info btn-raised btn-round">
+                                            <span class="btn-label">
+                                                <i class="material-icons">undo</i>
+                                            </span>
+                                            <b>Back to Testimonial Table</b>
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-raised btn-round">
+                                            <span class="btn-label">
+                                                <i class="material-icons">save_alt</i>
+                                            </span>
+                                            <b>Create Testimonial</b>
+                                        </button>
+                                    </div>
+                                    <br>
                                 </div>
-                                <div class="submit text-center">
-                                    <a href="{{route('testimonial.index')}}" class="btn btn-facebook btn-raised btn-round">Retour a la table des Temoignages</a>
-                                </div>
-                                <br>
                             </div>
                         </form>
                     </div>
@@ -117,8 +130,6 @@
 </div>
 
 @include('inc.admin._footer')
-</div>
-</div>
 
 @endsection
 

@@ -15,10 +15,10 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('country',100);
+            $table->string('title')->nullable();
+            $table->string('country',100)->nullable();
             $table->string('summary')->nullable();
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->string('city',100);
             $table->string('category')->nullable();
             $table->string('name')->nullable();

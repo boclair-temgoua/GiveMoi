@@ -50,6 +50,6 @@ class UserConfirmedAccount extends Notification
             ->line("<strong>Email:</strong> {$notifiable->email}")
             ->line("Password: (We wouldn't send that in an email.)")
             ->line("")
-            ->action('Profile', route('/', Auth::user()->username));
+            ->action('Edit your profile',url("/account/profile"));
     }
 }

@@ -1,5 +1,6 @@
-
-<div class="sidebar" data-color="rose" data-background-color="black" data-image="../assets/img/sidebar-1.jpg">
+@if(Auth::user()->avatar)
+<div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ url(Auth::user()->avatar)  }}?{{ time() }}">
+@endif
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -17,47 +18,51 @@
         <div class="user">
             <div class="photo">
                 @if(Auth::user()->avatar)
-                <img src="{{ url(Auth::user()->avatar)  }}" />
+                <img src="{{ url(Auth::user()->avatar)  }}?{{ time() }}" />
                 @endif
             </div>
             <div class="user-info">
                 <a data-toggle="collapse" href="#collapseExample" class="username">
               <span>
-              {{ Auth::user()->name }}
+              <b>{{ Auth::user()->name }}</b>
                 <b class="caret"></b>
+              </span>
               </span>
                 </a>
                 <div class="collapse" id="collapseExample">
                     <ul class="nav">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.profile')}}">
+                                <span class="sidebar-mini"><b>MP</b></span>
+                                <span class="sidebar-normal"><b>My Profile</b></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{route('admin.account')}}">
-                                <span class="sidebar-mini"> MP </span>
-                                <span class="sidebar-normal"> My Profile </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> MS </span>
-                                <span class="sidebar-normal"> Admin,
-                                    {{ Auth::user()->created_at->diffForHumans() }}</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
                                 <span class="sidebar-mini"> EP </span>
-                                <span class="sidebar-normal"> Edit Profile </span>
+                                <span class="sidebar-normal"><b>Edit Profile</b></span>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('auth.change_password')}}">
+                                <span class="sidebar-mini"> PW </span>
+                                <span class="sidebar-normal"><b>Change password</b></span>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> S </span>
-                                <span class="sidebar-normal"> Settings </span>
+                                <span class="sidebar-mini"><b>MS</b></span>
+                                <span class="sidebar-normal"><b>Connected
+                                    {{ \Carbon\Carbon::parse(Auth::user()->created_at)->diffForHumans() }}</b></span>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('admin.logout')}}">
-                                <span class="sidebar-mini"> D </span>
-                                <span class="sidebar-normal"> Logout </span>
+                                <span class="sidebar-mini"><b>L</b></span>
+                                <span class="sidebar-normal"><b>Logout</b></span>
                             </a>
                         </li>
                     </ul>
@@ -68,43 +73,43 @@
             <li class="nav-item {{ active_check('admin') }}">
                 <a class="nav-link" href="/admin">
                     <i class="material-icons">dashboard</i>
-                    <p> Dashboard </p>
+                    <p><b>Dashboard</b></p>
                 </a>
             </li>
             <li class="nav-item {{ active_check('admin/link') }}">
                 <a class="nav-link" href="{{route('link.index')}}">
                     <i class="material-icons">http</i>
-                    <p> Liens </p>
+                    <p><b>Links</b></p>
                 </a>
             </li>
             <li class="nav-item {{ active_check('admin/articles') }}">
                 <a class="nav-link" href="/admin/articles">
                     <i class="material-icons">more_horiz</i>
-                    <p> Articles </p>
+                    <p><b>Articles</b></p>
                 </a>
             </li>
             <li class="nav-item {{ active_check('admin/category') }}">
                 <a class="nav-link" href="{{route('category.index')}}">
                     <i class="material-icons">label</i>
-                    <p> Categories </p>
+                    <p><b>Categories</b></p>
                 </a>
             </li>
             <li class="nav-item {{ active_check('admin/event') }}">
                 <a class="nav-link" href="/admin/event">
                     <i class="material-icons">receipt</i>
-                    <p> Events </p>
+                    <p><b>Events</b></p>
                 </a>
             </li>
             <li class="nav-item {{ active_check('admin/tag') }}">
                 <a class="nav-link" href="{{route('tag.index')}}">
                     <i class="material-icons">local_offer</i>
-                    <p> Tags </p>
+                    <p><b>Tags</b></p>
                 </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
                     <i class="material-icons">update</i>
-                    <p> Pages
+                    <p><b>Pages</b>
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -112,20 +117,20 @@
                     <ul class="nav">
                         <li class="nav-item {{ active_check('admin/about') }}">
                             <a class="nav-link" href="{{route('about.index')}}">
-                                <span class="sidebar-mini"> AB </span>
-                                <span class="sidebar-normal"> About </span>
+                                <span class="sidebar-mini"><b>AM</b></span>
+                                <span class="sidebar-normal"><b>About Members</b></span>
                             </a>
                         </li>
                         <li class="nav-item {{ active_check('admin/presentation') }}">
                             <a class="nav-link" href="{{route('presentation.index')}}">
-                                <span class="sidebar-mini"> PR </span>
-                                <span class="sidebar-normal"> Presentation about </span>
+                                <span class="sidebar-mini"><b>AP</b></span>
+                                <span class="sidebar-normal"><b>About Presentations</b></span>
                             </a>
                         </li>
                         <li class="nav-item {{ active_check('admin/testimonial') }}">
                             <a class="nav-link" href="{{route('testimonial.index')}}">
-                                <span class="sidebar-mini"> TE </span>
-                                <span class="sidebar-normal"> Testimonial </span>
+                                <span class="sidebar-mini"><b>TE</b></span>
+                                <span class="sidebar-normal"><b>Testimonials</b></span>
                             </a>
                         </li>
                     </ul>
@@ -134,7 +139,7 @@
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#formsExamples">
                     <i class="material-icons">content_paste</i>
-                    <p> Styles
+                    <p><b>Styles</b>
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -142,28 +147,28 @@
                     <ul class="nav">
                         <li class="nav-item ">
                             <a class="nav-link" href="/admin/color">
-                                <span class="sidebar-mini"> CO </span>
-                                <span class="sidebar-normal"> Colors </span>
+                                <span class="sidebar-mini"><b>CO</b></span>
+                                <span class="sidebar-normal"><b>Colors</b></span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        <!--<li class="nav-item ">
                             <a class="nav-link" href="./forms/extended.html">
-                                <span class="sidebar-mini"> EF </span>
-                                <span class="sidebar-normal"> Extended Forms </span>
+                                <span class="sidebar-mini"><b>EF</b></span>
+                                <span class="sidebar-normal"><b>Extended Forms</b></span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="./forms/validation.html">
-                                <span class="sidebar-mini"> VF </span>
-                                <span class="sidebar-normal"> Validation Forms </span>
+                                <span class="sidebar-mini"><b>VF</b></span>
+                                <span class="sidebar-normal"><b>Validation Forms</b></span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="./forms/wizard.html">
-                                <span class="sidebar-mini"> W </span>
-                                <span class="sidebar-normal"> Wizard </span>
+                                <span class="sidebar-mini"><b>W</b></span>
+                                <span class="sidebar-normal"><b>Wizard</b></span>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </li>
@@ -171,7 +176,7 @@
             <li class="nav-item {{ Active::check(['admin/user','categories']) }} ">
                 <a class="nav-link" data-toggle="collapse" href="#settingsExamples">
                     <i class="material-icons">settings</i>
-                    <p> Settings
+                    <p><b>Settings</b>
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -179,26 +184,26 @@
                     <ul class="nav">
                         <li class="nav-item  {{ active_check('admin/user') }}">
                             <a class="nav-link" href="{{route('user.index')}}">
-                                <span class="sidebar-mini"> US </span>
-                                <span class="sidebar-normal"> Users </span>
+                                <span class="sidebar-mini"><b>US</b></span>
+                                <span class="sidebar-normal"><b>Users</b></span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> ST </span>
-                                <span class="sidebar-normal"> Settings </span>
+                                <span class="sidebar-mini"><b>ST</b></span>
+                                <span class="sidebar-normal"><b>Settings</b></span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> NV </span>
-                                <span class="sidebar-normal"> Navigation </span>
+                                <span class="sidebar-mini"><b>NV</b></span>
+                                <span class="sidebar-normal"><b>Navigation</b></span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> AD </span>
-                                <span class="sidebar-normal"> Administrators </span>
+                                <span class="sidebar-mini"><b>AD</b></span>
+                                <span class="sidebar-normal"><b>Administrators</b></span>
                             </a>
                         </li>
                     </ul>
@@ -206,10 +211,10 @@
             </li>
 
 
-            <li class="nav-item ">
+            <!--<li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
                     <i class="material-icons">grid_on</i>
-                    <p> Tables
+                    <p><b>Tables</b>
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -217,29 +222,64 @@
                     <ul class="nav">
                         <li class="nav-item ">
                             <a class="nav-link" href="../examples/tables/regular.html">
-                                <span class="sidebar-mini"> RT </span>
-                                <span class="sidebar-normal"> Regular Tables </span>
+                                <span class="sidebar-mini"><b>RT</b></span>
+                                <span class="sidebar-normal"><b>Regular Tables</b></span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="../examples/tables/extended.html">
-                                <span class="sidebar-mini"> ET </span>
-                                <span class="sidebar-normal"> Extended Tables </span>
+                                <span class="sidebar-mini"><b>ET</b></span>
+                                <span class="sidebar-normal"><b>Extended Tables</b></span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="../examples/tables/datatables.net.html">
-                                <span class="sidebar-mini"> DT </span>
-                                <span class="sidebar-normal"> DataTables.net </span>
+                                <span class="sidebar-mini"><b>DT</b></span>
+                                <span class="sidebar-normal"><b>DataTables.net</b></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li> -->
+
+
+
+           <li class="nav-item {{ Active::check(['admin/all-contact','contact/all-work_with-us']) }}">
+                <a class="nav-link" data-toggle="collapse" href="#contactExamples">
+                    <i class="material-icons">drafts</i>
+                    <p><b>Contact</b>
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="contactExamples">
+                    <ul class="nav">
+                        <li class="nav-item {{ active_check('admin/all-contact') }}">
+                            <a class="nav-link" href="/admin/all-contact">
+                                <span class="sidebar-mini"> MC </span>
+                                <span class="sidebar-normal"> Message Contact us </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item {{ active_check('admin/contact/speciality') }}">
+                            <a class="nav-link" href="{{ route('speciality.index') }}">
+                                <span class="sidebar-mini"> AS </span>
+                                <span class="sidebar-normal"> All speciality </span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ active_check('admin/contact/all-work_with-us') }}">
+                            <a class="nav-link" href="{{ route('admin.work-us') }}">
+                                <span class="sidebar-mini"> AW </span>
+                                <span class="sidebar-normal"> All work user </span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
+
             <li class="nav-item  {{ Active::check(['admin/administrators','admin/permissions','admin/roles']) }}">
                 <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
-                    <i class="material-icons">face</i>
-                    <p> Admin Management
+                    <i class="material-icons">person_outline</i>
+                    <p><b>Management Admin</b>
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -247,20 +287,20 @@
                     <ul class="nav">
                         <li class="nav-item {{ active_check('admin/administrators') }}">
                             <a class="nav-link" href="{{route('administrators.index')}}">
-                                <span class="sidebar-mini"> AD </span>
-                                <span class="sidebar-normal"> Administrators </span>
+                                <span class="sidebar-mini"><b>AD</b></span>
+                                <span class="sidebar-normal"><b>Administrators</b></span>
                             </a>
                         </li>
                         <li class="nav-item {{ active_check('admin/permissions') }}">
                             <a class="nav-link" href="{{route('permissions.index')}}">
-                                <span class="sidebar-mini"> PE </span>
-                                <span class="sidebar-normal"> Permissions </span>
+                                <span class="sidebar-mini"><b>PE</b></span>
+                                <span class="sidebar-normal"><b>Permissions</b></span>
                             </a>
                         </li>
                         <li class="nav-item {{ active_check('admin/roles') }}">
                             <a class="nav-link" href="{{route('roles.index')}}">
-                                <span class="sidebar-mini"> RO </span>
-                                <span class="sidebar-normal"> Roles </span>
+                                <span class="sidebar-mini"><b>RO</b></span>
+                                <span class="sidebar-normal"><b>Roles</b></span>
                             </a>
                         </li>
                     </ul>
@@ -269,27 +309,23 @@
             <li class="nav-item {{ active_check('admin/conditions') }}">
                 <a class="nav-link" href="/admin/conditions">
                     <i class="material-icons">widgets</i>
-                    <p> Conditions and terms </p>
+                    <p><b>Terms and Conditions</b></p>
                 </a>
             </li>
-            <li class="nav-item {{ active_check('admin/all-contact') }}">
-                <a class="nav-link" href="/admin/all-contact">
-                    <i class="material-icons">drafts</i>
-                    <p> Message contact </p>
-                </a>
-            </li>
-            <li class="nav-item ">
+
+
+            <!--<li class="nav-item">
                 <a class="nav-link" href="../examples/charts.html">
                     <i class="material-icons">timeline</i>
-                    <p> Charts </p>
+                    <p><b>Charts</b></p>
                 </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="../examples/calendar.html">
                     <i class="material-icons">date_range</i>
-                    <p> Calendar </p>
+                    <p><b>Calendar</b></p>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>

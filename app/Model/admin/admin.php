@@ -3,6 +3,8 @@
 namespace App\Model\admin;
 
 use App\Notifications\AdminResetPasswordNotification;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Intervention\Image\Facades\Image;
@@ -14,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 class admin extends Authenticatable
 {
 
-    use Notifiable, HasRoles;
+    use Notifiable,softDeletes, HasRoles;
     //Permission
     protected $guard_name = 'admin';
 
@@ -30,7 +32,8 @@ class admin extends Authenticatable
     }
 
     protected $admin;
-    public $dates = ['birthday','created_ad','updated_ad'];
+
+    protected $dates = ['created_at', 'updated_at', 'birthday','deleted_at'];
 
 
     /**
@@ -41,18 +44,26 @@ class admin extends Authenticatable
     protected $fillable = [
         'name',
         'username',
+        'first_name',
+        'body',
+        'country',
+        'address',
+        'work',
+        'birthday',
+        'color_name',
         'email',
         'password',
-        'confirmation_token',
-        'avatar',
-        'avatarcover',
         'gender',
-        'telephone',
-        'cellphone',
-        'image',
+        'phone',
         'avatar',
-        'status',
+        'admin_id',
     ];
+    public function setDateOfBirthAttribute($birthday)
+    {
+        return Carbon::parse($this->attributes['birthday'])->age;
+
+        //$this->attributes['birthday'] = Carbon::createFromFormat('d/m/Y',$birthday);
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -107,5 +118,14 @@ class admin extends Authenticatable
     public function role()
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function setBirthdayAttribute($birthday){
+        $this->attributes['birthday'] = Carbon::createFromFormat('d/m/Y', $birthday);
+    }
+
+
+    public function getAgeAttribute(){
+        return $this->birthday->diffInYears();
     }
 }

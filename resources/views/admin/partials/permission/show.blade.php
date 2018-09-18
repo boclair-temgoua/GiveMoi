@@ -1,8 +1,6 @@
 @extends('inc.admin._main')
 @section('title', '- Permissions')
-
-
-
+@section('sectionTitle', 'Permissions')
 @section('style')
 
 @endsection
@@ -17,58 +15,59 @@
                 <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">assignment</i>
+                            <i class="material-icons">visibility</i>
                         </div>
-                        <h4 class="card-title">All Permissions</h4>
+                        <h4 class="card-title">
+                            <b>All Permissions</b>
+                        </h4>
                     </div>
                     <div class="card-body">
-
-                        @include('inc.alert')
-
-                        @can('delete-multiple-permission')
-                        <div class="submit text-right">
-                            <button class="btn btn-rose btn-raised btn-round delete-all "
-                                    data-url="">
-                                <i class="material-icons">delete_forever</i>
-                                Delete select
-                            </button>
-                        </div>
-                        @endcan
                         <div class="toolbar">
-
                             @can('create-permission')
                             <div class="submit text-center">
                                 <button class="btn btn-primary btn-raised btn-round " data-toggle="modal"
                                         data-target="#createModal">
-                                    Create un new permission
+                                    <i class="material-icons">playlist_add_check</i>
+                                    <b>Create New Permission</b>
                                 </button>
                             </div>
                             @endcan
-                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <!--  Here you can write extra buttons/actions for the toolbar -->
                         </div>
+                        <br>
+                        @can('delete-multiple-permission')
+                        <div class="submit text-left">
+                            <button class="btn btn-rose btn-raised btn-round delete-all "
+                                    data-url="">
+                                <i class="material-icons">delete_forever</i>
+                                <b>Delete select</b>
+                            </button>
+                        </div>
+                        <br>
+                        @endcan
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
-                                <tr>
-                                    @can('delete-multiple-permission')
-                                    <th>Select</th>
-                                    @endcan
-                                    <th>Name</th>
-                                    <th>Guard_ame</th>
-                                    <th>Updated_at</th>
-                                    <th class="disabled-sorting text-right">Actions</th>
-                                </tr>
+                                    <tr>
+                                        @can('delete-multiple-permission')
+                                        <th></th>
+                                        @endcan
+                                        <th><b>Permission Name</b></th>
+                                        <th><b>Role</b></th>
+                                        <th><b>Date</b></th>
+                                        <th class="disabled-sorting text-right"><b>Actions</b></th>
+                                    </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    @can('delete-multiple-permission')
-                                    <th>Select</th>
-                                    @endcan
-                                    <th>Name</th>
-                                    <th>Guard_ame</th>
-                                    <th>Updated_at</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
+                                    <tr>
+                                        @can('delete-multiple-permission')
+                                        <th></th>
+                                        @endcan
+                                        <th><b>Permission Name</b></th>
+                                        <th><b>Role</b></th>
+                                        <th><b>Date</b></th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
                                 </tfoot>
                                 <tbody>
                              @if(count($permissions) > 0)
@@ -86,7 +85,7 @@
                                         </div>
                                     </td>
                                     @endcan
-                                    <td><b>{{ $lk->name}}</b></td>
+                                    <td>{{ $lk->name}}</td>
                                     <td>{{ $lk->guard_name}}</td>
                                     <td>{!! str_limit( \Carbon\Carbon::parse($lk->updated_at)->diffForHumans(), 20,'...') !!}</td>
 
@@ -109,7 +108,6 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
                                 @else
 
                              @endif
@@ -146,8 +144,8 @@
                     @include('admin.partials.permission.form',['permission' => new \Spatie\Permission\Models\Permission()])
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-rose btn-raised ">Create  Permission</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                            <button type="submit" class="btn btn-rose btn-raised "><b>Create  Permission</b></button>
                         </div>
                     {!! Form::close() !!}
             </div>
@@ -166,13 +164,12 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-
                 <div class="form-group">
                     <label for="">Name permission :</label>
                     <b id="ti"/>
                 </div>
                 <div class="form-group">
-                    <label for="">Guard_name :</label>
+                    <label for="">Role :</label>
                     <b id="by"/>
                 </div>
             </div>
@@ -185,7 +182,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
+                <h5 class="modal-title" id="deleteLabel"><b>Delete Confirmation</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -198,17 +195,14 @@
                     <input type="hidden" name="permission_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes Delete</b></button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
 @include('inc.admin._footer')
-</div>
-</div>
 
 @endsection
 @section('script')
@@ -260,143 +254,64 @@
     });
 </script>
 
-
-
 <script type="text/javascript">
-
     $(document).ready(function () {
-
-
-
         $('#check_all').on('click', function(e) {
-
             if($(this).is(':checked',true))
-
             {
-
                 $(".checkbox").prop('checked', true);
-
             } else {
-
                 $(".checkbox").prop('checked',false);
-
             }
-
         });
-
-
-
+        
         $('.checkbox').on('click',function(){
-
             if($('.checkbox:checked').length == $('.checkbox').length){
-
                 $('#check_all').prop('checked',true);
-
             }else{
-
                 $('#check_all').prop('checked',false);
-
             }
-
         });
-
-
 
         $('.delete-all').on('click', function(e) {
-
-
-
             var idsArr = [];
-
             $(".checkbox:checked").each(function() {
-
                 idsArr.push($(this).attr('data-id'));
-
             });
-
-
-
             if(idsArr.length <=0)
-
             {
-
                 alert("Please select atleast one record to delete.");
-
             }  else {
-
-
-
                 if(confirm("Are you sure, you want to delete the selected administrator ?")){
-
-
-
                     var strIds = idsArr.join(",");
-
-
-
                     $.ajax({
-
                         url: "{{ route('permission.multiple-delete') }}",
-
                         type: 'DELETE',
-
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-
                         data: 'ids='+strIds,
-
                         success: function (data) {
-
                             if (data['status']==true) {
-
                                 $(".checkbox:checked").each(function() {
-
                                     $(this).parents("tr").remove();
-
                                 });
-
                                 alert(data['message']);
-
                             } else {
-
                                 alert('Whoops Something went wrong!!');
-
                             }
-
                         },
-
                         error: function (data) {
-
                             alert(data.responseText);
-
                         }
-
                     });
-
-
-
                 }
-
             }
-
         });
-
-
-
         $('[data-toggle=confirmation]').confirmation({
-
             rootSelector: '[data-toggle=confirmation]',
-
             onConfirm: function (event, element) {
-
                 element.closest('form').submit();
-
             }
-
         });
-
-
-
     });
-
 </script>
 @endsection

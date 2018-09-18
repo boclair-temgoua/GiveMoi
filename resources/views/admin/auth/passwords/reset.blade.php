@@ -84,5 +84,10 @@
         }, 700)
     });
 </script>
+<script type="text/javascript">
+    setTimeout(function(){
+        location.reload();
+    },600000);
+</script>
 </body>
 </html>

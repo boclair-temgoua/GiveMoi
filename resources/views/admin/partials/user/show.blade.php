@@ -1,5 +1,7 @@
 @extends('inc.admin._main')
-@section('title', '- Admin all users')
+@section('title', '- Admin Users')
+@section('sectionTitle', 'Users')
+
 
 
 
@@ -15,20 +17,19 @@
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">tag_faces</i>
+                            <i class="material-icons">account_box</i>
                         </div>
-                        <h4 class="card-title">All Users</h4>
+                        <h4 class="card-title">
+                            <b>All Users</b>
+                        </h4>
                     </div>
                     <div class="card-body">
 
 
                         <div class="toolbar">
 
-                            @can('delete-user')
-                            <div class="submit text-center">
-                                <a href="{{route('user.create')}}" class="btn btn-warning btn-raised btn-round">Create New User</a>
-                            </div>
-                            @endcan
+
+
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
                         <div class="material-datatables">
@@ -80,9 +81,9 @@
                                     <td>{{ $lk->username}}</td>
                                     <td>{{ $lk->email}}</td>
                                     <td><img src="{{ URL::to($lk->avatar) }}?{{ time() }}" style="width: 40px; height: 40px;  top: 15px; left: 15px; border-radius: 50%" ></td>
-                                    <td>{{ $lk->age}} ans</td>
-                                    <td>{{ $lk->gender}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($lk->created_at)->diffForHumans() }}</td>
+                                    <td><b>{{ $lk->age}} ans</b></td>
+                                    <td>{{ $lk->sex}}</td>
+                                    <td>{!! \Carbon\Carbon::parse($lk->created_at)->diffForHumans() !!}</td>
                                     <td class="td-actions text-right">
 
                                         @can('view-user')
@@ -115,7 +116,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
+                <h5 class="modal-title" id="deleteLabel"><b>Delete Confirmation</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,8 +129,8 @@
                     <input type="hidden" name="user_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes Delete</b></button>
                 </div>
             </form>
 
@@ -137,7 +138,6 @@
     </div>
 </div>
 @include('inc.admin._footer')
-</div>
 </div>
 
 @endsection

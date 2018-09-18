@@ -1,74 +1,70 @@
 @extends('inc.admin._main')
-@section('title', '- Categories')
-
-
-
+@section('title', '- All Categories')
+@section('sectionTitle', 'Categories')
 @section('style')
-
 @endsection
+
 @section('content')
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-
-
                 <div class="card">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">assignment</i>
+                            <i class="material-icons">label</i>
                         </div>
-                        <h4 class="card-title">All Categories</h4>
+                        <h4 class="card-title"><b>All Categories</b></h4>
                     </div>
                     <div class="card-body">
                         <div class="toolbar">
                             <div class="submit text-center">
-                                @include('inc.alert')
-                                <button class="btn btn-warning btn-raised btn-round " data-toggle="modal" data-target="#createModal">
-                                    Créer une Categorie
+                                <button class="btn btn-warning btn-raised btn-round" data-toggle="modal" data-target="#createModal">
+                                    <span class="btn-label">
+                                        <i class="material-icons">category</i>
+                                    </span>
+                                    <b>Create New Category</b>
                                 </button>
                             </div>
-                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                            <!-- Here you can write extra buttons/actions for the toolbar -->
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Date de creation</th>
-                                    <th class="disabled-sorting text-right">Actions</th>
-                                </tr>
+                                    <tr>
+                                        <th><b>Name</b></th>
+                                        <th><b>Slug</b></th>
+                                        <th><b>Create Date</b></th>
+                                        <th class="disabled-sorting text-right"><b>Actions</b></th>
+                                    </tr>
                                 </thead>
                                 <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Date de creation</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Slug</th>
+                                        <th>Create Date</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
                                 </tfoot>
                                 <tbody>
-                                @foreach($categories as $lk)
-                                <tr>
-                                    <td>{{ $lk->name}}</td>
-                                    <td>{{ $lk->slug}}</td>
-                                    <td>{!! $lk->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</td>
-                                    <td class="td-actions text-right">
-
-                                        <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "
-                                                data-toggle="modal" data-target="#editedModal"
-                                                data-myname="{{ $lk->name }}"
-                                                data-myslug="{{ $lk->slug }}" data-lkid="{{ $lk->id }}">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-
-                                        <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
-                                            <i class="material-icons">delete</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                    @foreach($categories as $lk)
+                                    <tr>
+                                        <td>{{ $lk->name}}</td>
+                                        <td>{{ $lk->slug}}</td>
+                                        <td>{!! $lk->created_at->format('\<\s\t\r\o\n\g\>d\</\s\t\r\o\n\g\> M Y') !!}</td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" class="btn btn-link  btn-success btn-round btn-just-icon "
+                                                    data-toggle="modal" data-target="#editedModal"
+                                                    data-myname="{{ $lk->name }}"
+                                                    data-myslug="{{ $lk->slug }}" data-lkid="{{ $lk->id }}">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button type="button" class="btn btn-link btn-danger btn-round btn-just-icon " data-toggle="modal" data-target="#delete" data-catid="{{ $lk->id }}">
+                                                <i class="material-icons">delete_forever</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -76,10 +72,6 @@
                     <!-- end content-->
                 </div>
                 <!--  end card  -->
-
-                @component('inc.admin.components.who')
-
-                @endcomponent
             </div>
             <!-- end col-md-12 -->
         </div>
@@ -96,15 +88,17 @@
                     <form id="RegisterValidation" role="form" method="POST" action="{{ route('category.store') }}">
                         {{ csrf_field() }}
                         <br>
-                        <h4 class="description text-center">Category Create</h4>
+                        <h5 class="modal-title text-center" id="editedLabel">
+                              <b>Create Category</b>
+                        </h5>
                         <div class="card-body">
-
-
+                            
                             @include('admin.category.form')
+                            
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-rose btn-raised ">Create Category</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                            <button type="submit" class="btn btn-rose btn-raised"><b>Create Category</b></button>
                         </div>
                         <br>
                     </form>
@@ -113,13 +107,16 @@
         </div>
     </div>
 </div>
-<!-- End Create -->
-<!-- Update Tag -->
+<!-- End Create Categories -->
+
+<!-- Update Tag Categories -->
 <div class="modal fade" id="editedModal" tabindex="-1" role="">
     <div class="modal-dialog modal-login" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editedLabel">Update Category</h5>
+                <h5 class="modal-title" id="editedLabel">
+                    <b>Update Category</b>
+                </h5>
             </div>
             <br>
             <div class="card card-signup card-plain">
@@ -134,8 +131,8 @@
                             @include('admin.tag.form')
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-rose btn-raised ">Update Category</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                            <button type="submit" class="btn btn-rose btn-raised"><b>Update Category</b></button>
                         </div>
                         <br>
                     </form>
@@ -144,13 +141,16 @@
         </div>
     </div>
 </div>
-<!-- End Update Tag -->
-<!--DELETE Category -->
+<!-- End Update Tag Categories -->
+
+<!--Delete Category -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteLabel">Delete Confirmation</h5>
+                <h5 class="modal-title" id="deleteLabel">
+                    <b>Delete Confirmation</b>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -163,23 +163,20 @@
                     <input type="hidden" name="category_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>No, Cancel</b></button>
+                    <button type="submit" class="btn btn-danger"><b>Yes Delete</b></button>
                 </div>
             </form>
 
         </div>
     </div>
 </div>
+<!-- End Delete Category -->
 @include('inc.admin._footer')
-</div>
-</div>
-
 @endsection
+
 @section('script')
-
 <script type="text/javascript">
-
     $('#delete').on('show.bs.modal', function (event) {
 
         var button = $(event.relatedTarget)
@@ -215,7 +212,4 @@
 
     })
 </script>
-
-
-
 @endsection

@@ -17,15 +17,25 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/confirm/{id}/{token}', 'Auth\RegisterController@confirmAccount');
-Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook');
-Route::get('auth/facebook/callback', 'Auth\FacebookController@handleFacebookCallback');
 
-Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
-Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
+Route::group(['namespace' => 'Auth'], function (){
 
+
+    Route::get('/confirm/{id}/{token}', 'RegisterController@confirmAccount');
+    Route::get('auth/facebook', 'FacebookController@redirectToFacebook');
+    Route::get('auth/facebook/callback', 'FacebookController@handleFacebookCallback');
+
+    Route::get('auth/google', 'GoogleController@redirectToGoogle');
+    Route::get('auth/google/callback', 'GoogleController@handleGoogleCallback');
+
+    //Reset password
+    $this->get('user/change_password', 'ChangePasswordController@showChangePasswordForm')->name('user.change_password');
+    $this->patch('user/change_password', 'ChangePasswordController@changePassword')->name('user.change_password');
+
+});
 
 
 Route::group(['middleware' => 'web'], function () {
@@ -46,7 +56,7 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
-
+Route::get('invitations/{invitation_id}/{action}', 'Api\AcceptController@accept')->name('invitations.send');
 
 
 Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
@@ -62,7 +72,6 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
     //Permissions Route
     Route::resource('/permissions','PermissionsController');
     Route::delete('delete-multiple-permission', ['as'=>'permission.multiple-delete','uses'=>'PermissionsController@deleteMultiple']);
-
 
 
     //Users Route
@@ -92,14 +101,48 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
 
 
     Route::group(['namespace' => 'Partials'], function (){
+
         //Color Route
         Route::resource('color','ColorController');
         Route::get('/unactive_color/{id}','ColorController@unactive_color')->name('unactive_color');
         Route::get('/active_color/{id}','ColorController@active_color')->name('active_color');
+
+        //Speciality contact Route
+        Route::resource('contact/speciality','SpecialityController');
+        Route::get('/unactive_speciality/{id}','SpecialityController@unactive_speciality')->name('unactive_speciality');
+        Route::get('/active_speciality/{id}','SpecialityController@active_speciality')->name('active_speciality');
+
+        //Work with us Route
+        Route::get('contact/all-work_with-us','WorkController@AllWork')->name('admin.work-us');
+        Route::post('/delete-work-message/{id}','WorkController@delete_work')->name('delete.work');
+        Route::post('/delete-work/{id}','WorkController@delete_work')->name('delete_work');
+        Route::delete('delete-multiple-message-work', ['as'=>'work.multiple-delete','uses'=>'WorkController@deleteMultiple']);
+
         //Contact Route
         Route::get('/all-contact','ContactController@AllContact')->name('contact');
         Route::post('/delete-contact-message/{id}','ContactController@delete_contact')->name('delete.contact');
         Route::delete('delete-multiple-message-contact', ['as'=>'contact.multiple-delete','uses'=>'ContactController@deleteMultiple']);
+
+        //Eventmets Route
+        Route::get('eventments/{event_id}/send', ['uses' => 'EventmentsController@send', 'as' => 'eventments.send']);
+        Route::resource('eventments', 'EventmentsController');
+        Route::post('eventments_mass_destroy', ['uses' => 'EventmentsController@massDestroy', 'as' => 'eventments.mass_destroy']);
+        Route::post('eventments_restore/{id}', ['uses' => 'EventmentsController@restore', 'as' => 'eventments.restore']);
+        Route::delete('eventments_perma_del/{id}', ['uses' => 'EventmentsController@perma_del', 'as' => 'eventments.perma_del']);
+
+        //Invitation send
+        Route::get('invitations/{invitation_id}/send', ['uses' => 'InvitationsController@send', 'as' => 'invitations.send']);
+        Route::get('invitations/import', ['uses' => 'InvitationsController@import', 'as' => 'invitations.import']);
+        Route::post('invitations/import_store', ['uses' => 'InvitationsController@import_store', 'as' => 'invitations.import_store']);
+        Route::resource('invitations', 'InvitationsController');
+        Route::post('invitations_mass_destroy', ['uses' => 'InvitationsController@massDestroy', 'as' => 'invitations.mass_destroy']);
+        Route::post('invitations_restore/{id}', ['uses' => 'InvitationsController@restore', 'as' => 'invitations.restore']);
+        Route::delete('invitations_perma_del/{id}', ['uses' => 'InvitationsController@perma_del', 'as' => 'invitations.perma_del']);
+
+
+
+        //Basket
+        Route::resource('/basket','BasketController');
     });
 
     //Abouts Route
@@ -112,6 +155,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
     //Route::get('/presentation','PresentationController@all_presentation')->name('presentation.index');
     Route::get('/unactive_presentation/{id}','PresentationController@unactive_presentation')->name('unactive_presentation');
     Route::get('/active_presentation/{id}','PresentationController@active_presentation')->name('active_presentation');
+    Route::delete('delete-multiple-presentation', ['as'=>'presentation.multiple-delete','uses'=>'PresentationController@deleteMultiple']);
 
     //Testimonials Route
     Route::resource('/testimonial','TestimonialController');
@@ -121,17 +165,26 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
 
     //Tags Route
     Route::resource('/tag','TagController');
+    Route::delete('delete-multiple-tag', ['as'=>'tag.multiple-delete','uses'=>'TagController@deleteMultiple']);
     //Categories Routes
     Route::resource('/category','CategoryController');
-    //Profiles Routes
-    Route::get('/account', 'Account\AccountController@index')->name('admin.account');
 
 
+    Route::group(['namespace' => 'Account'], function (){
+
+        Route::get('profile', 'AccountController@index')->name('admin.profile');
+        Route::get('account', 'AccountController@edit')->name('admin.account');
+        Route::post('account', 'AccountController@update');
+
+        $this->get('change_password', 'ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
+        $this->patch('change_password', 'ChangePasswordController@changePassword')->name('auth.change_password');
+    });
     Route::group(['namespace' => 'Auth'], function (){
         // Admin Auth Routes
         Route::get('/admin-login', 'LoginController@showLoginForm')->name('admin.login');
         Route::post('/admin-login', 'LoginController@login');
         Route::get('/logout', 'LoginController@logout')->name('admin.logout');
+
         // password reset
         Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
         Route::post('/password/reset', 'ResetPasswordController@reset');
@@ -157,6 +210,8 @@ Route::group(['namespace' =>'User'],function (){
 
     Route::get('testimonial','TestimonialController@index')->name('testimonial');
     Route::get('about','AboutController@index')->name('about');
+
+    Route::post('/save-work','AboutController@save_work')->name('user.save_work');
 
 
     //Events Route
@@ -206,8 +261,8 @@ Route::group(['namespace' =>'Api'],function (){
 
     // Route Contact Us
 
-    Route::get('/contact', 'ContactController@create')->name('contact');
-    Route::post('/contact', 'ContactController@store')->name('contact.store');
+    Route::get('/contact-us', 'ContactController@create')->name('contact_us');
+    Route::post('/contact-us', 'ContactController@store')->name('contact.store');
 
 
 
@@ -276,8 +331,20 @@ Route::group(['prefix'=>'account'],function (){
 /* **************************** end *********************/
 
 
+    Route::get('/conversations', 'ConversationsController@index')->name('conversations');
+    Route::get('/conversations/{user}', 'ConversationsController@index')->name('conversations.show');
+   // Route::get('/conversations/{user}', 'ConversationsController@index');
 
 
+
+    Route::resource('messages','MessagesController');
+
+
+
+
+    Route::get('/contacts','ContactsController@get');
+    Route::get('/conversation/{id}', 'ContactsController@getMessagesFor');
+    Route::post('/conversation/send', 'ContactsController@send');
 
 
 
@@ -294,10 +361,6 @@ Route::get('/site', function (){
 });
 
 
-
-
-//Likes Route
-Route::get('events/like/{id}', ['as' => 'events.like', 'uses' => 'LikeController@likeEvent']);
 
 
 

@@ -14,12 +14,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ml-auto mr-auto text-center">
-                    <h2 class="title">GV {{ config('app.name') }}</h2>
+                    <h2 class="title"> {{ config('app.name') }}</h2>
 
 
                     @guest
+                    <h3 class="description title">Inscrivez-vous et profitez au plus vite des services du sites</h3>
                     <a href="{{ route('register') }}" class="btn btn-warning btn-raised btn-round">
-                        Créer un compte gratuitement
+                        Ouvrir facilement un compte
+                    </a>
+                    @else
+                    <a href=" " class="btn btn-warning btn-raised btn-round">
+                        <i class="material-icons">play_arrow</i> Verifiez vos transaction ici
                     </a>
                     @endguest
 
@@ -45,53 +50,65 @@
                 <div class="row">
                     <div class="col-md-12 ml-auto mr-auto">
                         <h2 class="title">{{ config('app.name') }}</h2>
-                        <h3 class="description card-title">GiveMoi est la solution parfait pour envoyer et recevoir de
-                            l'argent aussi simplement et plus rapidement qu'un SMS.</h3>
+                        <h3 class="description title">Notre site est pour le moment en developpement entrer votre addres mail pour etre informer de la verssion finale.</h3>
+                        <h3 class="title">Mais dès lors vous pouvez vous inscrire pour profiter de quelques fonctionaliter du site !</h3>
                     </div>
                 </div>
-                <div class="features">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="info">
-                                <div class="icon icon-info">
-                                    <i class="material-icons">all_inclusive</i>
+                <br>
+                <div class="subscribe-line subscribe-line-image" style="background-image: url(&apos;assets/img/kit/pro/bg7.jpg&apos;);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 ml-auto mr-auto">
+                                <div class="text-center">
+                                    <h3 class="title">Abonnez-vous à la notre newsletter de {{ config('app.name') }}</h3>
+                                    @include('inc.alert')
+                                    <p class="description">
+                                        <b>Inscrivez-vous à notre newsletter pour recevoir les dernières nouvelles de
+                                            <strong>{{ config('app.name') }}</strong>
+                                        </b>
+                                    </p>
                                 </div>
-                                <h3 class="info-title">Gratuit</h3>
-                                <p class="info-title">Creer un compte et utilisez GiveMoi gratuitement &#x1F60D;.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="info">
-                                <div class="icon icon-success">
-                                    <i class="material-icons">flight_takeoff</i>
+                                <div class="card card-raised card-form-horizontal">
+                                    <div class="card-body ">
+
+                                        <form id="form-newsletter-subscribe" method="post" action="{{ route('newsletter.store') }}" accept-charset="UTF-8">
+                                            {!! csrf_field() !!}
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-6 ">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">mail</i>
+                                                    </span>
+                                                        </div>
+                                                        <input id="user_email" type="text" name="user_email" class="form-control{{ $errors->has('user_email') ? ' has-error' : '' }}" placeholder=" Email..." required>
+                                                        @if ($errors->has('user_email'))
+                                                        <span class="help-block">
+                                                        <strong class="text-center">{{ $errors->first('user_email') }}</strong>
+                                                    </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 ">
+                                                    <button type="submit" class="btn btn-warning  btn-block btn-raised btn-round">Subscribe</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+
+                                    </div>
                                 </div>
-                                <h3 class="info-title">Rapide</h3>
-                                <p class="info-title">Envoyez et Recevez de l&apos;argent par SMS à chaque fois que vous
-                                    en avez besoin &#x1F601; depuis votre téléphone &#x1F4F1;.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="info">
-                                <div class="icon icon-danger">
-                                    <i class="fa fa-handshake"></i>
-                                </div>
-                                <h3 class="info-title">Partenaires</h3>
-                                <p class="info-title">Divide details about your product or agency work into parts. Write
-                                    a few lines about each one. A paragraph describing a feature will be enough.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <span class="card-title font-italic">&ldquo;La protection de vos données est extrêmement importante à nos yeux. Toutes les informations relatives à votre compte (nom, adresse, informations bancaires, etc.) sont soumises à un double cryptage aux normes de sécurité PCI-DSS. &rdquo;</span>
-                    </div>
-                </div>
+
+                <br>
                 <div class="col-md-12 ml-auto mr-auto">
-                    <h2 class="title">GiveMoi</h2>
+                    <h2 class="title">{!! config('app.name') !!}</h2>
                     @guest
-                    <h3 class="description card-title">Inscrivez-vous et profitez au plus vite de votre compte
-                        GiveMoi.</h3>
+                    <h3 class="description card-title">Inscrivez-vous et profitez au plus vite des services du sites .</h3>
                     <a href="{{ route('register') }}" class="btn btn-warning btn-raised btn-round">
                         Ouvrir facilement un compte
                     </a>
@@ -105,7 +122,7 @@
         </div>
     </div>
 
- @include('inc.footer')
+ @include('inc._footer')
  @endsection
 
  @section('scripts')

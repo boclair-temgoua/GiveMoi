@@ -3,6 +3,25 @@
 
 @section('style')
 <script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+<style>
+
+    .field-icon {
+        float: right;
+        color: #0b75c9;
+        margin-right: -17px;
+        margin-top: 10px;
+        position: relative;
+        z-index: 2;
+        cursor:pointer;
+        padding-right: 15px;
+    }
+
+    .eac-sugg {
+        color: #ccc;
+    }
+</style>
 @endsection
 @section('content')
 <div class="signup-page sidebar-collapse">
@@ -12,7 +31,9 @@
             <div class="row">
                 <div class="col-md-10 ml-auto mr-auto">
                     <div class="card card-signup">
-                        <h2 class="card-title text-center">New Registration</h2>
+                        <h2 class="card-title text-center">
+                            <b>New Registration</b>
+                        </h2>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
@@ -27,7 +48,7 @@
                                         <div class="description">
                                             <h4 class="info-title">{!! $presentation->title !!}</h4>
                                             {!! str_limit($presentation->body, 100,'[...]') !!}<br>
-                                            <a href="{{ route('presentation',$presentation->slug) }}" class="text-{{ $presentation->color_slug }}">Find more...</a>
+                                            <a href="{{ route('presentation',$presentation->slug) }}" class="text-{{ $presentation->color_slug }}" target="_blank">Find more...</a>
                                         </div>
                                     </div>
 
@@ -51,13 +72,13 @@
                                            data-container="body">
                                             <i class="fab fa-google-plus"></i>
                                         </a>
-                                        <h4> or be classical </h4>
+                                        <h4><b>Or be classical</b></h4>
 
+                                        @include('inc.alert')
                                     </div>
                                     <form  id="RegisterValidation"  method="POST" action="{{ route('register') }}" accept-charset="UTF-8">
                                         {{ csrf_field() }}
 
-                                        <input type="hidden" name="tz" id="tz">
 
                                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                             <div class="input-group">
@@ -68,7 +89,7 @@
                                                 </div>
                                                 <input id="username" type="text"
                                                        class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                                       name="username" value="{{ old('username') }}" minLength="3" placeholder="Username..."  >
+                                                       name="username" value="{{ old('username') }}" minLength="3" placeholder="Username..." required="required"  >
                                                 @if ($errors->has('username'))
                                                 <span class="invalid-feedback">
                                                    <strong>{{ $errors->first('username') }}</strong>
@@ -85,7 +106,7 @@
                                                 </div>
                                                 <input id="name" type="text"
                                                        class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                       name="name" value="{{ old('name') }}" minLength="3" maxlength="20" placeholder="Name..." >
+                                                       name="name" value="{{ old('name') }}" minLength="3" maxlength="20" placeholder="Name..." required="required" >
                                                 @if ($errors->has('name'))
                                                 <span class="invalid-feedback">
                                                  <strong>{{ $errors->first('name') }}</strong>
@@ -103,7 +124,7 @@
                                                 <input type="text"
                                                        class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }} datepicker "
                                                        id="birthday" name="birthday"
-                                                       value="{{ old('birthday') }}" placeholder="Birthday date">
+                                                       value="{{ old('birthday') }}" placeholder="Birthday date" required="required">
                                                 @if ($errors->has('birthday'))
                                                 <span class="invalid-feedback">
                                                    <strong>{{ $errors->first('birthday') }}</strong>
@@ -120,7 +141,7 @@
                                                 </div>
                                                 <input type="email"
                                                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                                                       value="{{ old('email') }}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email..." >
+                                                       value="{{ old('email') }}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email..." required="required" >
                                                 @if ($errors->has('email'))
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $errors->first('email') }}</strong>
@@ -138,9 +159,11 @@
                                                         <i class="material-icons">lock_outline</i>
                                                       </span>
                                                 </div>
-                                                <input id="password" type="password"
+                                                <input id="password-field" type="password"
                                                        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                                       name="password" value="{{ old('password') }}" placeholder="Password..." >
+                                                       name="password" value="{{ old('password') }}" placeholder="Password..." required="required">
+
+                                                <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
                                                 @if ($errors->has('password'))
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -155,8 +178,9 @@
                                                         <i class="material-icons">lock_outline</i>
                                                       </span>
                                                 </div>
-                                                <input id="password_confirm" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
-                                                       name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm password...">
+                                                <input id="password_confirmation" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
+                                                       name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm password..." required="required">
+                                                <span toggle="#password_confirmation" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password" style="padding-right: 15px;"></span>
                                                 @if ($errors->has('password_confirmation'))
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -181,15 +205,16 @@
                                         </div>
                                         <div class="form-check{{ $errors->has('status') ? ' has-error' : '' }}">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="status" value="yes" checked >
+
+                                                <input class="form-check-input" type="checkbox" name="status" value="Yes" checked >
                                                 <span class="form-check-sign">
                                                       <span class="check"></span>
-                                                    </span>
+                                                </span>
                                                 I agree to the
                                                 <a href="/terms_conditions">terms and conditions</a>.
                                             </label>
                                             @if ($errors->has('status'))
-                                            <span class="help-block">
+                                            <span class="invalid-feedback">
                                                 <strong>{{ $errors->first('status') }}</strong>
                                             </span>
                                             @endif
@@ -236,6 +261,23 @@
 
     });
 </script>
+
+<!-- Show password -->
+<script>
+
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
+
+
+
 
 <script>
     $(function () {

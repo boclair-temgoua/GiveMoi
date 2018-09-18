@@ -1,4 +1,3 @@
-
 <div class="main-panel">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
@@ -10,7 +9,7 @@
                         <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                     </button>
                 </div>
-                <a class="navbar-brand" href="#pablo">Dashboard</a>
+                <a class="navbar-brand" href="#pablo"><b>@yield('sectionTitle')</b></a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
@@ -32,7 +31,7 @@
                 -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#pablo">
+                        <a class="nav-link" href="{{route('admin')}}" title="Dashboard">
                             <i class="material-icons">dashboard</i>
                             <p>
                                 <span class="d-lg-none d-md-block">Stats</span>
@@ -40,7 +39,7 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="All Notifications">
                             <i class="material-icons">notifications</i>
                             <span class="notification">5</span>
                             <p>
@@ -68,8 +67,10 @@
 
                             </p>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{ route('admin.logout') }}" >Se deconnecter
+                        <div class="dropdown-menu dropdown-menu dropdown-with-icons dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}" >
+                                <i class="material-icons">lock</i>
+                                <b>Logout</b>
                             </a>
                         </div>
                     </li>

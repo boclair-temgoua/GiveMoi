@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class color extends Model
 {
     protected $table = 'colors';
-    protected $fillable = ['name', 'is_published'];
+    protected $fillable = ['color_name', 'is_published'];
     public function events()
     {
         return $this->belongsToMany(Event::class,'event_colors')->withTimestamps();
@@ -22,7 +22,7 @@ class color extends Model
     }
     public function presentations()
     {
-        return $this->belongsToMany(Presentation::class,'presentation_colors')->withTimestamps();
+        return $this->belongsToMany(Presentation::class,'presentation_colors');
     }
 
 

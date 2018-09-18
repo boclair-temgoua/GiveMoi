@@ -7,7 +7,11 @@
 
 @section('navbar')
 
+@guest
 <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-warning" color-on-scroll="100" id="sectionsNav">
+@else
+    <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-{{ Auth::user()->color_name }}" color-on-scroll="100" id="sectionsNav">
+@endguest
     @endsection
     @section('content')
     <div class="ecommerce-page sidebar-collapse">

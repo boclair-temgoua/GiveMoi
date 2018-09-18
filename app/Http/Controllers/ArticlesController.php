@@ -18,7 +18,7 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth',['except' => ['index','show']]);
-        //$this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
+
     }
     /**
      * Display a listing of the resource.
@@ -81,7 +81,7 @@ class ArticlesController extends Controller
 
         $article->title = $request->input('title');
         $article->summary = $request->input('summary');
-        $article->body= clean(Input::get('body'));
+        $article->body= Input::get('body');
         $article->slug = $request->input('slug');
         $article->status = $request->input('status');
         $article->user_id = Auth::user()->id;
@@ -127,9 +127,9 @@ class ArticlesController extends Controller
         if(auth()->user()->id !==$article->user_id){
 
 
+            toastr()->error('<strong>Unauthorized edit this article contact Author</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
             return redirect('articles')
-                ->with('message',"Unauthorized edit this article please contact Author.")
-                ->with('status', 'danger');
+                ->with('error',"Unauthorized edit this article contact Author.");
         }
 
 
@@ -161,7 +161,7 @@ class ArticlesController extends Controller
 
         $article->title = $request->input('title');
         $article->summary = $request->input('summary');
-        $article->body= clean(Input::get('body'));
+        $article->body= Input::get('body');
         $article->slug = $request->input('slug');
         $article->status = $request->input('status');
         $article->user_id = Auth::user()->id;

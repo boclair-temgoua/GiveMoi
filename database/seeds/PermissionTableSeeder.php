@@ -24,10 +24,14 @@ class PermissionTableSeeder extends Seeder
         Role::create(['guard_name' => 'admin', 'name' => 'moderator']);
         Role::create(['guard_name' => 'admin', 'name' => 'visitor']);
 
+
+
         //Create permissions Administrations
         Permission::create(['guard_name' => 'admin' , 'name' => 'create-administrator']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'view-administrator']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'edit-administrator']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-administrator']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edited_by-admin-administrator']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-administrator']);
 
 
@@ -41,6 +45,15 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['guard_name' => 'admin' , 'name' => 'publish-testimonial']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'unpublish-testimonial']);
 
+        // create permissions eventments
+        Permission::create(['guard_name' => 'admin' , 'name' => 'create-eventment']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edit-eventment']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edited_by-eventment']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-eventment']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-eventment']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'publish-eventment']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'unpublish-eventment']);
+
 
         // create permissions message-contacts
         Permission::create(['guard_name' => 'admin' , 'name' => 'all-contact_message']);
@@ -48,9 +61,6 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-contact_message']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-contact_message']);
 
-        // create permissions message-contacts
-        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-tag']);
-        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-tag']);
 
         // create permissions conditions and utilisation
         Permission::create(['guard_name' => 'admin' , 'name' => 'create-condition_utilisation']);
@@ -68,6 +78,14 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-about']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'publish-about']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'unpublish-about']);
+
+        // create permissions tags
+        Permission::create(['guard_name' => 'admin' , 'name' => 'create-tag']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edit-tag']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edited_by-tag']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-tag']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-tag']);
+
 
 
         // create permissions presentations
@@ -94,6 +112,24 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-color']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'publish-color']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'unpublish-color']);
+
+        //Create permissions specialities
+        Permission::create(['guard_name' => 'admin' , 'name' => 'create-speciality']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edit-speciality']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edit_by-speciality']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-speciality']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-speciality']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'publish-speciality']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'unpublish-speciality']);
+
+        //Create permissions works
+        Permission::create(['guard_name' => 'admin' , 'name' => 'create-work']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edit-work']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edit_by-work']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-work']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-work']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'publish-work']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'unpublish-work']);
 
         //Create permissions roles
         Permission::create(['guard_name' => 'admin' , 'name' => 'all-role']);

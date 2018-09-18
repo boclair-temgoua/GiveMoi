@@ -57,9 +57,9 @@
                                 <p >Age {{ $user->age }} years old</p>
                                 <img src="/assets/img/flags/cm.png" alt="{!! $user->username !!}" class="img-raised img-fluid" style="width: 32px; height: 32px; position: absolute; top: 15px; left: 30px;border-radius: 50px ">
                                 <h6>{!! $user->work  !!}</h6>
-                                <a href="https://facebook.com/{{ $user->fblink }}" class="btn btn-just-icon btn-link btn-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                <a href="https://instagram.com/{{ $user->instalink }}" class="btn btn-just-icon btn-link btn-instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a href="https://twitter.com/{{ $user->twlink }}" class="btn btn-just-icon btn-link btn-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a href="https://facebook.com/{!! $user->fblink !!}" class="btn btn-just-icon btn-link btn-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://instagram.com/{!! $user->instalink !!}" class="btn btn-just-icon btn-link btn-instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="https://twitter.com/{!! $user->twlink !!}" class="btn btn-just-icon btn-link btn-twitter" target="_blank"><i class="fab fa-twitter"></i></a>
 
                             </div>
                         </div>

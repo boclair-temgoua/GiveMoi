@@ -1,7 +1,3 @@
-
-
-
-
 <footer class="footer ">
     <div class="container">
         <nav class="pull-left">
@@ -18,29 +14,27 @@
                 </li>
                 <li>
                     <a href="#">
-                        Blog
+                        Services
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        Contact
+                    <a href="/contact-us">
+                        Contact Us
                     </a>
                 </li>
                 <li>
                     <a href="/testimonial">
-                        Testimonial
+                        FAQs
                     </a>
                 </li>
             </ul>
         </nav>
         <div class="copyright pull-right">
-            &copy; 2018 -
+            <h6 style="font-size=0.9em;">&copy; 2018 -
             <script>
                 document.write(new Date().getFullYear())
-            </script>, <i class="material-icons" style="color:red;">favorite</i> all rights reserved by
-            <a href="/">{!! config('app.author') !!}</a>
+            </script>. Realized by <a href="/">{!! config('app.author') !!}</a></h6>
         </div>
     </div>
 </footer>
-
 

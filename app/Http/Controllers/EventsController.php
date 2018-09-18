@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Alert;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
-use Mews\Purifier\Purifier;
 use Image;
 
 
@@ -28,6 +27,7 @@ class EventsController extends Controller
     {
          $this->middleware('auth',['except' => ['index','show']]);
         //$this->middleware('owner', ['only' => ['edit', 'update', 'destroy']]);
+
     }
     /**
      * Display a listing of the resource.
@@ -85,7 +85,7 @@ class EventsController extends Controller
         $event->title = $request->input('title');
         $event->city= $request->input('city');
         $event->color= $request->input('color');
-        $event->body= clean(Input::get('body'));
+        $event->body= Input::get('body');
         //$event->body = $request->input('body');
         $event->country = $request->input('country');
         $event->summary = $request->input('summary');
@@ -195,7 +195,7 @@ class EventsController extends Controller
         $event->title = $request->input('title');
         $event->city= $request->input('city');
         $event->color= $request->input('color');
-        $event->body= clean(Input::get('body'));
+        $event->body= Input::get('body');
         $event->country = $request->input('country');
         $event->summary = $request->input('summary');
         $event->category= $request->input('category');

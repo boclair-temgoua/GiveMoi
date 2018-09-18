@@ -1,33 +1,28 @@
 @extends('inc.admin._main')
-@section('title', '| Admin')
-
-
-
+@section('title', '- Admin Profile')
+@section('sectionTitle', 'Admin Profile')
 @section('style')
-
-
-
+@parent
 @endsection
 
 @section('init')
-
 <!-- Site wrapper -->
-
 @endsection
 
 @section('content')
-
 <div class="content">
+    @include('inc.admin.components.status_admin')
+    <br/>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-header card-header-icon card-header-{{ $admin->color_name  }}">
                         <div class="card-icon">
                             <i class="material-icons">perm_identity</i>
                         </div>
-                        <h4 class="card-title">Edit Profile -
-                            <small class="category">Complete your profile</small>
+                        <h4 class="card-title">
+                            <b>My Profile View</b>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -35,56 +30,56 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Company (disabled)</label>
-                                        <input type="text" class="form-control" disabled>
+                                        <label class="bmd-label-floating">Company ({{ config('app.name') }})</label>
+                                        <input type="text" class="form-control" name="name" id="name" value="{{ config('app.name') }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Username</label>
-                                        <input type="text" class="form-control" value="{{ $admin->name }}">
+                                        <label class="bmd-label-floating">Name</label>
+                                        <input type="text" class="form-control" name="name" id="name"  value="{{ $admin->name  }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Email address</label>
-                                        <input type="email" class="form-control">
+                                        <label class="bmd-label-floating">Username</label>
+                                        <input type="text" class="form-control" name="username"  id="username"  value="{{ $admin->username }}" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Fist Name</label>
-                                        <input type="text" class="form-control">
+                                        <label class="bmd-label-floating">Email</label>
+                                        <input type="text" class="form-control" name="email" id="email"  value="{{ $admin->email }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Last Name</label>
-                                        <input type="text" class="form-control">
+                                        <label class="bmd-label-floating">Tel</label>
+                                        <input type="text" class="form-control" name="phone"  id="phone"  value="{{ $admin->phone }}" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Adress</label>
-                                        <input type="text" class="form-control">
+                                        <label class="bmd-label-floating">Address</label>
+                                        <input type="text" class="form-control" name="telephone"  id="address"  value="{{ $admin->address }}" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">City</label>
-                                        <input type="text" class="form-control">
+                                        <label class="bmd-label-floating">Country</label>
+                                        <input type="text" class="form-control" name="country"  id="phone"  value="{{ $admin->country }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Country</label>
-                                        <input type="text" class="form-control">
+                                        <label class="bmd-label-floating">Sex</label>
+                                        <input type="text" class="form-control" name="country"  id="phone"  value="{{ $admin->gender }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -99,13 +94,19 @@
                                     <div class="form-group">
                                         <label>About Me</label>
                                         <div class="form-group">
-                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                                            <textarea class="form-control"  name="body"  rows="5" placeholder="Tell something about you ...">{{ ($errors->any()? old('body') : $admin->body) }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-rose pull-right">Update Profile</button>
+                            <div class="text-center">
+                                <a href="{{ route('admin.account') }}" class="btn btn-rose btn-raised btn-round">
+                                        <span class="btn-label">
+                                            <i class="material-icons">undo</i>
+                                        </span>
+                                    <b>Go to your edit profile </b>
+                                </a>
+                            </div>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -115,49 +116,26 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="#pablo">
-                            <img class="img" src="../../assets/img/faces/marc.jpg" />
+                            <img class="img" src="{{ url($admin->avatar)  }}?{{ time() }}" />
                         </a>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                        <h4 class="card-title">Alec Thompson</h4>
-                        <p class="card-description">
-                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                        </p>
-                        <a href="#pablo" class="btn btn-rose btn-round">Follow</a>
+                        <h6 class="card-category text-gray">{{ $admin->work }}</h6>
+                        <h4 class="card-title"><b>Sex:</b> {{ $admin->gender }}</h4>
+                        <h4 class="card-title"><b>Age:</b> {{ $admin->age }} ans</h4>
+                        <h4 class="card-title"><strong>{{ $admin->name }} {{ $admin->first_name }}</strong></h4>
+                        <b class="card-title ">Member Since {{ Auth::user()->created_at->format('j F Y') }}</b>
                     </div>
                 </div>
             </div>
-            @component('inc.admin.components.who')
-
-            @endcomponent
         </div>
     </div>
 </div>
-@include('inc._footer')
-</div>
-</div>
-
+@include('inc.admin._footer')
 @endsection
 @section('script')
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        //init wizard
-
-        demo.initMaterialWizard();
-
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
-        demo.initCharts();
-
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        demo.initVectorMap();
-    });
-</script>
+@parent
 @endsection
+
+
+

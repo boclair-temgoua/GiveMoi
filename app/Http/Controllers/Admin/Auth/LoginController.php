@@ -32,7 +32,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    //protected $redirectTo = '/admin';
+
+    protected function authenticated(Request $request, $admin)
+    {
+        return redirect('/admin');
+    }
 
     /**
      * Show the application's login form.

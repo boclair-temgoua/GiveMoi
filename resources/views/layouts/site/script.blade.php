@@ -9,8 +9,9 @@
 <script src="/assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 <script src="/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-<!--  Google Maps Plugin  -->
+<!--  Google Maps Plugin
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
+-->
 <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 <script src="/assets/js/plugins/bootstrap-tagsinput.js"></script>
 <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
@@ -73,7 +74,28 @@
         setFormValidation('#RangeValidation');
     });
 </script>
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        $('#form-contact-us').submit(function () {
+            return submitForm($(this));
+        });
 
+        /**
+         * Helper to submit the forms via ajax
+         * @param form
+         * @returns {boolean}
+         */
+        function submitForm($form) {
+            var inputs = [];
+            if (!FORM.validateForm($form, inputs)) {
+                return false;
+            }
+
+            FORM.sendFormToServer($form, $form.serialize());
+            return false;
+        }
+    });
+</script>
 @include('sweetalert::alert')
 @include('sweet::alert')
 @toastr_js

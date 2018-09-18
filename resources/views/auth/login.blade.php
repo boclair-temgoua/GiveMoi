@@ -3,13 +3,26 @@
 
 
 @section('style')
+<style>
 
+    .field-icon {
+        float: right;
+        margin-right: -17px;
+        color: #0b75c9;
+        margin-top: 9px;
+        position: relative;
+        z-index: 2;
+        cursor:pointer;
+        padding-right: 15px;
+    }
+
+</style>
 @endsection
 @section('content')
 @section('content')
 <div class="signup-page sidebar-collapse">
 
-    <div class="page-header header-filter" style="background-image: url(&apos;{{asset('assets/img/bg5.jpg')}}&apos;); background-size: cover; background-position: top center;">
+    <div class="page-header header-filter" filter-color="warning" style="background-image: url(&apos;{{asset('assets/img/bg5.jpg')}}&apos;); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">
@@ -32,7 +45,9 @@
                                 </div>
                             </div>
 
-                            <p class="description text-center">Or Be Classical</p>
+                            <p class="description text-center">
+                                <b>Or Be Classical</b>
+                            </p>
 
                             <div class="card-body">
                                 <div class="input-group">
@@ -41,8 +56,9 @@
                                           <i class="material-icons">mail</i>
                                         </span>
                                     </div>
-                                    <input id="username" type="text" placeholder="name@example.com or username"
-                                           class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" minLength="3">
+                                    <input id="username" type="text" placeholder="username..."
+                                           class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}"
+                                           minLength="3" maxlength="20" required="required">
                                     @if ($errors->has('username'))
                                     <span class="invalid-feedback">
                                             <strong  style="padding-left: 20px;" class="text-center">{{ $errors->first('username') }}</strong>
@@ -54,15 +70,17 @@
                                     </span>
                                     @endif
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group" id="app">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                           <i class="material-icons">lock_outline</i>
                                         </span>
                                     </div>
-                                    <input id="password" type="password" value="{{ old('password') }}"
-                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                           name="password" placeholder="password...">
+                                    <input id="password-field" type="password" value="{{ old('password') }}"
+                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="password..."
+                                           minLength="6" >
+                                    <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
+
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback">
                                             <strong style="padding-left: 20px;" class="text-center">{{ $errors->first('password') }}</strong>
@@ -103,5 +121,18 @@
 @endsection
 @section('scripts')
 
+<!-- Show password -->
+<script>
+
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
 
 @endsection

@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Model\admin\admin;
-use App\Model\user\testimonial;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -28,9 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //Gate::define('update-testimonial', function (Admin $admin,Testimonial $testimonial) {
-        //    //return $admin->isAdmin();
-        //    return $admin->id == $testimonial->admin_id;
-        //});
+        //
     }
 }
