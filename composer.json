@@ -21,7 +21,6 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
-        "laravelista/lumen-vendor-publish": "^2.1",
         "michelf/php-markdown": "^1.8",
         "nesbot/carbon": "^1.29",
         "overtrue/laravel-follow": "^1.1",
