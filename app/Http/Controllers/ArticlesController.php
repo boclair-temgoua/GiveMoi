@@ -93,8 +93,8 @@ class ArticlesController extends Controller
         $article->categories()->sync($request->categories);
 
 
-        alert()->success('Good Job','Article create with success');
-        //Toastr::success('Article create with success','', ["positionClass" => "toast-top-center"]);
+        //alert()->success('Good Job','Article create with success');
+        Toastr::success('Article create with success','', ["positionClass" => "toast-top-center"]);
         return redirect(route('/', Auth::user()->username))->with('success','Article create with success!');
     }
 
