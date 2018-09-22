@@ -22,7 +22,7 @@
 @section('content')
 <div class="signup-page sidebar-collapse">
 
-    <div class="page-header header-filter" filter-color="warning" style="background-image: url(&apos;{{asset('assets/img/bg5.jpg')}}&apos;); background-size: cover; background-position: top center;">
+    <div class="page-header header-filter" filter-color="warning" data-parallax="true">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">

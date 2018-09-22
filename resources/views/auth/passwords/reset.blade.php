@@ -9,19 +9,20 @@
     .field-icon {
         float: right;
         margin-right: -17px;
-        margin-top: 10px;
+        color: #0b75c9;
+        margin-top: 9px;
         position: relative;
         z-index: 2;
         cursor:pointer;
     }
 
 </style>
+
 @endsection
 
 @section('content')
 <div class="login-page ">
-    <div class="page-header header-filter"
-         style="background-image: url(&apos;{{asset('assets/img/bg5.jpg')}}&apos;); background-size: cover; background-position: top center;">
+    <div class="page-header header-filter" filter-color="warning" data-parallax="true">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">
@@ -86,34 +87,6 @@
                                     </span>
                                     @endif
                                 </div>
-                                <!--
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label class="bmd-label-floating">{{ __('Password') }}</label>
-                                    <input id="password" type="password" value="{{ old('password') }}"
-                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                           name="password" required>
-
-                                    @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong class="text-center">{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-
-                                </div>
-                                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                    <label class="bmd-label-floating">{{ __('Confirm password') }}</label>
-                                    <input id="password_confirmation" type="password" value="{{ old('password_confirmation') }}"
-                                           class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
-                                           name="password_confirmation" required>
-
-                                    @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                    @endif
-
-                                </div>
-                                -->
 
                             </div>
                             <br>
@@ -125,8 +98,8 @@
                                     <b>Reset Password</b>
                                 </button>
                             </div>
+                            <br>
                         </form>
-                        <br>
                     </div>
                 </div>
             </div>

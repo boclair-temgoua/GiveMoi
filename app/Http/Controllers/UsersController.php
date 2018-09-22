@@ -55,7 +55,7 @@ class UsersController extends Controller
             'name' => "required|string|min:2|max:25",
             'email' => "required|email|max:255|unique:users,email,{$user->id}",
             'avatar' =>"image",
-            'avatarcover' =>"image",
+            'avatarcover' =>"image|image|mimes:jpeg,png,jpg,gif,svg|max:4000",
             //"birthday" => "date",
             "body" =>"max:200",
             "sex" => "required|in:Female,Male",

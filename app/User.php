@@ -148,7 +148,7 @@ class User extends Authenticatable
     {
         if (is_object($avatarcover) && $avatarcover->isValid())
         {
-            ImageManagerStatic::make($avatarcover)->save(public_path()."/assets/img/cover/{$this->id}.jpg");
+            Image::make($avatarcover)->save(public_path()."/assets/img/cover/{$this->id}.jpg");
             $this->attributes['avatarcover'] = true;
         }
 

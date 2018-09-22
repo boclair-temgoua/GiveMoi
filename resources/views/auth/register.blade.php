@@ -21,12 +21,14 @@
     .eac-sugg {
         color: #ccc;
     }
+
+
 </style>
 @endsection
 @section('content')
 <div class="signup-page sidebar-collapse">
 
-    <div class="page-header header-filter" filter-color="warning" style="background-image: url(&apos;{{asset('assets/img/bg5.jpg')}}&apos;); background-size: cover; background-position: top center;">
+    <div class="page-header header-filter"  filter-color="warning" data-parallax="true">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 ml-auto mr-auto">
@@ -55,7 +57,7 @@
                                     @endforeach
                                     @endif
                                 </div>
-                                <div class="col-md-5 mr-auto">
+                                <div class="col-md-6 mr-auto">
                                     <div class="social text-center">
                                         <a href="{{ url('auth/facebook') }}" class="btn btn-just-icon btn-facebook btn-round"
                                            data-toggle="tooltip" title="Facebook login" data-placement="bottom"
@@ -79,41 +81,47 @@
                                     <form  id="RegisterValidation"  method="POST" action="{{ route('register') }}" accept-charset="UTF-8">
                                         {{ csrf_field() }}
 
-
-                                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
+                                        <div class="row">
+                                            <div class="col-lg-6 mr-auto">
+                                                <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
                                                       <span class="input-group-text">
                                                         <i class="material-icons">face</i>
                                                       </span>
-                                                </div>
-                                                <input id="username" type="text"
-                                                       class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                                       name="username" value="{{ old('username') }}" minLength="3" placeholder="Username..." required="required"  >
-                                                @if ($errors->has('username'))
-                                                <span class="invalid-feedback">
+                                                        </div>
+                                                        <input id="username" type="text"
+                                                               class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                                                               name="username" value="{{ old('username') }}" minLength="3" placeholder="Username..." required="required"  >
+                                                        @if ($errors->has('username'))
+                                                        <span class="invalid-feedback">
                                                    <strong>{{ $errors->first('username') }}</strong>
                                                 </span>
-                                                @endif
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
+                                            <div class="col-lg-6 mr-auto">
+                                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
                                                       <span class="input-group-text">
                                                         <i class="material-icons">face</i>
                                                       </span>
+                                                        </div>
+                                                        <input id="name" type="text"
+                                                               class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                                               name="name" value="{{ old('name') }}" minLength="3" maxlength="20" placeholder="Name..." required="required" >
+                                                        @if ($errors->has('name'))
+                                                        <span class="invalid-feedback">
+                                                         <strong>{{ $errors->first('name') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <input id="name" type="text"
-                                                       class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                       name="name" value="{{ old('name') }}" minLength="3" maxlength="20" placeholder="Name..." required="required" >
-                                                @if ($errors->has('name'))
-                                                <span class="invalid-feedback">
-                                                 <strong>{{ $errors->first('name') }}</strong>
-                                                </span>
-                                                @endif
                                             </div>
                                         </div>
+
                                         <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -150,58 +158,69 @@
                                             </div>
                                         </div>
 
-
-
-                                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
+                                        <div class="row">
+                                            <div class="col-lg-6 mr-auto">
+                                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
                                                       <span class="input-group-text">
                                                         <i class="material-icons">lock_outline</i>
                                                       </span>
-                                                </div>
-                                                <input id="password-field" type="password"
-                                                       class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                                       name="password" value="{{ old('password') }}" placeholder="Password..." required="required">
+                                                        </div>
+                                                        <input id="password-field" type="password"
+                                                               class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                                               name="password" value="{{ old('password') }}" placeholder="Password..." required="required">
 
-                                                <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
-                                                @if ($errors->has('password'))
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
-                                                @endif
+                                                        <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
+                                                        @if ($errors->has('password'))
+                                                        <span class="invalid-feedback">
+                                                            <strong>{{ $errors->first('password') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
+                                            <div class="col-lg-6 mr-auto">
+                                                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
                                                       <span class="input-group-text">
                                                         <i class="material-icons">lock_outline</i>
                                                       </span>
+                                                        </div>
+                                                        <input id="password_confirmation" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
+                                                               name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm password..." required="required">
+                                                        <span toggle="#password_confirmation" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password" style="padding-right: 15px;"></span>
+                                                        @if ($errors->has('password_confirmation'))
+                                                        <span class="invalid-feedback">
+                                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <input id="password_confirmation" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
-                                                       name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm password..." required="required">
-                                                <span toggle="#password_confirmation" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password" style="padding-right: 15px;"></span>
-                                                @if ($errors->has('password_confirmation'))
-                                                <span class="invalid-feedback">
-                                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                                </span>
-                                                @endif
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <div class="text-right">
                                                 <a class="text-info text-center" href="{{ route('login') }}">{{ __('Already have an Account?') }}</a>
                                             </div>
                                         </div>
-                                        <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }} text-center">
-                                            {!! NoCaptcha::renderJs() !!}
-                                            {!! NoCaptcha::display() !!}
 
-                                            @if ($errors->has('g-recaptcha-response'))
-                                            <span class="help-block">
-                                                <strong class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
-                                            </span>
-                                            @endif
+                                        <div class="row">
+                                            <div class="submit text-center">
+                                                <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }} text-center">
+                                                    {!! NoCaptcha::renderJs() !!}
+                                                    {!! NoCaptcha::display() !!}
+
+                                                    @if ($errors->has('g-recaptcha-response'))
+                                                    <span class="help-block">
+                                                        <strong class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="form-check{{ $errors->has('status') ? ' has-error' : '' }}">
                                             <label class="form-check-label">
@@ -277,12 +296,4 @@
 </script>
 
 
-
-
-<script>
-    $(function () {
-        // guess user timezone
-        $('#tz').val(moment.tz.guess())
-    })
-</script>
 @endsection
