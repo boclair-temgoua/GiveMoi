@@ -43,7 +43,7 @@
     </div>
     <br>
     <div class="col-md-12 ml-auto mr-auto">
-        {!! Form::textarea('body', null, ['id'=>'ckeditor','class' => 'form-control', 'placeholder' => '']) !!}
+        {!! Form::textarea('body', null, ['id'=>'editor','class' => 'form-control', 'placeholder' => '']) !!}
         @if ($errors->has('body'))
         <span class="invalid-feedback">
             <strong>{{ $errors->first('body') }}</strong>

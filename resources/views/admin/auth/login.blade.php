@@ -21,7 +21,7 @@
     </style>
 </head>
 
-<body class="off-canvas-sidebar login-page">
+<body class="off-canvas-sidebar">
 
 @include('admin.auth.admin_nav')
 
@@ -33,78 +33,78 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
                     <div class="card card-login">
                         <form action="{{ route('admin.login')}}" method="post">
-                                {!! csrf_field() !!}
-                                <div class="card-header card-header-warning text-center">
-                                    <i class="material-icons">group</i>
-                                    <h4 class="card-title">
-                                        <b>Login Administration</b>
-                                    </h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
+                            {!! csrf_field() !!}
+                            <div class="card-header card-header-warning text-center">
+                                <i class="material-icons">group</i>
+                                <h4 class="card-title">
+                                    <b>Login Administration</b>
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
                                             <span class="input-group-text">
                                               <i class="material-icons">mail</i>
                                             </span>
-                                        </div>
-                                        <input id="username" type="text" class="form-control" name="username" value="{{ $username ?? old('username') }}" required autofocus placeholder="Pseudo or Email">
+                                    </div>
+                                    <input id="username" type="text" class="form-control" name="username" value="{{ $username ?? old('username') }}" required autofocus placeholder="Pseudo or Email">
 
-                                        @if ($errors->has('username'))
-                                         <span class="help-block">
+                                    @if ($errors->has('username'))
+                                    <span class="help-block">
                                             <strong  style="padding-left: 20px; color: red;" class="text-center">{{ $errors->first('username') }}</strong>
                                         </span>
-                                        @endif
+                                    @endif
 
-                                        @if ($errors->has('email'))
-                                        <span class="help-block">
+                                    @if ($errors->has('email'))
+                                    <span class="help-block">
                                             <strong style="padding-left: 20px; color: red;" class="text-danger text-center">{{ $errors->first('email') }}</strong>
                                         </span>
-                                        @endif
-                                    </div>
-                                    <br>
+                                    @endif
+                                </div>
+                                <br>
 
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
                                             <span class="input-group-text">
                                               <i class="material-icons">lock_outline</i>
                                             </span>
-                                        </div>
-                                        <input id="password-field" type="password" value="{{ $password ?? old('password') }}"
-                                               class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="password..."
-                                               minLength="6" >
-                                        <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
-
                                     </div>
-                                    @if ($errors->has('password'))
-                                    <span class="help-block">
+                                    <input id="password-field" type="password" value="{{ $password ?? old('password') }}"
+                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="password..."
+                                           minLength="6" >
+                                    <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
+
+                                </div>
+                                @if ($errors->has('password'))
+                                <span class="help-block">
                                             <strong style="color: red;" class="text-center text-danger">{{ $errors->first('password') }}</strong>
                                     </span>
-                                    @endif
+                                @endif
 
-                                    <div class="text-right">
-                                        <a class="text-info" href="{{ route('admin.password.request') }}">{{ __('Forgot your password ?') }}</a>
-                                    </div>
-                                    <br>
-                                    <div class="form-check" style="padding-left: 20px;">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Stay Connected') }}
-                                            <span class="form-check-sign">
+                                <div class="text-right">
+                                    <a class="text-info" href="{{ route('admin.password.request') }}">{{ __('Forgot your password ?') }}</a>
+                                </div>
+                                <br>
+                                <div class="form-check" style="padding-left: 20px;">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Stay Connected') }}
+                                        <span class="form-check-sign">
                                             <span class="check"></span>
                                         </span>
-                                        </label>
-                                    </div>
-                                    <br>
+                                    </label>
                                 </div>
-                                <div class="submit text-center">
-                                    <button class="btn btn-warning btn-raised btn-round" type="submit">
+                                <br>
+                            </div>
+                            <div class="submit text-center">
+                                <button class="btn btn-warning btn-raised btn-round" type="submit">
                                         <span class="btn-label">
                                             <i class="material-icons">fingerprint</i>
                                         </span>
-                                        <b>Login</b>
-                                    </button>
-                                </div>
-                                <br>
-                            </form>
+                                    <b>Login</b>
+                                </button>
+                            </div>
+                            <br>
+                        </form>
                     </div>
                 </div>
             </div>

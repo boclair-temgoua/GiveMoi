@@ -5,9 +5,10 @@
     <!-- iframe removal -->
 </head>
 
-<body class="off-canvas-sidebar login-page">
+<body class="off-canvas-sidebar">
 
 @include('admin.auth.admin_nav')
+
 <div class="wrapper wrapper-full-page">
     <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('{{ asset('assets/dashboard/assets/img/login.jpg')}}'); background-size: cover; background-position: top center;">
         <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
@@ -25,11 +26,11 @@
             </div>
             <div class="col-md-4 col-sm-6 ml-auto mr-auto">
                 <div class="card card-login card-hidden">
-                <form class="form-horizontal" method="POST" action="{{ route('admin.password.email') }}">
-                    {{ csrf_field() }}
+                    <form class="form-horizontal" method="POST" action="{{ route('admin.password.email') }}">
+                        {{ csrf_field() }}
 
                         <div class="card-header card-header-rose text-center">
-                             <i class="material-icons">lock_open</i>
+                            <i class="material-icons">lock_open</i>
                             <h4 class="card-title">
                                 <b>Reset Admin Password</b>
                             </h4>
@@ -60,7 +61,7 @@
                                 <b>Send Reset Link</b>
                             </button>
                         </div>
-                    <br>
+                        <br>
                     </form>
                 </div>
             </div>

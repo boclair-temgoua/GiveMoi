@@ -1,5 +1,5 @@
 @extends('inc.main')
-@section('title', '- Register')
+@section('title', '- New User Registration')
 
 @section('style')
 <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -27,8 +27,7 @@
 @endsection
 @section('content')
 <div class="signup-page sidebar-collapse">
-
-    <div class="page-header header-filter"  filter-color="warning" data-parallax="true">
+    <div class="page-header header-filter" filter-color="warning" data-parallax="true">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 ml-auto mr-auto">
@@ -42,7 +41,6 @@
                                     @if(count($presentations) > 0)
                                     @foreach($presentations as $presentation)
 
-
                                     <div class="info info-horizontal">
                                         <div class="icon icon-{{ $presentation->color_slug }}">
                                             <i class="material-icons">{!! $presentation->icon !!}</i>
@@ -50,35 +48,35 @@
                                         <div class="description">
                                             <h4 class="info-title">{!! $presentation->title !!}</h4>
                                             {!! str_limit($presentation->body, 100,'[...]') !!}<br>
-                                            <a href="{{ route('presentation',$presentation->slug) }}" class="text-{{ $presentation->color_slug }}" target="_blank">Find more...</a>
+                                            <a href="{{ route('presentation',$presentation->slug) }}" class="text-{{ $presentation->color_slug }}" target="_blank">Find More ...</a>
                                         </div>
                                     </div>
-
                                     @endforeach
                                     @endif
                                 </div>
                                 <div class="col-md-6 mr-auto">
                                     <div class="social text-center">
                                         <a href="{{ url('auth/facebook') }}" class="btn btn-just-icon btn-facebook btn-round"
-                                           data-toggle="tooltip" title="Facebook login" data-placement="bottom"
+                                           data-toggle="tooltip" title="Facebook Login" data-placement="bottom"
                                            data-container="body">
                                             <i class="fab fa-facebook-f"></i>
                                         </a>
                                         <a href="{{ url('auth/facebook') }}" class="btn btn-just-icon btn-twitter btn-round"
-                                           data-toggle="tooltip" title="twitter login" data-placement="bottom"
+                                           data-toggle="tooltip" title="Twitter Login" data-placement="bottom"
                                            data-container="body">
                                             <i class="fab fa-twitter"></i>
                                         </a>
                                         <a href="{{ url('auth/google') }}"
-                                           class="btn btn-just-icon btn-google btn-round" data-placement="bottom"
+                                           class="btn btn-just-icon btn-google  btn-round" data-toggle="tooltip" title="Google Login" data-placement="bottom"
                                            data-container="body">
                                             <i class="fab fa-google-plus"></i>
                                         </a>
-                                        <h4><b>Or be classical</b></h4>
+                                        <h4><b>Or be Classical</b></h4>
 
                                         @include('inc.alert')
+
                                     </div>
-                                    <form  id="RegisterValidation"  method="POST" action="{{ route('register') }}" accept-charset="UTF-8">
+                                    <form id="RegisterValidation" method="POST" action="{{ route('register') }}" accept-charset="UTF-8">
                                         {{ csrf_field() }}
 
                                         <div class="row">
@@ -92,7 +90,7 @@
                                                         </div>
                                                         <input id="username" type="text"
                                                                class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                                               name="username" value="{{ old('username') }}" minLength="3" placeholder="Username..." required="required"  >
+                                                               name="username" value="{{ old('username') }}" minLength="3" placeholder="Username ..." required="required"  >
                                                         @if ($errors->has('username'))
                                                         <span class="invalid-feedback">
                                                    <strong>{{ $errors->first('username') }}</strong>
@@ -111,7 +109,7 @@
                                                         </div>
                                                         <input id="name" type="text"
                                                                class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                               name="name" value="{{ old('name') }}" minLength="3" maxlength="20" placeholder="Name..." required="required" >
+                                                               name="name" value="{{ old('name') }}" minLength="3" maxlength="20" placeholder="Name ..." required="required" >
                                                         @if ($errors->has('name'))
                                                         <span class="invalid-feedback">
                                                          <strong>{{ $errors->first('name') }}</strong>
@@ -132,7 +130,7 @@
                                                 <input type="text"
                                                        class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }} datepicker "
                                                        id="birthday" name="birthday"
-                                                       value="{{ old('birthday') }}" placeholder="Birthday date" required="required">
+                                                       value="{{ old('birthday') }}" placeholder="Birthday date ..." required="required">
                                                 @if ($errors->has('birthday'))
                                                 <span class="invalid-feedback">
                                                    <strong>{{ $errors->first('birthday') }}</strong>
@@ -149,7 +147,7 @@
                                                 </div>
                                                 <input type="email"
                                                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                                                       value="{{ old('email') }}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email..." required="required" >
+                                                       value="{{ old('email') }}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email ..." required="required" >
                                                 @if ($errors->has('email'))
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $errors->first('email') }}</strong>
@@ -169,7 +167,7 @@
                                                         </div>
                                                         <input id="password-field" type="password"
                                                                class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                                               name="password" value="{{ old('password') }}" placeholder="Password..." required="required">
+                                                               name="password" value="{{ old('password') }}" placeholder="Password ..." required="required">
 
                                                         <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
                                                         @if ($errors->has('password'))
@@ -189,7 +187,7 @@
                                                       </span>
                                                         </div>
                                                         <input id="password_confirmation" type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
-                                                               name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm password..." required="required">
+                                                               name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm password ..." required="required">
                                                         <span toggle="#password_confirmation" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password" style="padding-right: 15px;"></span>
                                                         @if ($errors->has('password_confirmation'))
                                                         <span class="invalid-feedback">
@@ -206,7 +204,7 @@
                                                 <a class="text-info text-center" href="{{ route('login') }}">{{ __('Already have an Account?') }}</a>
                                             </div>
                                         </div>
-
+                                        <br>
                                         <div class="row">
                                             <div class="submit text-center">
                                                 <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }} text-center">
@@ -220,7 +218,6 @@
                                                     @endif
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="form-check{{ $errors->has('status') ? ' has-error' : '' }}">
                                             <label class="form-check-label">
@@ -230,7 +227,7 @@
                                                       <span class="check"></span>
                                                 </span>
                                                 I agree to the
-                                                <a href="/terms_conditions">terms and conditions</a>.
+                                                <a href="/terms_conditions">Terms and Conditions</a>.
                                             </label>
                                             @if ($errors->has('status'))
                                             <span class="invalid-feedback">
@@ -238,6 +235,7 @@
                                             </span>
                                             @endif
                                         </div>
+                                        <br>
                                         <div class="submit text-center">
                                             <button class="btn btn-warning btn-raised btn-round " type="submit">
                                               <span class="btn-label">

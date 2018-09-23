@@ -89,7 +89,7 @@
             <div class="form-group">
                 <label>About Me</label>
                 <br>
-                <textarea class="form-control" id="article-ckeditor" name="body" type="text" rows="5" cols="80" >{{ ($errors->any()? old('body') : $about->body) }}</textarea>
+                <textarea class="form-control" id="editor" name="body" type="text" rows="5" cols="80" >{{ ($errors->any()? old('body') : $about->body) }}</textarea>
             </div>
         </div>
         <!-- <div class="tab-pane" id="settings">

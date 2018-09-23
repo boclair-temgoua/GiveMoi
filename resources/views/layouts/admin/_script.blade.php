@@ -45,6 +45,17 @@
 <script src="/assets/dashboard/assets/js/material-dashboard.min.js?v=2.0.2" type="text/javascript"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="/assets/dashboard/assets/demo/demo.js"></script>
+
+
+<!-- Ckedidor5 -->
+<script src="/assets/js/plugins/ckeditor5-build-classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 <script>
     $(document).ready(function() {
         // Javascript method's body can be found in assets/js/demos.js

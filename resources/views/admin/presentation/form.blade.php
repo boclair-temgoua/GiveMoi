@@ -67,7 +67,7 @@
         <div class="form-group">
             <label>About Me</label>
             <br>
-            <textarea class="form-control" id="article-ckeditor" name="body" type="text" cols="80"   >{{ ($errors->any()? old('body') : $presentation->body) }}</textarea>
+            <textarea class="form-control" id="editor" name="body" type="text" cols="80"   >{{ ($errors->any()? old('body') : $presentation->body) }}</textarea>
         </div>
     </div>
 </div>

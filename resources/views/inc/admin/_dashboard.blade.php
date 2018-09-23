@@ -241,6 +241,36 @@
                     </ul>
                 </div>
             </li> -->
+         <li class="nav-item ">
+            <a class="nav-link" data-toggle="collapse" href="#profileExamples">
+                <i class="material-icons">perm_media</i>
+                <p><b>Slides page</b>
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <div class="collapse" id="profileExamples">
+                <ul class="nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('profile_page.index') }}">
+                            <span class="sidebar-mini"><b>Sa</b></span>
+                            <span class="sidebar-normal"><b>Slide about</b></span>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('profile_page.index') }}">
+                            <span class="sidebar-mini"><b>Sc</b></span>
+                            <span class="sidebar-normal"><b>Slide contact</b></span>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('profile_page.index') }}">
+                            <span class="sidebar-mini"><b>St</b></span>
+                            <span class="sidebar-normal"><b>Slide testimonial</b></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+         </li>
 
 
 

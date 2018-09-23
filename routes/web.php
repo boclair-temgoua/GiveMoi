@@ -102,6 +102,16 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
 
     Route::group(['namespace' => 'Partials'], function (){
 
+        Route::group(['namespace' => 'Slides'], function () {
+            //Slide Route
+            Route::get('/all-slide-about', 'SlidesaboutController@AllSlide')->name('slide_about');
+            Route::get('/add-slide-about', 'SlidesaboutController@add_slide')->name('add_slide_about');
+            Route::post('/save-slide-about', 'SlidesaboutController@save_slide')->name('save_slide_about');
+            Route::get('/edit-slide-about/{id}', 'SlidesaboutController@edit_slide');
+            Route::get('/unactive_slide/{id}', 'SlidesaboutController@unactive_slide')->name('unactive_slide');
+            Route::get('/active_slide/{id}', 'SlidesaboutController@active_slide')->name('active_slide');
+        });
+
         //Color Route
         Route::resource('color','ColorController');
         Route::get('/unactive_color/{id}','ColorController@unactive_color')->name('unactive_color');
@@ -143,6 +153,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
 
         //Basket
         Route::resource('/basket','BasketController');
+
     });
 
     //Abouts Route
