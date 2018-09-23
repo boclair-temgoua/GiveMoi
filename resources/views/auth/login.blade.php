@@ -30,15 +30,15 @@
                         <form id="RegisterValidation" accept-charset="UTF-8"  class="form" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
                             <div class="card-header card-header-warning text-center">
-                                <h4 class="card-title">Connect whith</h4>
+                                <h4 class="card-title">Connect With</h4>
                                 <div class="social-line">
                                     <a href="{{ url('auth/facebook') }}" class="btn btn-just-icon btn-facebook btn-round"
-                                       data-toggle="tooltip" title="Facebook login" data-placement="bottom"
+                                       data-toggle="tooltip" title="Facebook Login" data-placement="bottom"
                                        data-container="body">
                                         <i class="fab fa-facebook-f"></i>
                                     </a>
                                     <a href="{{ url('auth/google') }}"
-                                       class="btn btn-just-icon btn-google btn-round" data-placement="bottom"
+                                       class="btn btn-just-icon btn-google btn-round" title="Google Login" data-toggle="tooltip" data-placement="bottom"
                                        data-container="body">
                                         <i class="fab fa-google-plus"></i>
                                     </a>
@@ -56,7 +56,7 @@
                                           <i class="material-icons">mail</i>
                                         </span>
                                     </div>
-                                    <input id="username" type="text" placeholder="username..."
+                                    <input id="username" type="text" placeholder="Username ..."
                                            class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}"
                                            minLength="3" maxlength="20" required="required">
                                     @if ($errors->has('username'))
@@ -77,7 +77,7 @@
                                         </span>
                                     </div>
                                     <input id="password-field" type="password" value="{{ old('password') }}"
-                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="password..."
+                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password ..."
                                            minLength="6" >
                                     <span toggle="#password-field" class="fa fa-lg fa-eye-slash field-icon toggle-password" title="show password"></span>
 
