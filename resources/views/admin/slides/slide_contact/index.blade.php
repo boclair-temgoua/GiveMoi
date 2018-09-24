@@ -94,13 +94,17 @@
                                     <td>{!! str_limit( \Carbon\Carbon::parse($lk->updated_at)->diffForHumans(), 30,'...') !!}</td>
                                     <td class="td-actions text-right">
                                         @if($lk->status==1)
+                                        @can('unpublish-slide')
                                         <a href="{{ route('unactive_slide_contact',$lk->id) }}" class="btn btn-link btn-info btn-round btn-just-icon " title="Unactive your slide">
                                             <i class="material-icons">power_settings_new</i>
                                         </a>
+                                        @endcan
                                         @else
+                                        @can('publish-slide')
                                         <a href="{{ route('active_slide_contact',$lk->id) }}" class="btn btn-link btn-danger btn-round btn-just-icon " title="Active your slide">
                                             <i class="material-icons">power_settings_new</i>
                                         </a>
+                                        @endcan
                                         @endif
 
 

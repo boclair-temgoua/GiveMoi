@@ -76,7 +76,7 @@ class SlidesaboutController extends Controller
         if ($request->hasFile('slide_about')) {
             $slide_about = $request->file('slide_about');
             $filename = time().'.'.$slide_about->getClientOriginalName();
-            $destinationPath = public_path('assets/img/slides/'.$filename);
+            $destinationPath = public_path('assets/img/about/'.$filename);
             Image::make($slide_about)->save($destinationPath);
 
 
@@ -159,7 +159,7 @@ class SlidesaboutController extends Controller
         if ($request->hasFile('slide_about')) {
             $slide_about = $request->file('slide_about');
             $filename = time().'.'.$slide_about->getClientOriginalName();
-            $destinationPath = public_path('assets/img/slides/'.$filename);
+            $destinationPath = public_path('assets/img/about/'.$filename);
             Image::make($slide_about)->save($destinationPath);
             $oldFilename = $slidesabout->slide_about;
 
@@ -198,7 +198,7 @@ class SlidesaboutController extends Controller
         if ($slidesabout->slide_about){
             $oldFilename = $slidesabout->slide_about;
 
-            File::delete('assets/img/slides/'.$oldFilename);
+            File::delete('assets/img/about/'.$oldFilename);
         }
 
         toastr()->success('<b>Your file has been deleted</b>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>');

@@ -30,7 +30,7 @@
                             {{ csrf_field() }}
 
 
-                                @include('admin.slides.slide_contact.form',['slidesabout' => new \App\Model\user\partial\slides\slidescontact()])
+                                @include('admin.slides.slide_contact.form',['slidescontact' => new \App\Model\user\partial\slides\slidescontact()])
                                 <div class="submit">
                                     <div class="text-center">
                                         <a href="{{route('slide_contact')}}" class="btn btn-info btn-raised btn-round">
