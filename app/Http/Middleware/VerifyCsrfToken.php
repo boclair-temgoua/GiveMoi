@@ -35,6 +35,7 @@ class VerifyCsrfToken extends Middleware
         }
 
         // redirect the user back to the last page and show error
-        return Redirect::back()->withError('Sorry, we could not verify your request. Please try again.');
+        toastr()->error('<strong>we could not verify your request. Please try again</strong>','<button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>', ['timeOut' => 5000]);
+        return back();
     }
 }
