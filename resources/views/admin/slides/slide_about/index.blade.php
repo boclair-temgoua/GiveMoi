@@ -65,7 +65,7 @@
                                 <tr id="tr_{{$lk->id}}">
 
 
-                                    <td><img src="{{ URL::to('assets/img/slides/' .$lk->slide_about) }}" style="height: 50px; width: 80px" ></td>
+                                    <td><img src="{{ URL::to('assets/img/about/' .$lk->slide_about) }}" style="height: 50px; width: 80px" ></td>
 
 
 

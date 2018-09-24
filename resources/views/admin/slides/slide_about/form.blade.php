@@ -12,7 +12,7 @@
             <br>
             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                    <img src="{{ url('assets/img/slides/'.$slidesabout->slide_about) }}" alt="...">
+                    <img src="{{ url('assets/img/about/'.$slidesabout->slide_about) }}" alt="...">
                 </div>
                 <div class="fileinput-preview fileinput-exists thumbnail"></div>
                 <div>

@@ -20,7 +20,7 @@
                 <div class="carousel-inner">
                     @foreach($slidesabouts as $item)
                     <div class="carousel-item {{ ($loop->first)? 'active':'' }}">
-                        <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{ asset('assets/img/slides/'.$item->slide_about) }}&apos;);">
+                        <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{ asset('assets/img/about/'.$item->slide_about) }}&apos;);">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-10 ml-auto mr-auto text-center">
