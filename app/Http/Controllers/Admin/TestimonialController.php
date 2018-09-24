@@ -90,8 +90,7 @@ class TestimonialController extends Controller
             $oldFilename = $testimonial->image;
 
             $testimonial->image = $filename;
-            // Delete old Image
-            File::delete(public_path('assets/img/testimonial/'.$oldFilename));
+
 
         }
 
@@ -176,12 +175,15 @@ class TestimonialController extends Controller
         $testimonial->admin_id = Auth::user()->id;
 
 
+
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time().'.'.$image->getClientOriginalName();
-            $destinationPath = public_path('assets/img/testimonial/'.$filename);
+            $destinationPath = 'assets/img/testimonial/'.$filename ;
             Image::make($image)->resize(400, 400)->save($destinationPath);
             $oldFilename = $testimonial->image;
+
 
 
             $testimonial->image = $filename;
