@@ -3,9 +3,13 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -15,7 +19,11 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+
+        AuthorizationException::class,
+        HttpException::class,
+        ModelNotFoundException::class,
+        ValidationException::class,
     ];
 
     /**
@@ -46,17 +54,16 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
-
-            return response()->json(['User have not permission for this page access.']);
+        if($e instanceof \Illuminate\Session\TokenMismatchException){
+            return redirect()
+                ->back()
+                ->withInput($request->except('_token'))
+                ->withMessage('Your explanation message depending on how much you want to dumb it down, lol!');
         }
-
-
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
-
 
     public function unauthenticated($request, AuthenticationException $exception)
     {
