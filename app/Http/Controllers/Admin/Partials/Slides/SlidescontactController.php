@@ -73,7 +73,7 @@ class SlidescontactController extends Controller
         if ($request->hasFile('slide_contact')) {
             $slide_contact = $request->file('slide_contact');
             $filename = time().'.'.$slide_contact->getClientOriginalName();
-            $destinationPath = public_path('assets/img/slides/'.$filename);
+            $destinationPath = 'assets/img/slides/'.$filename;
             Image::make($slide_contact)->save($destinationPath);
 
 
