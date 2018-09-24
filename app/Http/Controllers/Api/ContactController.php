@@ -6,6 +6,7 @@ use App\Http\Requests\ContactFormRequest;
 use App\Mail\ContactEmail;
 use App\Http\Controllers\Controller;
 use App\Model\user\partial\contact;
+use App\Model\user\partial\slides\slidescontact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -17,7 +18,8 @@ Class ContactController extends Controller
 
     public function create()
     {
-        return view('site.contact.create');
+        $slidescontacts = Slidescontact::where('status',1)->orderBy('created_at','DESC')->get();
+        return view('site.contact.create',compact('slidescontacts'));
     }
 
 

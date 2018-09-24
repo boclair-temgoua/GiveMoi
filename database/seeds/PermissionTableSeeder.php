@@ -138,6 +138,16 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-role']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'delete-multiple-role']);
 
+        //Create permissions roles
+        Permission::create(['guard_name' => 'admin' , 'name' => 'all-slide']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'create-slide']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edit-slide']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'edited_by-slide']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'delete-slide']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'publish-slide']);
+        Permission::create(['guard_name' => 'admin' , 'name' => 'unpublish-slide']);
+
+
         //Create permissions permissions
         Permission::create(['guard_name' => 'admin' , 'name' => 'all-permission']);
         Permission::create(['guard_name' => 'admin' , 'name' => 'create-permission']);

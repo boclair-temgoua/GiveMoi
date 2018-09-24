@@ -14,16 +14,26 @@
     @endsection
 @section('content')
 <div class="sections-page  section-white">
-    <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;../assets/img/kit/pro/bg9.jpg&apos;);">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 ml-auto mr-auto text-center">
-                    <h2 class="title">Testimonials</h2>
-                    <h5>Meet the amazing team behind this project and find out more about how we work.</h5>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($slidestestimonials as $item)
+            <div class="carousel-item {{ ($loop->first)? 'active':'' }}">
+                <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{ asset('assets/img/slides/'.$item->slide_testimonial) }}&apos;);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 ml-auto mr-auto text-center">
+                                <h2 class="title">Testimonials</h2>
+                                <h5>Meet the amazing team behind this project and find out more about how we work.</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
+
     <div class="main main-raised">
         <div class="section section-basic">
 

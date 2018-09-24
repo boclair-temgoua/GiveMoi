@@ -13,9 +13,10 @@ class CreateSlidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('slides_about_pages', function (Blueprint $table) {
+        Schema::create('slidesabouts', function (Blueprint $table) {
         $table->increments('id');
         $table->integer('admin_id')->unsigned()->nullable();
+        $table->string('slug')->nullable();
         $table->string('slide_about')->nullable();
         $table->integer('status')->nullable();
         $table->timestamps();
@@ -23,19 +24,21 @@ class CreateSlidesTable extends Migration
          });
 
 
-        Schema::create('slides_contact_pages', function (Blueprint $table) {
+        Schema::create('slidescontacts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('admin_id')->unsigned()->nullable();
-            $table->string('slide_contact_page')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('slide_contact')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
         });
 
 
 
-        Schema::create('slides_testimonial_pages', function (Blueprint $table) {
+        Schema::create('slidestestimonials', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('admin_id')->unsigned()->nullable();
+            $table->string('slug')->nullable();
             $table->string('slide_testimonial')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
@@ -49,8 +52,8 @@ class CreateSlidesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('slides_contact_pages');
-        Schema::dropIfExists('slides_about_pages');
-        Schema::dropIfExists('slides_testimonial_pages');
+        Schema::dropIfExists('slidesabouts');
+        Schema::dropIfExists('slidescontacts');
+        Schema::dropIfExists('slidestestimonials');
     }
 }

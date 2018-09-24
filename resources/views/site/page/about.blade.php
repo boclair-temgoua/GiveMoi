@@ -15,16 +15,25 @@
 
         @section('content')
         <div class="about-us">
-            <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;../assets/img/kit/pro/bg9.jpg&apos;);">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 ml-auto mr-auto text-center">
-                            <h1 class="title">
-                                <b>About Us</b>
-                                <h4>Want to have a little overview of us and our products/services Online?</h4>
-                            </h1>
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach($slidesabouts as $item)
+                    <div class="carousel-item {{ ($loop->first)? 'active':'' }}">
+                        <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{ asset('assets/img/slides/'.$item->slide_about) }}&apos;);">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-10 ml-auto mr-auto text-center">
+                                        <h1 class="title">
+                                            <b>About Us</b>
+                                            <h4>Want to have a little overview of us and our products/services Online?</h4>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
 

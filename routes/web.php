@@ -104,12 +104,37 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'],function (){
 
         Route::group(['namespace' => 'Slides'], function () {
             //Slide Route
-            Route::get('/all-slide-about', 'SlidesaboutController@AllSlide')->name('slide_about');
-            Route::get('/add-slide-about', 'SlidesaboutController@add_slide')->name('add_slide_about');
+            Route::get('/all-slide-about-us-page', 'SlidesaboutController@AllSlide')->name('slide_about');
+            Route::get('/all-slide-about/create', 'SlidesaboutController@add_slide')->name('add_slide_about');
             Route::post('/save-slide-about', 'SlidesaboutController@save_slide')->name('save_slide_about');
             Route::get('/edit-slide-about/{id}', 'SlidesaboutController@edit_slide');
-            Route::get('/unactive_slide/{id}', 'SlidesaboutController@unactive_slide')->name('unactive_slide');
-            Route::get('/active_slide/{id}', 'SlidesaboutController@active_slide')->name('active_slide');
+            Route::get('/unactive-slide/{id}', 'SlidesaboutController@unactive_slide')->name('unactive_slide_about');
+            Route::get('/active-slide/{id}', 'SlidesaboutController@active_slide')->name('active_slide_about');
+            Route::post('/update-slide-about/{id}','SlidesaboutController@update_slide')->name('update_slide_about');
+            Route::post('/delete-slide-about/{id}','SlidesaboutController@delete_slide');
+
+
+            //Slide Route
+            Route::get('/all-slide-contact-us-page', 'SlidescontactController@AllSlide')->name('slide_contact');
+            Route::get('/all-slide-contact/create', 'SlidescontactController@add_slide')->name('add_slide_contact');
+            Route::post('/save-slide-contact', 'SlidescontactController@save_slide')->name('save_slide_contact');
+            Route::get('/edit-slide-contact/{id}', 'SlidescontactController@edit_slide');
+            Route::get('/unactive_slide-contact/{id}', 'SlidescontactController@unactive_slide')->name('unactive_slide_contact');
+            Route::get('/active_slide-contact/{id}', 'SlidescontactController@active_slide')->name('active_slide_contact');
+            Route::post('/update-slide-contact/{id}','SlidescontactController@update_slide')->name('update_slide_contact');
+            Route::post('/delete-slide-contact/{id}','SlidescontactController@delete_slide');
+
+            //Slide Route
+            Route::get('/all-slide-testimonial-page', 'SlidestestimonialController@AllSlide')->name('slide_testimonial');
+            Route::get('/all-slide-testimonial/create', 'SlidestestimonialController@add_slide')->name('add_slide_testimonial');
+            Route::post('/save-slide-testimonial', 'SlidestestimonialController@save_slide')->name('save_slide_testimonial');
+            Route::get('/edit-slide-testimonial/{id}', 'SlidestestimonialController@edit_slide');
+            Route::get('/unactive_slide-testimonial/{id}', 'SlidestestimonialController@unactive_slide')->name('unactive_slide_testimonial');
+            Route::get('/active_slide-testimonial/{id}', 'SlidestestimonialController@active_slide')->name('active_slide_testimonial');
+
+
+            Route::post('/update-slide-testimonial/{id}','SlidestestimonialController@update_slide')->name('update_slide_testimonial');
+            Route::post('/delete-slide-testimonial/{id}','SlidestestimonialController@delete_slide');
         });
 
         //Color Route

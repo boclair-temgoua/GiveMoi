@@ -206,7 +206,7 @@
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <div class="modal-body">
-                    Are you sure you want to delete this Member?
+                    <b>Are you sure you want to delete this Member?</b>
                     <input type="hidden" name="about_id" id="cat_id" value=" ">
                 </div>
                 <div class="modal-footer">

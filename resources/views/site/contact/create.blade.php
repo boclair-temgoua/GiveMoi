@@ -16,19 +16,29 @@
 @endguest
     @endsection
 @section('content')
-<div class="page-header header-filter header-small" data-parallax="true"
-     style="background-image: url(&apos;../assets/img/kit/bg2.jpg&apos;);">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 ml-auto mr-auto text-center">
-                <h1 class="title">
-                    <b>Contact Us</b>
-                </h1>
-                <h4>Do you have any questions or comments? Use the form below to contact us (or send us an E-mail).</h4>
+
+<div class="contact-page">
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($slidescontacts as $item)
+            <div class="carousel-item {{ ($loop->first)? 'active':'' }}">
+                <div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(&apos;{{ asset('assets/img/slides/'.$item->slide_contact) }}&apos;);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 ml-auto mr-auto text-center">
+                                <h1 class="title">
+                                    <b>Contact Us</b>
+                                </h1>
+                                <h4>Do you have any questions or comments? Use the form below to contact us (or send us an E-mail).</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            @endforeach
         </div>
     </div>
-</div>
 <div class="main main-raised">
     <div class="container">
         <div class="row">
@@ -203,6 +213,7 @@
     </div>
 </div>
 @include('inc._footer')
+</div>
 @endsection
 
 @section('scripts')

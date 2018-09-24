@@ -216,7 +216,7 @@ class AboutController extends Controller
         $about = About::findOrFail($request->about_id);
         $about->delete();
 
-        if ($about->image != 'no_image'){
+        if ($about->image){
 
             File::delete('assets/img/about/'.$about->image);
         }

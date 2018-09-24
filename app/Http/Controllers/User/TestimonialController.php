@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Model\user\partial\slides\slidestestimonial;
 use App\Model\user\testimonial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,8 +17,9 @@ class TestimonialController extends Controller
      */
     public function index()
     {
+        $slidestestimonials = Slidestestimonial::where('status',1)->orderBy('created_at','DESC')->get();
         $testimonials = Testimonial::where('status',1)->orderBy('created_at','DESC')->get();
 
-        return view('site.page.testimonial',compact('testimonials'));
+        return view('site.page.testimonial',compact('testimonials','slidestestimonials'));
     }
 }

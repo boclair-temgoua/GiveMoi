@@ -251,19 +251,19 @@
             <div class="collapse" id="profileExamples">
                 <ul class="nav">
                     <li class="nav-item ">
-                        <a class="nav-link" href=" ">
+                        <a class="nav-link" href="{{ route('slide_about')}}">
                             <span class="sidebar-mini"><b>Sa</b></span>
                             <span class="sidebar-normal"><b>Slide about</b></span>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href=" ">
+                        <a class="nav-link" href="{{ route('slide_contact')}}">
                             <span class="sidebar-mini"><b>Sc</b></span>
                             <span class="sidebar-normal"><b>Slide contact</b></span>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href=" ">
+                        <a class="nav-link" href="{{ route('slide_testimonial') }}">
                             <span class="sidebar-mini"><b>St</b></span>
                             <span class="sidebar-normal"><b>Slide testimonial</b></span>
                         </a>

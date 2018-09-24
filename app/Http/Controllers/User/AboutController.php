@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Model\user\about;
+use App\Model\user\partial\slides\slidesabout;
 use App\Model\user\partial\speciality;
 use App\Model\user\partial\work;
 use App\Model\user\presentation;
@@ -20,10 +21,11 @@ class AboutController extends Controller
      */
     public function index()
     {
+        $slidesabouts = Slidesabout::where('status',1)->orderBy('created_at','DESC')->get();
         $specialities = Speciality::where('status',1)->orderBy('created_at')->get();
         $abouts = About::where('status',1)->orderBy('created_at','DESC')->get();
         $presentations= DB::table('presentations')
-            //->join('shopcategories','presentations.category_id','=','shopcategories.category_id')
+
 
             ->join('colors','presentations.color_id','=','colors.id')
 
@@ -34,7 +36,7 @@ class AboutController extends Controller
 
 
 
-        return view('site.page.about',compact('abouts','presentations','specialities'));
+        return view('site.page.about',compact('abouts','presentations','specialities','slidesabouts'));
 
     }
 
